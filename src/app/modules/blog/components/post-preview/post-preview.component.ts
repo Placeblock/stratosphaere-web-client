@@ -7,7 +7,10 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PostPreviewComponent implements OnInit {
 
-  @Input() 
+  @Input() name: String = '';
+  @Input() description: String = '';
+  @Input() author: String = '';
+  @Input() creationDate: Date = new Date();
 
   constructor() { }
 

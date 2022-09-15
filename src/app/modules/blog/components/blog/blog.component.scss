@@ -1,4 +1,25 @@
 :host {
     display: block;
-    padding-top: 80px;
+    padding: 80px 0px 80px 0px;
+    background: url("/assets/earth.webp");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+}
+
+#post-preview-container {
+    width: min(min(max(60%, 400px), 1000px), 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 50px;
+}
+
+.post-preview {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
 }
