@@ -1,0 +1,21 @@
+:host {
+    display: block;
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+#controls button {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    margin: 10px 10px 0px 0px;
+    background-color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#controls button:hover {
+    cursor: pointer;
+    background-color: rgb(204, 204, 204);
+}

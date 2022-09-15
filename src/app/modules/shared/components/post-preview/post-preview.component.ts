@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./post-preview.component.scss']
 })
 export class PostPreviewComponent implements OnInit {
-
+  @Input() id: String = ''
   @Input() name: String = '';
   @Input() description: String = '';
   @Input() author: String = '';
