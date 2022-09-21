@@ -6,25 +6,43 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./blog-creator-post-preview.component.scss']
 })
 export class BlogCreatorPostPreviewComponent implements OnInit {
-  @Input() id: string = '';
+  @Input() uuid: string = '';
   @Input() name: string = '';
   @Input() description: string = '';
   @Input() author: string = '';
   @Input() publishDate: Date = new Date();
   @Input() published: boolean = false;
 
+  publishRevertCount: number = 0;
   deleteCount: number = 0;
 
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  revert() {
+    if (this.publishRevertCount == 4) {
+      //TODO: Revert
+      return;
+    }
+    this.publishRevertCount++;
+  }
+  
+  publish() {
+    if (this.publishRevertCount == 4) {
+      //TODO: Publish
+      return;
+    }
+    this.publishRevertCount++;
+  }
   
   delete() {
-    this.deleteCount++;
-    if (this.deleteCount == 5) {
+    if (this.deleteCount == 4) {
       //TODO: DELETE
+      return;
     }
+    this.deleteCount++;
   }
 
 }

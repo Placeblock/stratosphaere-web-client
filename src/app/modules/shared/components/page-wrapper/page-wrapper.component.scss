@@ -11,24 +11,7 @@
     min-height: 100%;
 }
 
-#create-post-button {
-    background-color: white;
-    border-radius: 10px;
-    padding: 10px;
-    transition: background-color 0.2s ease-in-out;
-    font-weight: bold;
-}
-
-#create-post-button:hover {
-    cursor: pointer;
-    background-color: rgb(189, 189, 189);
-}
-
-#blog-creator-list-container {
+#page-content {
     display: block;
     width: min(min(max(60%, 400px), 1000px), 100%);
-}
-
-#posts-container {
-    margin-top: 50px;
 }

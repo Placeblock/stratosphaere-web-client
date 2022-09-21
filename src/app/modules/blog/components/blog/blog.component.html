@@ -1,9 +1,15 @@
-<div id="post-preview-container">
-    <app-post-preview class="post-preview" [name]="'Lorem ipsum dolor'" [description]="'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et'"></app-post-preview>
-    <app-post-preview class="post-preview" [name]="'Lorem ipsum dolor'" [description]="'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et'"></app-post-preview>
-    <app-post-preview class="post-preview" [name]="'Lorem ipsum dolor'" [description]="'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et'"></app-post-preview>
-    <app-post-preview class="post-preview" [name]="'Lorem ipsum dolor'" [description]="'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et'"></app-post-preview>
-    <app-post-preview class="post-preview" [name]="'Lorem ipsum dolor'" [description]="'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et'"></app-post-preview>
-    <app-post-preview class="post-preview" [name]="'Lorem ipsum dolor'" [description]="'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et'"></app-post-preview>
-    <app-post-preview class="post-preview" [name]="'Lorem ipsum dolor'" [description]="'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et'"></app-post-preview>
-</div>
+<app-page-wrapper>
+    <div id="post-preview-container">
+        <ng-container *ngFor="let article of ((this.articles$ | async) | sortArticles); let isLast=last">
+            <app-post-preview class="post-preview"  
+                [name]="article.title"
+                [description]="article.description"            
+                [author]="article.author"
+                [creationDate]="article.publishDate"
+            >
+            </app-post-preview>
+            <hr *ngIf="!isLast">
+        </ng-container>
+
+    </div>
+</app-page-wrapper>

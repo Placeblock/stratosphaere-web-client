@@ -1,0 +1,33 @@
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.bubble.css';
+
+#post-editor {
+    background-color: white;
+    min-height: 90%;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+#header-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#header-editor input {
+    border: none;
+    color: black;
+    font-weight: bold;
+}
+
+#header-editor input:focus {
+    outline: none;
+}
+
+#name-input {
+    font-size: 35px;
+}
+
+#description-input {
+    font-size: 20px;
+}

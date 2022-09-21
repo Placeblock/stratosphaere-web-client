@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PostPreviewComponent } from './components/post-preview/post-preview.component';
-
-
+import { PageWrapperComponent } from './components/page-wrapper/page-wrapper.component';
 
 @NgModule({
   declarations: [
-    PostPreviewComponent
+    PostPreviewComponent,
+    PageWrapperComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [
-    CommonModule, PostPreviewComponent
+    CommonModule, PostPreviewComponent, PageWrapperComponent
   ]
 })
 export class SharedModule { }

@@ -1,0 +1,12 @@
+<app-page-wrapper>
+    <div id="post-editor">
+        <div id="header-editor">
+            <input id="name-input" placeholder="Post Name">
+            <input id="description-input" placeholder="Post Beschreibung">
+            <input id="author-input" placeholder="Author">
+        </div>
+        <div id="content-editor">
+            <quill-editor [modules]="modules"></quill-editor>
+        </div>
+    </div>
+</app-page-wrapper>
