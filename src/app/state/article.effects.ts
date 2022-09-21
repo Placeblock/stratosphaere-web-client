@@ -4,7 +4,7 @@ import { Action } from '@ngrx/store';
 import { catchError, concatMap, exhaustMap, map, mergeMap, of, switchMap } from 'rxjs';
 import { ArticleActions } from './article.actions';
 import { Article } from '../classes/article';
-import { AppService } from '../../../services/app.service';
+import { AppService } from '../services/app.service';
 
 
 @Injectable()

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Article } from 'src/app/classes/article';
 
 @Component({
   selector: 'app-post-preview',
@@ -6,11 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./post-preview.component.scss']
 })
 export class PostPreviewComponent implements OnInit {
-  @Input() id: String = ''
-  @Input() name: String = '';
-  @Input() description: String = '';
-  @Input() author: String = '';
-  @Input() creationDate: Date = new Date();
+  @Input() article!: Article;
 
   constructor() { }
 

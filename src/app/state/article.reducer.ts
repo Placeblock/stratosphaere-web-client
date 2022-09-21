@@ -1,5 +1,5 @@
 import { createFeature, createReducer, on } from "@ngrx/store";
-import { ArticleActions } from "../state/article.actions";
+import { ArticleActions } from "./article.actions";
 import { Article } from "../classes/article";
 
 function randomDate(start: Date, end: Date) {

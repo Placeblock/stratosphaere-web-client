@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Article } from 'src/app/classes/article';
 
 @Component({
   selector: 'app-blog-creator-post-preview',
@@ -6,12 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./blog-creator-post-preview.component.scss']
 })
 export class BlogCreatorPostPreviewComponent implements OnInit {
-  @Input() uuid: string = '';
-  @Input() name: string = '';
-  @Input() description: string = '';
-  @Input() author: string = '';
-  @Input() publishDate: Date = new Date();
-  @Input() published: boolean = false;
+  @Input() article!: Article;
 
   publishRevertCount: number = 0;
   deleteCount: number = 0;

@@ -1,13 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PostEditGuardGuard } from 'src/app/modules/blog/guards/post-edit-guard.guard';
-import { BlogCreatorListComponent } from './components/blog-creator-list/blog-creator-list.component';
 import { BlogComponent } from './components/blog/blog.component';
-import { PostEditComponent } from './components/post-edit/post-edit.component';
 
 const routes: Routes = [
-  { path: 'creator', component: BlogCreatorListComponent},
-  { path: 'creator/edit/:uuid', component: PostEditComponent, canActivate: [PostEditGuardGuard]},
+  { path: 'creator', loadChildren: () => import('../../modules/blog-creator/blog-creator.module').then(m => m.BlogCreatorModule)},
+  { path: 'article/:uuid', component: BlogComponent},
   { path: '**', component: BlogComponent},
 ];
 

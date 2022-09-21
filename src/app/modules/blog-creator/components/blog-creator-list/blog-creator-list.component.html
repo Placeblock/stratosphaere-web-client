@@ -1,7 +1,7 @@
 <app-page-wrapper>
     <div id="post-preview-container">
         <ng-container *ngFor="let article of ((this.articles$ | async) | sortArticles); let isLast=last">
-            <app-post-preview class="post-preview" [article]="article"></app-post-preview>
+            <app-blog-creator-post-preview [article]="article"></app-blog-creator-post-preview>
             <hr *ngIf="!isLast">
         </ng-container>
     </div>

@@ -1,3 +1,3 @@
-<h1 id="name">{{name}}</h1>
-<p id="metadata">Veröffentlicht am {{creationDate | date :'d. MMMM y'}} von {{author}}</p>
-<p id="description">{{description}}</p>
+<h1 id="name">{{article.title}}</h1>
+<p id="metadata">Veröffentlicht am {{article.publishDate | date :'d. MMMM y'}} von {{article.author}}</p>
+<p id="description">{{article.description}}</p>

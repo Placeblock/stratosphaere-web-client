@@ -5,11 +5,11 @@ import { Article } from 'src/app/classes/article';
 import { ArticleState } from 'src/app/state/article.reducer';
 
 @Component({
-  selector: 'app-blog',
-  templateUrl: './blog.component.html',
-  styleUrls: ['./blog.component.scss']
+  selector: 'app-blog-creator-list',
+  templateUrl: './blog-creator-list.component.html',
+  styleUrls: ['./blog-creator-list.component.scss']
 })
-export class BlogComponent {
+export class BlogCreatorListComponent {
 
   articles$: Observable<Article[]>
 
@@ -17,5 +17,4 @@ export class BlogComponent {
     console.log(store);
     this.articles$ = store.select(state => state.article.articles)
   }
-
 }
