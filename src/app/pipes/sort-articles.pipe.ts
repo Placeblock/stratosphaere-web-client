@@ -6,7 +6,7 @@ import { Article } from '../classes/article';
 })
 export class SortArticlesPipe implements PipeTransform {
 
-  transform(array: Article[] | null, ...args: unknown[]): Article[] {
+  transform(array: Article[] | null): Article[] {
     if (array == null) return [];
     let articleArray = [...array]
     articleArray.sort((a: Article, b: Article) => {

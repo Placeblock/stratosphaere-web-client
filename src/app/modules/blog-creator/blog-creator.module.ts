@@ -8,9 +8,9 @@ import { BlogCreatorPostPreviewComponent } from './components/blog-creator-post-
 import { PostEditComponent } from './components/post-edit/post-edit.component';
 import { QuillModule } from 'ngx-quill';
 import { StoreModule } from '@ngrx/store';
-import { articleFeature } from 'src/app/state/article.reducer';
+import { articleFeature } from 'src/app/state/article/article.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { ArticleEffects } from 'src/app/state/article.effects';
+import { ArticleEffects } from 'src/app/state/article/article.effects';
 
 
 @NgModule({

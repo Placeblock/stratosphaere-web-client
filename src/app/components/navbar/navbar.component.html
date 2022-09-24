@@ -1,6 +1,18 @@
 <a routerLink="/" id="logo">Projekt Solis</a>
 <div id="links">
-    <a routerLink="/blog/creator">Creator</a>
+    <a *ngIf="(token$ | async) != null" routerLink="/blog/creator">Creator</a>
+    <a *ngIf="(token$ | async) != null" (click)="logOut()">Logout</a>
+    <a *ngIf="(token$ | async) == null" (click)="toggleShowLogin()">Login</a>
     <a routerLink="/blog">Blog</a>
     <a routerLink="/live">Live</a>
+</div>
+<div id="login-container" *ngIf="(token$ | async) == null && this.showLogin">
+    <form [formGroup]="loginForm" (ngSubmit)="logIn()">
+        <label for="name">Name:</label>
+        <input [ngClass]="username?.invalid ? 'input-invalid' : ''" id="name" placeholder="Name" formControlName="username">
+
+        <label for="password">Passwort:</label>
+        <input [ngClass]="password?.invalid ? 'input-invalid' : ''" id="password" placeholder="Passwort" formControlName="password">
+        <button [disabled]="username?.invalid || password?.invalid" type="submit">Anmelden</button>
+    </form>
 </div>

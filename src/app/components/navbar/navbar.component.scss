@@ -13,6 +13,7 @@
 
 a {
     text-decoration: none;
+    cursor: pointer;
     color: black;
 }
 
@@ -25,4 +26,47 @@ a {
     display: flex;
     align-items: center;
     gap: 20px;
+}
+
+#login-container {
+    position: fixed;
+    width: min(90%, 400px);
+    height: min(90%, 400px);
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px;
+
+    input {
+        border: 2px solid rgb(0, 175, 0);
+        outline: none;
+    }
+
+    .input-invalid {
+        border-color: rgb(175, 0, 0);
+    }
+
+    input, button {
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    button {
+        cursor: pointer;
+        margin-top: 20px;
+        border: 2px solid gray;
+    }
+
+    button:disabled {
+        cursor: default;
+        border: 2px solid rgb(209, 209, 209);
+    }
 }

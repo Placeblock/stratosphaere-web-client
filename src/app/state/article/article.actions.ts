@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Article } from '../classes/article';
+import { Article } from '../../classes/article';
 
 export const ArticleActions = createActionGroup({
     source: 'Article',
@@ -15,10 +15,6 @@ export const ArticleActions = createActionGroup({
         'Edit': props<{article: Article}>(),
         'Edit Success': props<{article: Article}>(),
         'Edit Failure': props<{message: string}>(),
-
-        'Get': props<{id: number}>(),
-        'Get Success': props<{article: Article}>(),
-        'Get Failure': props<{message: string}>(),
 
         'GetAll': props<{offset: number, amount: number}>(),
         'GetAll Success': props<{articles: Article[]}>(),

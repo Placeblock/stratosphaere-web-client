@@ -1,27 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
-import { retry } from 'rxjs/operators'
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { catchError } from 'rxjs';
 import { Article } from '../classes/article';
-import { environment } from 'src/environments/environment';
+import { APIResponse, ApiService } from './apiservice';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AppService {
-  headers = new HttpHeaders({'Content-Type' : 'application/json'});
-  apiVersion = 'v1'
-  apiUrl = environment.baseUrl + environment.apiVersion
-  authUrl = this.apiUrl + '/auth'
+export class ArticleService extends ApiService {
   articlesUrl = this.apiUrl + '/blog/articles'
 
-  constructor(private http: HttpClient) { }
-
-  auth(username: string, password: string) {
-    const options = {headers: this.headers}
-    return this.http.post<APIResponse<Article>>(this.authUrl, {"username":username,"password":password}, options).pipe(
-      catchError(this.handleError)
-    )
+  constructor(private http: HttpClient) {
+    super();
   }
 
   getArticle(id: number) {
@@ -62,17 +52,5 @@ export class AppService {
     )
   }
 
-  handleError(error: any) {
-    console.log(error)
-    return throwError(() => {
-      return error
-    })
-  }
 
-}
-
-export interface APIResponse<D> {
-  code: number,
-  msg: string,
-  data: D
 }

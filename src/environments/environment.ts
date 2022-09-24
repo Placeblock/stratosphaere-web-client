@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   baseUrl: 'https://stratosphaere.codelix.de/api/',
-  apiVersion: 'v1'
+  apiVersion: 'v1',
 };
 
 /*

@@ -2,40 +2,28 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, concatMap, exhaustMap, map, mergeMap, Observable, of, switchMap, tap } from 'rxjs';
 import { ArticleActions } from './article.actions';
-import { AppService } from '../services/app.service';
-import { NotificationService } from '../services/notification.service';
+import { ArticleService } from '../../services/article.service';
+import { NotificationService } from '../../services/notification.service';
+import { ApiEffects } from '../apieffects';
 
 
 @Injectable()
-export class ArticleEffects {
+export class ArticleEffects extends ApiEffects{
 
     constructor(
         private actions$: Actions,
-        private appService: AppService,
-        private notificationService: NotificationService
-    ) {}
-
-    getArticle$ = createEffect(() => 
-        this.actions$.pipe(
-            ofType(ArticleActions.get), 
-            concatMap(({id}) =>
-                this.appService.getArticle(id).pipe(
-                    map(response => ArticleActions.getSuccess({article: response.data})),
-                    catchError(error => {
-                        this.handleError(error)
-                        return of(ArticleActions.getFailure({ message: error }))
-                    }),
-                )
-            )
-        )
-    )
+        private articleService: ArticleService,
+        notificationService: NotificationService
+    ) {
+        super(notificationService)
+    }
 
     getArticles$ = createEffect(() => 
         this.actions$.pipe(
             tap(e => console.log(e)),
             ofType(ArticleActions.getall), 
             exhaustMap(({offset, amount}) =>
-                this.appService.getArticles(offset, amount).pipe(
+                this.articleService.getArticles(offset, amount).pipe(
                     map(response => ArticleActions.getallSuccess({articles: response.data})),                    
                     catchError(error => {
                         this.handleError(error)
@@ -50,7 +38,7 @@ export class ArticleEffects {
         this.actions$.pipe(
             ofType(ArticleActions.add), 
             mergeMap(() =>
-                this.appService.createArticle().pipe(
+                this.articleService.createArticle().pipe(
                     map(response => ArticleActions.addSuccess({article: response.data})),
                     catchError(error => {
                         this.handleError(error)
@@ -65,7 +53,7 @@ export class ArticleEffects {
         this.actions$.pipe(
             ofType(ArticleActions.delete), 
             concatMap(({id}) =>
-                this.appService.deleteArticle(id).pipe(
+                this.articleService.deleteArticle(id).pipe(
                     map(() => ArticleActions.deleteSuccess({id: id})),
                     catchError(error => {
                         this.handleError(error)
@@ -80,7 +68,7 @@ export class ArticleEffects {
         this.actions$.pipe(
             ofType(ArticleActions.edit), 
             switchMap(({article}) =>
-                this.appService.editArticle(article).pipe(
+                this.articleService.editArticle(article).pipe(
                     map(() => ArticleActions.editSuccess({article: article})),
                     catchError(error => {
                         this.handleError(error)
@@ -91,10 +79,4 @@ export class ArticleEffects {
         )
     )
 
-    handleError(error: any) :Observable<any> {
-        console.log("ERROR: ")
-        console.log(error)
-        this.notificationService.error("Error", error, 5000)
-        return of(error)
-    }
 }

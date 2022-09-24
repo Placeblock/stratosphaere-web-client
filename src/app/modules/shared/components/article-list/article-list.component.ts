@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Article } from 'src/app/classes/article';
-import { ArticleActions } from 'src/app/state/article.actions';
-import { ArticleState } from 'src/app/state/article.reducer';
-import { selectArticles } from 'src/app/state/article.selector';
+import { ArticleActions } from 'src/app/state/article/article.actions';
+import { ArticleState } from 'src/app/state/article/article.reducer';
+import { selectArticles } from 'src/app/state/article/article.selector';
 
 @Component({
   selector: 'app-article-list',

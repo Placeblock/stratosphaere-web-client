@@ -1,6 +1,6 @@
 import { createFeature, createReducer, on } from "@ngrx/store";
 import { ArticleActions } from "./article.actions";
-import { Article } from "../classes/article";
+import { Article } from "../../classes/article";
 
 function randomDate(start: Date, end: Date) {
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
@@ -35,10 +35,10 @@ export const articleFeature = createFeature({
         })),
         on(ArticleActions.addSuccess, (state, {article}) => ({...state, 
             articles: state.articles != null ? [...state.articles, article] : [article],
-            loadingSingle: false
+            creating: false
         })),
-        on(ArticleActions.addFailure, (state, {message}) => ({...state,
-            loadingSingle: false
+        on(ArticleActions.addFailure, (state) => ({...state,
+            creating: false
         })),
         on(ArticleActions.delete, state => ({...state, 
             deleting: true
@@ -47,7 +47,7 @@ export const articleFeature = createFeature({
             articles: state.articles != null ? state.articles.filter(article => article.id != id) : null,
             deleting: false
         })),
-        on(ArticleActions.deleteFailure, (state, {message}) => ({...state,
+        on(ArticleActions.deleteFailure, (state) => ({...state,
             deleting: false
         })),
         on(ArticleActions.edit, state => ({...state, 
@@ -61,28 +61,18 @@ export const articleFeature = createFeature({
             state.editing = false;
             return state;
         }),
-        on(ArticleActions.editFailure, (state, {message}) => ({...state,
+        on(ArticleActions.editFailure, (state) => ({...state,
             editing: false
         })),
-        on(ArticleActions.get, state => ({...state, 
-            loadingSingle: true
-        })),
-        on(ArticleActions.getSuccess, (state, {article}) => ({...state, 
-            articles: state.articles != null ? [...state.articles, article] : null, 
-            loadingSingle: false
-        })),
-        on(ArticleActions.getFailure, (state, {message}) => ({...state,
-            loadingSingle: false
-        })),
         on(ArticleActions.getall, state => ({...state, 
-            loadingMultiple: true
+            loading: true
         })),
         on(ArticleActions.getallSuccess, (state, {articles}) => ({...state, 
             articles: state.articles != null ? state.articles.concat(articles) : articles,
-            loadingMultiple: false
+            loading: false
         })),
-        on(ArticleActions.getallFailure, (state, {message}) => ({...state,
-            loadingMultiple: false
+        on(ArticleActions.getallFailure, (state) => ({...state,
+            loading: false
         })),
     )
 })
