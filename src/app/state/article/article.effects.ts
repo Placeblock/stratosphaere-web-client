@@ -20,7 +20,6 @@ export class ArticleEffects extends ApiEffects{
 
     getArticles$ = createEffect(() => 
         this.actions$.pipe(
-            tap(e => console.log(e)),
             ofType(ArticleActions.getall), 
             exhaustMap(({offset, amount}) =>
                 this.articleService.getArticles(offset, amount).pipe(

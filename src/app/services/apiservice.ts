@@ -8,7 +8,6 @@ export class ApiService {
   apiUrl = environment.baseUrl + environment.apiVersion
 
   handleError(error: any) {
-    console.log(error)
     return throwError(() => {
       return error
     })

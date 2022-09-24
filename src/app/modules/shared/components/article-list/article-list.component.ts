@@ -16,13 +16,11 @@ export class ArticleListComponent implements OnInit {
   articles$: Observable<Article[] | null>
 
   constructor(private store: Store<{article: ArticleState}>) {
-    console.log(store);
     this.articles$ = store.select(selectArticles)
   }
 
   ngOnInit(): void {
     this.articles$.subscribe(articles => {
-      console.log("NG ON INIT ARTICLES")
       if (articles == undefined) {
         this.store.dispatch(ArticleActions.getall({offset: 0, amount: 5}))
       }

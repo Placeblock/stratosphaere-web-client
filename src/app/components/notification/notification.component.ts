@@ -16,7 +16,6 @@ export class NotificationComponent implements OnInit {
   constructor(private _notificationSvc: NotificationService) { }
 
 private _addNotification(notification: Notification) {
-    console.log("RECEIVED NOTIFICATION")
     this.notifications.push(notification);
 
     if (notification.timeout !== 0) {
