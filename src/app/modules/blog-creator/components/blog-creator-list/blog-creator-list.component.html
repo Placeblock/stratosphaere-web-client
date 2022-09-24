@@ -1,8 +1,10 @@
 <app-page-wrapper>
     <div id="post-preview-container">
-        <ng-container *ngFor="let article of ((this.articles$ | async) | sortArticles); let isLast=last">
-            <app-blog-creator-post-preview [article]="article"></app-blog-creator-post-preview>
-            <hr *ngIf="!isLast">
+        <ng-container *ngIf="this.articles$">
+            <ng-container *ngFor="let article of ((this.articles$ | async) | sortArticles); let isLast=last">
+                <app-blog-creator-post-preview [article]="article"></app-blog-creator-post-preview>
+                <hr *ngIf="!isLast">
+            </ng-container>
         </ng-container>
     </div>
 </app-page-wrapper>
