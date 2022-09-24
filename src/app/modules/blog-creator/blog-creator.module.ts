@@ -9,6 +9,8 @@ import { PostEditComponent } from './components/post-edit/post-edit.component';
 import { QuillModule } from 'ngx-quill';
 import { StoreModule } from '@ngrx/store';
 import { articleFeature } from 'src/app/state/article.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { ArticleEffects } from 'src/app/state/article.effects';
 
 
 @NgModule({
@@ -23,6 +25,7 @@ import { articleFeature } from 'src/app/state/article.reducer';
     QuillModule.forRoot({modules: {syntax: true}, theme: 'snow'}),
     SharedModule,
     StoreModule.forFeature(articleFeature),
+    EffectsModule.forFeature([ArticleEffects])
   ]
 })
 export class BlogCreatorModule { }

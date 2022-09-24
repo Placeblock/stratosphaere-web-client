@@ -7,6 +7,8 @@ import { SharedModule } from '../shared/shared.module';
 
 import { StoreModule } from '@ngrx/store';
 import { articleFeature } from 'src/app/state/article.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { ArticleEffects } from 'src/app/state/article.effects';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,7 @@ import { articleFeature } from 'src/app/state/article.reducer';
     BlogRoutingModule,
     SharedModule,
     StoreModule.forFeature(articleFeature),
+    EffectsModule.forFeature([ArticleEffects])
   ]
 })
 export class BlogModule { }

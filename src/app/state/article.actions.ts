@@ -20,7 +20,7 @@ export const ArticleActions = createActionGroup({
         'Get Success': props<{article: Article}>(),
         'Get Failure': props<{message: string}>(),
 
-        'GetAll': props<{pageSize: number, page: number}>(),
+        'GetAll': props<{offset: number, amount: number}>(),
         'GetAll Success': props<{articles: Article[]}>(),
         'GetAll Failure': props<{message: string}>(),
     }
