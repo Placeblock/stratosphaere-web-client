@@ -119,7 +119,6 @@ export class PostEditComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    console.log("SAVE")
     if (this.article != undefined && this.editForm.value != this.lastSaved) {
       this.lastSaved = this.editForm.value;
       let title = this.editForm.get('title')?.value

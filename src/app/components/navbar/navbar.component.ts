@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AuthState } from 'src/app/state/auth/auth.reducer';
 import { selectToken } from 'src/app/state/auth/auth.selector';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { AuthActions } from 'src/app/state/auth/auth.actions';
 
 
@@ -31,12 +31,10 @@ export class NavbarComponent {
   }
 
   logOut() {
-    console.log("LOGOUT")
     this.store.dispatch(AuthActions.authLogout())
   }
 
   logIn() {
-    console.log("LOGIN")
     let username = this.loginForm.get("username")?.value;
     let password = this.loginForm.get("password")?.value;
     if (password == null || username == null) return;

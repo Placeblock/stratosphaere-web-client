@@ -2,10 +2,12 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { HttpHeaders } from "@angular/common/http";
+
 export const environment = {
   production: false,
-  baseUrl: 'https://stratosphaere.codelix.de/testapi/',
-  apiVersion: 'v1',
+  requestHeaders: new HttpHeaders({'Content-Type' : 'application/json'}),
+  baseUrl: 'https://stratosphaere.codelix.de/testapi/v1',
 };
 
 /*

@@ -19,10 +19,6 @@ export class ArticleEffects{
             ofType(ArticleActions.getall), 
             switchMap(({offset, amount}) =>
                 this.articleService.getArticles(offset, amount).pipe(
-                    tap(response => {
-                        console.log(response.data);
-                        //console.log(new Date(response.data[0].publishDate*1000))
-                    }),
                     map(response => ArticleActions.getallSuccess({articles: response.data})),                    
                     catchError(error => of(ArticleActions.getallFailure({ message: error }))),
                 )
@@ -35,9 +31,6 @@ export class ArticleEffects{
             ofType(ArticleActions.get), 
             switchMap(({id}) =>
                 this.articleService.getArticle(id).pipe(
-                    tap(response => {
-                        console.log(response.data);
-                    }),
                     map(response => ArticleActions.getSuccess({article: response.data})),                    
                     catchError(error => of(ArticleActions.getFailure({ message: error }))),
                 )
@@ -72,11 +65,7 @@ export class ArticleEffects{
     editArticle$ = createEffect(() => 
         this.actions$.pipe(
             ofType(ArticleActions.edit),
-            tap(({article}) => {
-                console.log(new Error().stack)
-            }),
             switchMap(({article}) => {
-                console.log("SWITCH MAP")
                 return this.articleService.editArticle(article).pipe(
                     map(() => ArticleActions.editSuccess({article: article})),
                     catchError(error => of(ArticleActions.editFailure({ message: error }))),

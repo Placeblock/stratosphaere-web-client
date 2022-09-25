@@ -1,4 +1,4 @@
-import { createFeature, createReducer, on } from "@ngrx/store";
+import { createReducer, on } from "@ngrx/store";
 import { AuthActions } from "./auth.actions";
 
 export interface AuthState {
