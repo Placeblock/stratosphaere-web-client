@@ -5,7 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { concatMap, Observable, take } from 'rxjs';
+import { concatMap, exhaustMap, first, flatMap, mergeMap, Observable, switchMap, take } from 'rxjs';
 import { AuthState } from '../state/auth/auth.reducer';
 import { Store } from '@ngrx/store';
 import { selectToken } from '../state/auth/auth.selector';
@@ -21,15 +21,12 @@ export class ApiInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     
     return this.authToken$.pipe(
-      concatMap(authToken => {
-        if (authToken) {
-          const duplicate = request.clone({
-            headers: request.headers.set('Authorization', `Bearer ${authToken}`)
-          })
-          return next.handle(duplicate)
-        } else {
-          return next.handle(request);
-        }
+      first(),
+      switchMap(token => {
+        const authReq = !!token ? request.clone({
+          setHeaders: { Authorization: 'Bearer ' + token },
+        }) : request;
+        return next.handle(authReq);
       })
     );
   }

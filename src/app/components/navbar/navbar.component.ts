@@ -40,7 +40,7 @@ export class NavbarComponent {
     let username = this.loginForm.get("username")?.value;
     let password = this.loginForm.get("password")?.value;
     if (password == null || username == null) return;
-    this.store.dispatch(AuthActions.auth({username: username, password: password}))
+    this.store.dispatch(AuthActions.authLogin({username: username, password: password}))
     this.showLogin = false;
   }
 

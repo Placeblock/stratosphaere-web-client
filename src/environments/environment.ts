@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://stratosphaere.codelix.de/api/',
+  baseUrl: 'https://stratosphaere.codelix.de/testapi/',
   apiVersion: 'v1',
 };
 

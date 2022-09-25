@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { catchError } from 'rxjs';
+import { catchError, take, tap } from 'rxjs';
 import { Article } from '../classes/article';
 import { APIResponse, ApiService } from './apiservice';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ import { APIResponse, ApiService } from './apiservice';
 export class ArticleService extends ApiService {
   articlesUrl = this.apiUrl + '/blog/articles'
 
-  constructor(private http: HttpClient) {
-    super();
+  constructor(private http: HttpClient, notificationService: NotificationService) {
+    super(notificationService);
   }
 
   getArticle(id: number) {
@@ -33,7 +34,7 @@ export class ArticleService extends ApiService {
   
   deleteArticle(id: number) {
     const options = {headers: this.headers}
-    return this.http.delete(this.articlesUrl + "/" + id, options).pipe(
+    return this.http.delete<APIResponse<Article>>(this.articlesUrl + "/" + id, options).pipe(
       catchError(this.handleError)
     )
   }
@@ -48,7 +49,8 @@ export class ArticleService extends ApiService {
   editArticle(article: Article) {
     console.log(article);
     const options = {headers: this.headers}
-    return this.http.put(this.articlesUrl + "/" + article.id, article, options).pipe(
+    return this.http.put<APIResponse<null>>(this.articlesUrl + "/" + article.id, article, options).pipe(
+      tap(response => {console.log("RESPONSE")}),
       catchError(this.handleError)
     )
   }
