@@ -1,66 +1,64 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { catchError, take, tap } from 'rxjs';
+import { catchError, tap } from 'rxjs';
 import { Article } from '../classes/article';
-import { APIResponse, ApiService } from './apiservice';
-import { NotificationService } from './notification.service';
+import { environment } from 'src/environments/environment';
+import { APIResponse } from '../classes/apiresponse';
+import { ErrorHandlerService } from './error-handler.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ArticleService extends ApiService {
-  articlesUrl = this.apiUrl + '/blog/articles'
+export class ArticleService {
+  articlesUrl = environment.baseUrl + '/blog/articles'
 
-  constructor(private http: HttpClient, notificationService: NotificationService) {
-    super(notificationService);
-  }
+  constructor(
+    private http: HttpClient, 
+    private errorHandler: ErrorHandlerService) 
+  {}
 
   getArticle(id: number) {
-    const options = {headers: this.headers}
+    const options = {headers: environment.requestHeaders}
     return this.http.get<APIResponse<Article>>(this.articlesUrl + "/" + id, options).pipe(
-      catchError(this.handleError)
+      catchError(this.errorHandler.handleError)
     )
   }
 
   getArticles(offset: number, amount: number) {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("offset", offset).append("amount", amount)
-    const options = {headers: this.headers, queryParams: queryParams}
+    const options = {headers: environment.requestHeaders, queryParams: queryParams}
     return this.http.get<APIResponse<Article[]>>(this.articlesUrl, options).pipe(
-      catchError(this.handleError)
+      catchError(this.errorHandler.handleError)
     )
   }
 
   
   deleteArticle(id: number) {
-    const options = {headers: this.headers}
+    const options = {headers: environment.requestHeaders}
     return this.http.delete<APIResponse<Article>>(this.articlesUrl + "/" + id, options).pipe(
-      catchError(this.handleError)
+      catchError(this.errorHandler.handleError)
     )
   }
   
   createArticle() {
-    const options = {headers: this.headers}
+    const options = {headers: environment.requestHeaders}
     return this.http.post<APIResponse<Article>>(this.articlesUrl, options).pipe(
-      catchError(this.handleError)
+      catchError(this.errorHandler.handleError)
     )
   }
   
   editArticle(article: Article) {
-    console.log(article);
-    const options = {headers: this.headers}
+    const options = {headers: environment.requestHeaders}
     return this.http.put<APIResponse<null>>(this.articlesUrl + "/" + article.id, article, options).pipe(
-      tap(response => {console.log("RESPONSE")}),
-      catchError(this.handleError)
+      catchError(this.errorHandler.handleError)
     )
   }
 
   publishArticle(id: number, publish: boolean) {
-    console.log(id)
-    console.log(publish)
-    const options = {headers: this.headers}
+    const options = {headers: environment.requestHeaders}
     return this.http.put<APIResponse<number>>(this.articlesUrl + "/" + id + "/publish", {"publish": publish}, options).pipe(
-      catchError(this.handleError)
+      catchError(this.errorHandler.handleError)
     )
   }
 

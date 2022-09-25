@@ -5,7 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { concatMap, exhaustMap, first, flatMap, mergeMap, Observable, switchMap, take } from 'rxjs';
+import { first,  Observable, switchMap } from 'rxjs';
 import { AuthState } from '../state/auth/auth.reducer';
 import { Store } from '@ngrx/store';
 import { selectToken } from '../state/auth/auth.selector';
