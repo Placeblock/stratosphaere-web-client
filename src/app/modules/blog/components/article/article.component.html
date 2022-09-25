@@ -1,3 +1,9 @@
 <app-page-wrapper>
-    
+    <div id="article-content">
+        <div id="banner" [ngStyle]="{'background-image': 'url(' + this.article?.cover_image_url + ')'}">
+            <button class="button" [routerLink]="['/blog/']" id="backButton">Zurück</button>
+            <h1>{{this.article?.title}}</h1>
+        </div>
+        <quill-view [modules]="modules" [content]="this.article?.content" theme="snow"></quill-view>
+    </div>
 </app-page-wrapper>

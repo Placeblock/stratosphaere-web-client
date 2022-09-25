@@ -19,6 +19,7 @@ export class ArticleGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     let redirectUrl = route.data['redirectUrl']
+    let loadedUrl = route.data['loadedUrl']
     if (!("id" in route.params)) {
       console.log("ID NOT IN ROUTE PARAMS")
       this.router.navigate(redirectUrl)
@@ -35,7 +36,7 @@ export class ArticleGuard implements CanActivate {
             tap(articles=>{console.log("ARTICLES CHANGE")}),
             map(articles => {
               if (articles?.find(article => article.id == id) != undefined) {
-                this.router.navigate(["/blog/article/" + id])
+                this.router.navigate([loadedUrl + id])
                 subscription.unsubscribe()
               }
             })

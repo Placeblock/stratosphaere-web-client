@@ -12,6 +12,7 @@
         <div id="header-editor">
             <input id="name-input" placeholder="Post Titel" formControlName="title">
             <input id="description-input" placeholder="Post Beschreibung" formControlName="description">
+            <input id="cover-image-input" placeholder="Banner Hintergrund" type="url" formControlName="cover_image_url">
         </div>
         <div id="content-editor">
             <quill-editor [modules]="modules" formControlName="content"></quill-editor>

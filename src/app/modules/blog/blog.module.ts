@@ -21,7 +21,7 @@ import { ArticleComponent } from './components/article/article.component';
     CommonModule,
     BlogRoutingModule,
     SharedModule,
-    QuillModule.forRoot({modules: {syntax: true}, theme: 'snow'}),
+    QuillModule.forRoot({}),
     StoreModule.forFeature(articleFeature),
     EffectsModule.forFeature([ArticleEffects])
   ]

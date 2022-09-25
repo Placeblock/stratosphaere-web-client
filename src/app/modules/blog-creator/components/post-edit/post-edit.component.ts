@@ -34,6 +34,7 @@ export class PostEditComponent implements OnInit, OnDestroy {
       content: [''],
       title: [''],
       description: [''],
+      cover_image_url: ['']
     })
     this.modules = {
       'formula': true,
@@ -100,6 +101,7 @@ export class PostEditComponent implements OnInit, OnDestroy {
             this.editForm.get('title')?.setValue(article.title)
             this.editForm.get('description')?.setValue(article.description)
             this.editForm.get('content')?.setValue(article.content)
+            this.editForm.get('cover_image_url')?.setValue(article.cover_image_url)
           }
           this.article = article;
         })
@@ -117,7 +119,12 @@ export class PostEditComponent implements OnInit, OnDestroy {
       let title = this.editForm.get('title')?.value
       let description = this.editForm.get('description')?.value
       let content = this.editForm.get('content')?.value
-      this.store.dispatch(ArticleActions.edit({article: {...this.article, title: title, content: content, description: description}}))
+      let cover_image_url = this.editForm.get('cover_image_url')?.value
+      this.store.dispatch(ArticleActions.edit({article: {...this.article, 
+        title: title, 
+        content: content, 
+        description: description, 
+        cover_image_url: cover_image_url}}))
     }
   }
 

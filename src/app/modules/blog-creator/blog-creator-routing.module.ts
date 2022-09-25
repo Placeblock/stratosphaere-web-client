@@ -5,7 +5,7 @@ import { PostEditComponent } from './components/post-edit/post-edit.component';
 import { ArticleGuard } from '../shared/guards/article.guard';
 
 const routes: Routes = [
-  { path: 'edit/:id', component: PostEditComponent, canActivate: [ArticleGuard], data: {redirectUrl: ['blog', 'creator']}},
+  { path: 'edit/:id', component: PostEditComponent, canActivate: [ArticleGuard], data: {redirectUrl: ['blog', 'creator'], loadedUrl: "/blog/creator/edit/"}},
   { path: '', component: BlogCreatorListComponent},
 ];
 
