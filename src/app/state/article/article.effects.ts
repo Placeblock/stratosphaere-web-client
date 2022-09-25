@@ -1,37 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, concatMap, exhaustMap, map, mergeMap, of, switchMap, take, tap } from 'rxjs';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { ArticleActions } from './article.actions';
 import { ArticleService } from '../../services/article.service';
-import { NotificationService } from '../../services/notification.service';
-import { ApiEffects } from '../apieffects';
+import {  } from '../../services/notification.service';
 
 
 @Injectable()
-export class ArticleEffects extends ApiEffects{
+export class ArticleEffects{
 
     constructor(
         private actions$: Actions,
         private articleService: ArticleService,
-        notificationService: NotificationService
-    ) {
-        super(notificationService)
-    }
+    ) {}
 
     getArticles$ = createEffect(() => 
         this.actions$.pipe(
             ofType(ArticleActions.getall), 
-            exhaustMap(({offset, amount}) =>
+            switchMap(({offset, amount}) =>
                 this.articleService.getArticles(offset, amount).pipe(
                     tap(response => {
                         console.log(response.data);
                         //console.log(new Date(response.data[0].publishDate*1000))
                     }),
                     map(response => ArticleActions.getallSuccess({articles: response.data})),                    
-                    catchError(error => {
-                        this.handleError(error)
-                        return of(ArticleActions.getallFailure({ message: error }))
-                    }),
+                    catchError(error => of(ArticleActions.getallFailure({ message: error }))),
                 )
             )
         )
@@ -40,16 +33,13 @@ export class ArticleEffects extends ApiEffects{
     getArticle$ = createEffect(() => 
         this.actions$.pipe(
             ofType(ArticleActions.get), 
-            exhaustMap(({id}) =>
+            switchMap(({id}) =>
                 this.articleService.getArticle(id).pipe(
                     tap(response => {
                         console.log(response.data);
                     }),
                     map(response => ArticleActions.getSuccess({article: response.data})),                    
-                    catchError(error => {
-                        this.handleError(error)
-                        return of(ArticleActions.getFailure({ message: error }))
-                    }),
+                    catchError(error => of(ArticleActions.getFailure({ message: error }))),
                 )
             )
         )
@@ -58,13 +48,10 @@ export class ArticleEffects extends ApiEffects{
     addArticle$ = createEffect(() => 
         this.actions$.pipe(
             ofType(ArticleActions.add), 
-            mergeMap(() =>
+            switchMap(() =>
                 this.articleService.createArticle().pipe(
                     map(response => ArticleActions.addSuccess({article: response.data})),
-                    catchError(error => {
-                        this.handleError(error)
-                        return of(ArticleActions.addFailure({ message: error }))
-                    }),
+                    catchError(error => of(ArticleActions.addFailure({ message: error }))),
                 )
             )
         )
@@ -73,13 +60,10 @@ export class ArticleEffects extends ApiEffects{
     deleteArticle$ = createEffect(() => 
         this.actions$.pipe(
             ofType(ArticleActions.delete), 
-            concatMap(({id}) =>
+            switchMap(({id}) =>
                 this.articleService.deleteArticle(id).pipe(
                     map(() => ArticleActions.deleteSuccess({id: id})),
-                    catchError(error => {
-                        this.handleError(error)
-                        return of(ArticleActions.deleteFailure({ message: error }))
-                    }),
+                    catchError(error => of(ArticleActions.deleteFailure({ message: error }))),
                 )
             )
         )
@@ -87,16 +71,17 @@ export class ArticleEffects extends ApiEffects{
 
     editArticle$ = createEffect(() => 
         this.actions$.pipe(
-            ofType(ArticleActions.edit), 
-            switchMap(({article}) =>
-                this.articleService.editArticle(article).pipe(
+            ofType(ArticleActions.edit),
+            tap(({article}) => {
+                console.log(new Error().stack)
+            }),
+            switchMap(({article}) => {
+                console.log("SWITCH MAP")
+                return this.articleService.editArticle(article).pipe(
                     map(() => ArticleActions.editSuccess({article: article})),
-                    catchError(error => {
-                        this.handleError(error)
-                        return of(ArticleActions.editFailure({ message: error }))
-                    }),
+                    catchError(error => of(ArticleActions.editFailure({ message: error }))),
                 )
-            )
+            })
         )
     )
 
@@ -106,10 +91,7 @@ export class ArticleEffects extends ApiEffects{
             switchMap(({id, publish}) =>
                 this.articleService.publishArticle(id, publish).pipe(
                     map((response) => ArticleActions.publishSuccess({id: id, publish: publish, publishDate: response.data})),
-                    catchError(error => {
-                        this.handleError(error)
-                        return of(ArticleActions.publishFailure({ message: error }))
-                    }),
+                    catchError(error => of(ArticleActions.publishFailure({ message: error }))),
                 )
             )
         )
