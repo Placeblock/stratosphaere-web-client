@@ -25,14 +25,19 @@ export class AuthEffects extends ApiEffects{
     auth$ = createEffect(() => 
         this.actions$.pipe(
             ofType(AuthActions.auth),
-            exhaustMap(({username, password}) =>
-                this.authService.auth(username, password).pipe(
-                    map(response => AuthActions.authSuccess({token: response.data})),                    
-                    catchError(error => {
-                        this.handleError(error)
-                        return of(AuthActions.authFailure({ message: error }))
-                    }),
-                )
+            tap(action => console.log("AUTH ACTION")),
+            exhaustMap(({username, password}) => {
+                    console.log(username)
+                    console.log(password)
+                    return this.authService.auth(username, password).pipe(
+                        tap(response => console.log(response)),
+                        map(response => AuthActions.authSuccess({token: response.data})),                    
+                        catchError(error => {
+                            this.handleError(error)
+                            return of(AuthActions.authFailure({ message: error }))
+                        }),
+                    )
+                }   
             )
         )
     )
@@ -45,10 +50,10 @@ export class AuthEffects extends ApiEffects{
     ), { dispatch: false })
 
     logout$ = createEffect(() => this.actions$.pipe(
-        ofType(AuthActions.logout), 
+        ofType(AuthActions.authLogout), 
         tap(() => {
-            this.router.navigate(["/"])
             this.cookieService.deleteCookie("authToken")
+            this.router.navigate(["/"])
         })
     ), { dispatch: false })
 }

@@ -4,6 +4,7 @@
             <button class="button" [routerLink]="['/blog/']" id="backButton">Zurück</button>
             <h1>{{this.article?.title}}</h1>
         </div>
+        <app-article-metadata id="metadata" *ngIf="this.article" [article]="this.article"></app-article-metadata>
         <quill-view [modules]="modules" [content]="this.article?.content" theme="snow"></quill-view>
     </div>
 </app-page-wrapper>

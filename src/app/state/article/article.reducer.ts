@@ -71,7 +71,7 @@ export const articleFeature = createFeature({
                     (article) => article.id == id ? {
                         ...article, 
                         published: publish, 
-                        publishDate: publishDate
+                        publish_date: publishDate
                     } : article
                 ) : null
         })),

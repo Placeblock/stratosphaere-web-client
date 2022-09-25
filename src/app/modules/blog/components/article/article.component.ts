@@ -7,6 +7,10 @@ import { Article } from 'src/app/classes/article';
 import { ArticleState } from 'src/app/state/article/article.reducer';
 import { selectArticles } from 'src/app/state/article/article.selector';
 
+hljs.configure({
+  languages: ['javascript', 'typescript', 'html', 'css', 'typescript', 'scss', 'sql', 'JSON', 'go']
+})
+
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',

@@ -10,6 +10,11 @@ import { ArticleState } from 'src/app/state/article/article.reducer';
 import { Article } from 'src/app/classes/article';
 import { ArticleActions } from 'src/app/state/article/article.actions';
 
+
+hljs.configure({
+  languages: ['javascript', 'typescript', 'html', 'css', 'typescript', 'scss', 'sql', 'JSON', 'go']
+})
+
 @Component({
   selector: 'app-post-edit',
   templateUrl: './post-edit.component.html',

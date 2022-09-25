@@ -22,7 +22,7 @@ export class NavbarComponent {
   });
 
 
-  constructor(private fb: FormBuilder, private store: Store<{article: AuthState}>) {
+  constructor(private fb: FormBuilder, private store: Store<{auth: AuthState}>) {
     this.token$ = store.select(selectToken)
   }
 
@@ -31,14 +31,17 @@ export class NavbarComponent {
   }
 
   logOut() {
-    this.store.dispatch(AuthActions.logout())
+    console.log("LOGOUT")
+    this.store.dispatch(AuthActions.authLogout())
   }
 
   logIn() {
+    console.log("LOGIN")
     let username = this.loginForm.get("username")?.value;
     let password = this.loginForm.get("password")?.value;
     if (password == null || username == null) return;
     this.store.dispatch(AuthActions.auth({username: username, password: password}))
+    this.showLogin = false;
   }
 
   get username() {

@@ -35,6 +35,7 @@ export class ArticleGuard implements CanActivate {
           let subscription = this.store.select(selectArticles).pipe(
             tap(articles=>{console.log("ARTICLES CHANGE")}),
             map(articles => {
+              
               if (articles?.find(article => article.id == id) != undefined) {
                 this.router.navigate([loadedUrl + id])
                 subscription.unsubscribe()
