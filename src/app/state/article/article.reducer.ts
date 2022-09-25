@@ -82,10 +82,14 @@ export const articleFeature = createFeature({
             loading: true
         })),
         on(ArticleActions.getallSuccess, (state, {articles}) => ({...state, 
-            articles: state.articles != null ? state.articles.concat(articles) : articles,
+            articles: state.articles != null ? state.articles.concat(articles.filter(art => {!(art.id in articles.map(artic => artic.id))})) : articles,
             loading: false
         })),
         on(ArticleActions.getallFailure, (state) => ({...state,
+            loading: false
+        })),
+        on(ArticleActions.getSuccess, (state, {article}) => ({...state, 
+            articles: state.articles != null ? state.articles.find(art => art.id == article.id) == undefined ? [...state.articles, article] : state.articles : [article],
             loading: false
         })),
     )

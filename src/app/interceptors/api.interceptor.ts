@@ -21,7 +21,6 @@ export class ApiInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     
     return this.authToken$.pipe(
-      take(1),
       concatMap(authToken => {
         if (authToken) {
           const duplicate = request.clone({

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, concatMap, exhaustMap, map, mergeMap, Observable, of, switchMap, tap } from 'rxjs';
+import { catchError, concatMap, exhaustMap, map, mergeMap, of, switchMap, take, tap } from 'rxjs';
 import { ArticleActions } from './article.actions';
 import { ArticleService } from '../../services/article.service';
 import { NotificationService } from '../../services/notification.service';
@@ -31,6 +31,24 @@ export class ArticleEffects extends ApiEffects{
                     catchError(error => {
                         this.handleError(error)
                         return of(ArticleActions.getallFailure({ message: error }))
+                    }),
+                )
+            )
+        )
+    )
+
+    getArticle$ = createEffect(() => 
+        this.actions$.pipe(
+            ofType(ArticleActions.get), 
+            exhaustMap(({id}) =>
+                this.articleService.getArticle(id).pipe(
+                    tap(response => {
+                        console.log(response.data);
+                    }),
+                    map(response => ArticleActions.getSuccess({article: response.data})),                    
+                    catchError(error => {
+                        this.handleError(error)
+                        return of(ArticleActions.getFailure({ message: error }))
                     }),
                 )
             )
@@ -84,7 +102,7 @@ export class ArticleEffects extends ApiEffects{
 
     publishArticle$ = createEffect(() => 
         this.actions$.pipe(
-            ofType(ArticleActions.publish), 
+            ofType(ArticleActions.publish),
             switchMap(({id, publish}) =>
                 this.articleService.publishArticle(id, publish).pipe(
                     map((response) => ArticleActions.publishSuccess({id: id, publish: publish, publishDate: response.data})),
