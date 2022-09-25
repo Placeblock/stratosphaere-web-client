@@ -11,6 +11,7 @@ import { StoreModule } from '@ngrx/store';
 import { articleFeature } from 'src/app/state/article/article.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { ArticleEffects } from 'src/app/state/article/article.effects';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { ArticleEffects } from 'src/app/state/article/article.effects';
   imports: [
     CommonModule,
     BlogCreatorRoutingModule,
+    ReactiveFormsModule,
     QuillModule.forRoot({modules: {syntax: true}, theme: 'snow'}),
     SharedModule,
     StoreModule.forFeature(articleFeature),

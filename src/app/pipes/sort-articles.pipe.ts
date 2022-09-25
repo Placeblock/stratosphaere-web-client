@@ -10,9 +10,9 @@ export class SortArticlesPipe implements PipeTransform {
     if (array == null) return [];
     let articleArray = [...array]
     articleArray.sort((a: Article, b: Article) => {
-      if (a.publishDate > b.publishDate) {
+      if (a.publish_date > b.publish_date) {
         return -1;
-      } else if (a.publishDate < b.publishDate) {
+      } else if (a.publish_date < b.publish_date) {
         return 1;
       } else {
         return 0;

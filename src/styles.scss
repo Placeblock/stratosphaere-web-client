@@ -12,6 +12,7 @@ body, html {
 * {
     box-sizing: border-box;
     margin: 0;
+    font-family: openSans;
 }
 
 ::-webkit-scrollbar {
@@ -44,3 +45,24 @@ background: rgb(190, 190, 190);
     cursor: pointer;
     background-color: rgb(204, 204, 204);
 }
+
+.loader {
+    border: 5px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 5px solid #da981e;
+    width: 20px;
+    height: 20px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+  }
+  
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

@@ -11,6 +11,7 @@ export interface ArticleState {
     editing: boolean;
     deleting: boolean;
     creating: boolean;
+    publishing: boolean;
 
     articles: Article[] | null;
     editArticle: Article | undefined;
@@ -21,6 +22,7 @@ export const initialState: ArticleState = {
     editing: false,
     deleting: false,
     creating: false,
+    publishing: false,
 
     articles: null,
     editArticle: undefined
@@ -53,16 +55,28 @@ export const articleFeature = createFeature({
         on(ArticleActions.edit, state => ({...state, 
             editing: true
         })),
-        on(ArticleActions.editSuccess, (state, {article}) => {
-            let art = state.articles != null ? state.articles.find(art => art.id = article.id) : null
-            if (art != undefined) {
-                Object.assign(art, article)
-            }
-            state.editing = false;
-            return state;
-        }),
+        on(ArticleActions.editSuccess, (state, {article}) => ({...state,
+            articles: state.articles != null ? [...state.articles.filter(art => art.id != article.id), article] : null,
+            editing: false
+        })),
         on(ArticleActions.editFailure, (state) => ({...state,
             editing: false
+        })),
+        on(ArticleActions.publish, state => ({...state, 
+            publishing: true
+        })),
+        on(ArticleActions.publishSuccess, (state, {id, publish, publishDate}) => ({
+            ...state,
+            articles: state.articles != null ? state.articles.map(
+                    (article) => article.id == id ? {
+                        ...article, 
+                        published: publish, 
+                        publishDate: publishDate
+                    } : article
+                ) : null
+        })),
+        on(ArticleActions.publishFailure, (state) => ({...state,
+            publishing: false
         })),
         on(ArticleActions.getall, state => ({...state, 
             loading: true

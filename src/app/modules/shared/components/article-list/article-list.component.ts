@@ -15,7 +15,7 @@ export class ArticleListComponent implements OnInit {
 
   articles$: Observable<Article[] | null>
 
-  constructor(private store: Store<{article: ArticleState}>) {
+  constructor(protected store: Store<{article: ArticleState}>) {
     this.articles$ = store.select(selectArticles)
   }
 

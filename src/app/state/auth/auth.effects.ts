@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core"
+import { Router } from "@angular/router"
 import { Actions, createEffect, ofType } from "@ngrx/effects"
 import { catchError, exhaustMap, map, of, tap } from "rxjs"
 import { AuthService } from "src/app/services/auth.service"
@@ -15,7 +16,8 @@ export class AuthEffects extends ApiEffects{
         private actions$: Actions,
         private authService: AuthService,
         notificationService: NotificationService,
-        private cookieService: CookieService
+        private cookieService: CookieService,
+        private router: Router
     ) {
         super(notificationService)
     }
@@ -45,6 +47,7 @@ export class AuthEffects extends ApiEffects{
     logout$ = createEffect(() => this.actions$.pipe(
         ofType(AuthActions.logout), 
         tap(() => {
+            this.router.navigate(["/"])
             this.cookieService.deleteCookie("authToken")
         })
     ), { dispatch: false })

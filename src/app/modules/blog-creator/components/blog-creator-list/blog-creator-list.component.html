@@ -1,8 +1,13 @@
 <app-page-wrapper>
+    <button id="create-post-button" class="button" (click)="createArticle()">Beitrag Erstellen</button>
     <div id="post-preview-container">
         <ng-container *ngIf="this.articles$">
             <ng-container *ngFor="let article of ((this.articles$ | async) | sortArticles); let isLast=last">
-                <app-blog-creator-post-preview [article]="article"></app-blog-creator-post-preview>
+                <app-blog-creator-post-preview 
+                    (delete)="deleteArticle(article.id)"
+                    (visibility)="changeVisibility(article, $event)"
+                    [article]="article">
+                </app-blog-creator-post-preview>
                 <hr *ngIf="!isLast">
             </ng-container>
         </ng-container>

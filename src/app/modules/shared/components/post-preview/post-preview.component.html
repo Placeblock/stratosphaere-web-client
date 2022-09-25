@@ -1,3 +1,4 @@
 <h1 id="name">{{article.title}}</h1>
-<p id="metadata">Veröffentlicht am {{article.publishDate | date :'d. MMMM y'}} von {{article.author}}</p>
+<p id="metadata" class="metadata-published" *ngIf="article.published">Veröffentlicht am {{article.publish_date*1000 | date :'d. MMMM y'}} von {{article.author}}</p>
+<p id="metadata" *ngIf="!article.published" class="metadata-not-published">Nicht veröffentlicht</p>
 <p id="description">{{article.description}}</p>

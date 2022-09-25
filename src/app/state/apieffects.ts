@@ -11,7 +11,7 @@ export class ApiEffects {
     ) {}
 
     handleError(error: HttpErrorResponse) :Observable<any> {
-        this.notificationService.error("Error", error.error["msg"], 5000)
+        this.notificationService.error("Error", error?.error["msg"], 5000)
         return of(error)
     }
 }

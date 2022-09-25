@@ -5,7 +5,7 @@ import { PostEditComponent } from './components/post-edit/post-edit.component';
 import { PostEditGuardGuard } from './guards/post-edit-guard.guard';
 
 const routes: Routes = [
-  { path: 'edit/:uuid', component: PostEditComponent, canActivate: [PostEditGuardGuard]},
+  { path: 'edit/:id', component: PostEditComponent, canActivate: [PostEditGuardGuard]},
   { path: '', component: BlogCreatorListComponent},
 ];
 

@@ -23,6 +23,10 @@ export class ArticleEffects extends ApiEffects{
             ofType(ArticleActions.getall), 
             exhaustMap(({offset, amount}) =>
                 this.articleService.getArticles(offset, amount).pipe(
+                    tap(response => {
+                        console.log(response.data);
+                        //console.log(new Date(response.data[0].publishDate*1000))
+                    }),
                     map(response => ArticleActions.getallSuccess({articles: response.data})),                    
                     catchError(error => {
                         this.handleError(error)
@@ -72,6 +76,21 @@ export class ArticleEffects extends ApiEffects{
                     catchError(error => {
                         this.handleError(error)
                         return of(ArticleActions.editFailure({ message: error }))
+                    }),
+                )
+            )
+        )
+    )
+
+    publishArticle$ = createEffect(() => 
+        this.actions$.pipe(
+            ofType(ArticleActions.publish), 
+            switchMap(({id, publish}) =>
+                this.articleService.publishArticle(id, publish).pipe(
+                    map((response) => ArticleActions.publishSuccess({id: id, publish: publish, publishDate: response.data})),
+                    catchError(error => {
+                        this.handleError(error)
+                        return of(ArticleActions.publishFailure({ message: error }))
                     }),
                 )
             )

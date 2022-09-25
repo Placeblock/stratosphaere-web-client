@@ -46,8 +46,18 @@ export class ArticleService extends ApiService {
   }
   
   editArticle(article: Article) {
+    console.log(article);
     const options = {headers: this.headers}
-    return this.http.post(this.articlesUrl, article, options).pipe(
+    return this.http.put(this.articlesUrl + "/" + article.id, article, options).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  publishArticle(id: number, publish: boolean) {
+    console.log(id)
+    console.log(publish)
+    const options = {headers: this.headers}
+    return this.http.put<APIResponse<number>>(this.articlesUrl + "/" + id + "/publish", {"publish": publish}, options).pipe(
       catchError(this.handleError)
     )
   }

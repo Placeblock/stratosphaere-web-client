@@ -3,19 +3,19 @@ export class Article {
     title: string
     description: string
     content: string
-    coverImageUrl: string
+    cover_image_url: string
     author: string
     published: boolean
-    publishDate: Date
+    publish_date: number
 
-    constructor(id: number, title: string, description: string, content: string, coverImageUrl: string, author: string, published: boolean, publishDate: Date) {
+    constructor(id: number, title: string, description: string, content: string, cover_image_url: string, author: string, published: boolean, publish_date: number) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.content = content;
-        this.coverImageUrl = coverImageUrl;
+        this.cover_image_url = cover_image_url;
         this.author = author;
         this.published = published;
-        this.publishDate = publishDate;
+        this.publish_date = publish_date;
     }
 }

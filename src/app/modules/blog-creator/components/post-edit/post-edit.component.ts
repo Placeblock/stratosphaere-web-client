@@ -1,17 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import 'katex'
 import hljs from 'highlight.js';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, first, map, Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { selectArticles } from 'src/app/state/article/article.selector';
+import { ArticleState } from 'src/app/state/article/article.reducer';
+import { Article } from 'src/app/classes/article';
+import { ArticleActions } from 'src/app/state/article/article.actions';
 
 @Component({
   selector: 'app-post-edit',
   templateUrl: './post-edit.component.html',
   styleUrls: ['./post-edit.component.scss']
 })
-export class PostEditComponent implements OnInit {
+export class PostEditComponent implements OnInit, OnDestroy {
   modules = {}
   content = '';
+  editForm: FormGroup;
+  articles$;
+  article: Article | undefined;
+  autoSave: boolean = true;
+  autoSaveSubscription: Subscription | undefined
+  lastSaved: any;
+  editing$
 
-  constructor() {
+
+  constructor(fb: FormBuilder, private activatedRoute: ActivatedRoute, private store: Store<{article: ArticleState}>) {
+    this.articles$ = store.select(selectArticles)
+    this.editing$ = store.select(store => store.article.editing);
+    this.editForm = fb.group({
+      content: [''],
+      title: [''],
+      description: [''],
+    })
     this.modules = {
       'formula': true,
       'syntax': {
@@ -57,6 +80,45 @@ export class PostEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.autoSaveSubscription = this.editForm
+    .valueChanges.pipe(
+      debounceTime(1000),
+      distinctUntilChanged()
+    )
+    .subscribe(() => {
+      if (this.autoSave) {
+        this.save();
+      }
+    })
+    this.activatedRoute.params.subscribe(params => {
+      const articleID = params['id'];
+      this.articles$.pipe(
+        first(),
+        map(articles => {
+          let article = articles?.find(article => article.id == articleID)
+          if (article != undefined) {
+            this.editForm.get('title')?.setValue(article.title)
+            this.editForm.get('description')?.setValue(article.description)
+            this.editForm.get('content')?.setValue(article.content)
+          }
+          this.article = article;
+        })
+      ).subscribe()
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.autoSaveSubscription?.unsubscribe()
+  }
+
+  save() {
+    if (this.article != undefined && this.editForm.value != this.lastSaved) {
+      this.lastSaved = this.editForm.value;
+      let title = this.editForm.get('title')?.value
+      let description = this.editForm.get('description')?.value
+      let content = this.editForm.get('content')?.value
+      this.store.dispatch(ArticleActions.edit({article: {...this.article, title: title, content: content, description: description}}))
+    }
   }
 
 }

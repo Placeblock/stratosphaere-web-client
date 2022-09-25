@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Article } from 'src/app/classes/article';
 
 @Component({
@@ -8,6 +8,8 @@ import { Article } from 'src/app/classes/article';
 })
 export class BlogCreatorPostPreviewComponent implements OnInit {
   @Input() article!: Article;
+  @Output('visibility') visibilityChange = new EventEmitter<boolean>()
+  @Output('delete') onDelete = new EventEmitter<any>()
 
   publishRevertCount: number = 0;
   deleteCount: number = 0;
@@ -19,7 +21,7 @@ export class BlogCreatorPostPreviewComponent implements OnInit {
 
   revert() {
     if (this.publishRevertCount == 4) {
-      //TODO: Revert
+      this.visibilityChange.emit(false)
       return;
     }
     this.publishRevertCount++;
@@ -27,7 +29,7 @@ export class BlogCreatorPostPreviewComponent implements OnInit {
   
   publish() {
     if (this.publishRevertCount == 4) {
-      //TODO: Publish
+      this.visibilityChange.emit(true)
       return;
     }
     this.publishRevertCount++;
@@ -35,7 +37,7 @@ export class BlogCreatorPostPreviewComponent implements OnInit {
   
   delete() {
     if (this.deleteCount == 4) {
-      //TODO: DELETE
+      this.onDelete.emit()
       return;
     }
     this.deleteCount++;

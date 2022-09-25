@@ -16,6 +16,10 @@ export const ArticleActions = createActionGroup({
         'Edit Success': props<{article: Article}>(),
         'Edit Failure': props<{message: string}>(),
 
+        'Publish': props<{id: number, publish: boolean}>(),
+        'Publish Success': props<{id: number, publish: boolean, publishDate: number}>(),
+        'Publish Failure': props<{message: string}>(),
+
         'GetAll': props<{offset: number, amount: number}>(),
         'GetAll Success': props<{articles: Article[]}>(),
         'GetAll Failure': props<{message: string}>(),
