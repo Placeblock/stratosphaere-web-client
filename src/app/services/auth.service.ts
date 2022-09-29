@@ -12,14 +12,11 @@ export class AuthService {
   authUrl = environment.baseUrl + '/auth'
 
   constructor(
-    private http: HttpClient,
-    private errorHandler: ErrorHandlerService
+    private http: HttpClient
   ) {}
 
   auth(username: string, password: string) {
     const options = {headers: environment.requestHeaders}
-    return this.http.post<APIResponse<string>>(this.authUrl, {"username":username,"password":password}, options).pipe(
-      catchError(this.errorHandler.handleError)
-    )
+    return this.http.post<APIResponse<string>>(this.authUrl, {"username":username,"password":password}, options)
   }
 }

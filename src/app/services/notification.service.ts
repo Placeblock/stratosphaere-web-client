@@ -10,7 +10,9 @@ export class NotificationService {
   private _subject = new Subject<Notification>();
   private _idx = 0;
 
-  constructor() { }
+  constructor() {
+    console.log("NOT SERVICE")
+  }
 
   getObservable(): Observable<Notification> {
     return this._subject.asObservable();
@@ -29,6 +31,7 @@ export class NotificationService {
   }
 
   error(title: string, message: string, timeout = 0) {
+    console.log("ERROR")
     this._subject.next(new Notification(this._idx++, NotificationType.error, title, message, timeout));
   }
   

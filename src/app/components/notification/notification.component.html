@@ -1,15 +1,13 @@
 <div class="notifications">
-	<div *ngFor="let notification of notifications" class="notification" [ngClass]="'not' + notification.type">
+	<div *ngFor="let notification of notifications" class="notification" [ngClass]="notification.type">
 		<ng-container *ngTemplateOutlet="notificationTpl;context:{notification:notification}"></ng-container>
 	</div>
 </div>
 
 <ng-template #notificationTpl let-notification="notification">
 
-	<div class="title" fxLayout="row" fxLayoutAlign="space-between center">
-		<div>{{notification.title}}</div>
-	</div>
-
-	<div class="message">{{notification.message}}</div>
+	<p class="title">{{notification.title}}</p>
+	<hr>
+	<p class="message">{{notification.message}}</p>
 
 </ng-template>

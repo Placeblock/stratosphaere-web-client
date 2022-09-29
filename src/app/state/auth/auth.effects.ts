@@ -4,6 +4,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects"
 import { catchError, map, of, switchMap, tap } from "rxjs"
 import { AuthService } from "src/app/services/auth.service"
 import { CookieService } from "src/app/services/cookie.service"
+import { ErrorHandlerService } from "src/app/services/error-handler.service"
 import { AuthActions } from "./auth.actions"
 
 
@@ -14,7 +15,8 @@ export class AuthEffects {
         private actions$: Actions,
         private authService: AuthService,
         private cookieService: CookieService,
-        private router: Router
+        private router: Router,
+        private errorHandler: ErrorHandlerService
     ) {}
 
 
@@ -24,7 +26,10 @@ export class AuthEffects {
             switchMap(authAction => 
                 this.authService.auth(authAction.username, authAction.password).pipe(
                     map(response => AuthActions.authSuccess({token: response.data})),      
-                    catchError(error => of(AuthActions.authFailure({ message: error }))),
+                    catchError(error => {
+                        this.errorHandler.handleError(error);
+                        return of(AuthActions.authFailure({ message: error }));
+                    }),
                 )
             )
         )
