@@ -82,10 +82,10 @@ export const articleFeature = createFeature({
             loading: true
         })),
         on(ArticleActions.getallSuccess, (state, {articles}) => {
-            let newStateArticles = articles
+            let newStateArticles: Article[] = articles
             if (state.articles != null) {
-                let stateArticleIds = state.articles.map(art => art.id)
-                let newArticles = newStateArticles.filter(art => !(art.id in stateArticleIds));
+                let stateArticleIds: number[] = state.articles.map(art => art.id)
+                let newArticles: Article[] = newStateArticles.filter(art => !stateArticleIds.includes(art.id));
                 newStateArticles = state.articles.concat(newArticles)
             }
             return {...state,
