@@ -7,13 +7,10 @@ providedIn: 'root'
 })
 export class ErrorHandlerService {
     constructor(
-    private notificationService: NotificationService) {
+    private notificationService: NotificationService) {}
 
-    }
     handleError(error: any) {
+        console.error(error)
         this.notificationService.error("Error", error?.error["msg"], 5000)
-        return throwError(() => {
-            return error
-        })
     }
 }

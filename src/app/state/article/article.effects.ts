@@ -4,6 +4,7 @@ import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { ArticleActions } from './article.actions';
 import { ArticleService } from '../../services/article.service';
 import {  } from '../../services/notification.service';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 
 
 @Injectable()
@@ -12,6 +13,7 @@ export class ArticleEffects{
     constructor(
         private actions$: Actions,
         private articleService: ArticleService,
+        private errorHandler: ErrorHandlerService
     ) {}
 
     getArticles$ = createEffect(() => 
@@ -19,8 +21,11 @@ export class ArticleEffects{
             ofType(ArticleActions.getall), 
             switchMap(({offset, amount}) =>
                 this.articleService.getArticles(offset, amount).pipe(
-                    map(response => ArticleActions.getallSuccess({articles: response.data})),                    
-                    catchError(error => of(ArticleActions.getallFailure({ message: error }))),
+                    map(response => ArticleActions.getallSuccess({articles: response.data})),   
+                    catchError(error => {
+                        this.errorHandler.handleError(error);
+                        return of(ArticleActions.getallFailure({ message: error }));
+                    }),
                 )
             )
         )
@@ -31,8 +36,11 @@ export class ArticleEffects{
             ofType(ArticleActions.get), 
             switchMap(({id}) =>
                 this.articleService.getArticle(id).pipe(
-                    map(response => ArticleActions.getSuccess({article: response.data})),                    
-                    catchError(error => of(ArticleActions.getFailure({ message: error }))),
+                    map(response => ArticleActions.getSuccess({article: response.data})),      
+                    catchError(error => {
+                        this.errorHandler.handleError(error);
+                        return of(ArticleActions.getFailure({ message: error }));
+                    }),
                 )
             )
         )
@@ -44,7 +52,10 @@ export class ArticleEffects{
             switchMap(() =>
                 this.articleService.createArticle().pipe(
                     map(response => ArticleActions.addSuccess({article: response.data})),
-                    catchError(error => of(ArticleActions.addFailure({ message: error }))),
+                    catchError(error => {
+                        this.errorHandler.handleError(error);
+                        return of(ArticleActions.addFailure({ message: error }));
+                    }),
                 )
             )
         )
@@ -56,7 +67,10 @@ export class ArticleEffects{
             switchMap(({id}) =>
                 this.articleService.deleteArticle(id).pipe(
                     map(() => ArticleActions.deleteSuccess({id: id})),
-                    catchError(error => of(ArticleActions.deleteFailure({ message: error }))),
+                    catchError(error => {
+                        this.errorHandler.handleError(error);
+                        return of(ArticleActions.deleteFailure({ message: error }));
+                    }),
                 )
             )
         )
@@ -68,7 +82,10 @@ export class ArticleEffects{
             switchMap(({article}) => {
                 return this.articleService.editArticle(article).pipe(
                     map(() => ArticleActions.editSuccess({article: article})),
-                    catchError(error => of(ArticleActions.editFailure({ message: error }))),
+                    catchError(error => {
+                        this.errorHandler.handleError(error);
+                        return of(ArticleActions.editFailure({ message: error }));
+                    }),
                 )
             })
         )
@@ -79,8 +96,13 @@ export class ArticleEffects{
             ofType(ArticleActions.publish),
             switchMap(({id, publish}) =>
                 this.articleService.publishArticle(id, publish).pipe(
-                    map((response) => ArticleActions.publishSuccess({id: id, publish: publish, publishDate: response.data})),
-                    catchError(error => of(ArticleActions.publishFailure({ message: error }))),
+                    map((response) => {
+                        return ArticleActions.publishSuccess({id: id, publish: publish, publishDate: response.data})
+                    }),
+                    catchError(error => {
+                        this.errorHandler.handleError(error);
+                        return of(ArticleActions.publishFailure({ message: error }));
+                    }),
                 )
             )
         )

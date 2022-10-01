@@ -3,7 +3,6 @@
         <ng-container *ngFor="let article of (((this.articles$ | async) | sortArticles) | filterPublished); let isLast=last">
             <app-post-preview [routerLink]="['article', article.id]" class="post-preview" [article]="article"></app-post-preview>
             <hr *ngIf="!isLast">
-            <p *ngIf="!isLast">notlast</p>
         </ng-container>
     </div>
 </app-page-wrapper>
