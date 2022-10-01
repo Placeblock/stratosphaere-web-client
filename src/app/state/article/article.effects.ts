@@ -96,7 +96,9 @@ export class ArticleEffects{
             ofType(ArticleActions.publish),
             switchMap(({id, publish}) =>
                 this.articleService.publishArticle(id, publish).pipe(
-                    map((response) => ArticleActions.publishSuccess({id: id, publish: publish, publishDate: response.data})),
+                    map((response) => {
+                        return ArticleActions.publishSuccess({id: id, publish: publish, publishDate: response.data})
+                    }),
                     catchError(error => {
                         this.errorHandler.handleError(error);
                         return of(ArticleActions.publishFailure({ message: error }));
