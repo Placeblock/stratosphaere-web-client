@@ -16,6 +16,7 @@ import { authReducer } from './state/auth/auth.reducer';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { ApiInterceptor } from './interceptors/api.interceptor';
+import { SharedModule } from './modules/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ApiInterceptor } from './interceptors/api.interceptor';
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    SharedModule,
     EffectsModule.forRoot([AuthEffects]),
     StoreModule.forRoot({auth: authReducer}),    
     StoreDevtoolsModule.instrument({

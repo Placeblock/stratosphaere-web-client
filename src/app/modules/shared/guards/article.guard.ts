@@ -29,7 +29,7 @@ export class ArticleGuard implements CanActivate {
         if (loaded) {
           return of(true)
         } else {
-          this.store.dispatch(ArticleActions.get({id: id}))
+          this.store.dispatch(ArticleActions.getcontent({id: id}))
           let subscription = this.store.select(selectArticles).pipe(
             map(articles => {
               if (articles?.find(article => article.id == id) != undefined) {

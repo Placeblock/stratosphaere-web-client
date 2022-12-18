@@ -2,11 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Article } from 'src/app/classes/article';
 
 @Component({
-  selector: 'app-post-preview',
-  templateUrl: './post-preview.component.html',
-  styleUrls: ['./post-preview.component.scss']
+  selector: 'app-article-preview',
+  templateUrl: './article-preview.component.html',
+  styleUrls: ['./article-preview.component.scss']
 })
-export class PostPreviewComponent implements OnInit {
+export class ArticlePreviewComponent implements OnInit {
+  faTrash = 
   @Input() article!: Article;
 
   constructor() { }

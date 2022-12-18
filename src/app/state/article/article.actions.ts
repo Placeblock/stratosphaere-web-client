@@ -5,27 +5,34 @@ export const ArticleActions = createActionGroup({
     source: 'Article',
     events: {
         'Add': emptyProps(),
-        'Add Success': props<{article: Article}>(),
+        'Add Success': emptyProps(),
         'Add Failure': props<{message: string}>(),
 
         'Delete': props<{id: number}>(),
-        'Delete Success': props<{id: number}>(),
+        'Delete Success': emptyProps(),
         'Delete Failure': props<{message: string}>(),
 
         'Edit': props<{article: Article}>(),
-        'Edit Success': props<{article: Article}>(),
+        'Edit Success': emptyProps(),
         'Edit Failure': props<{message: string}>(),
 
         'Publish': props<{id: number, publish: boolean}>(),
-        'Publish Success': props<{id: number, publish: boolean, publishDate: number}>(),
+        'Publish Success': emptyProps(),
         'Publish Failure': props<{message: string}>(),
 
-        'Get': props<{id: number}>(),
-        'Get Success': props<{article: Article}>(),
-        'Get Failure': props<{message: string}>(),
+        'GetMetadata': props<{id: number}>(),
+        'GetMetadata Success': props<{article: Article}>(),
+        'GetMetadata Failure': props<{message: string}>(),
 
-        'GetAll': props<{offset: number, amount: number}>(),
-        'GetAll Success': props<{articles: Article[]}>(),
-        'GetAll Failure': props<{message: string}>(),
+        'GetContent': props<{id: number}>(),
+        'GetContent Success': props<{article: Article}>(),
+        'GetContent Failure': props<{message: string}>(),
+
+        'GetChunk': props<{offset: number, amount: number, showUnpublished: boolean, showPublished: boolean}>(),
+        'GetChunk Success': props<{offset: number, amount: number, articles: Article[]}>(),
+        'GetChunk Failure': props<{message: string}>(),
+
+        'Reload': emptyProps(),
+        'Clear': emptyProps(),
     }
 })

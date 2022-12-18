@@ -7,3 +7,8 @@ export const selectArticles = createSelector(
     selectArticle,
     (state: ArticleState) => state.articles
 )
+
+export const selectAllLoaded = createSelector(
+    selectArticle,
+    (state: ArticleState) => state.allLoaded
+)

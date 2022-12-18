@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { catchError, exhaustMap, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { ArticleActions } from './article.actions';
 import { ArticleService } from '../../services/article.service';
 import {  } from '../../services/notification.service';
@@ -18,28 +18,19 @@ export class ArticleEffects{
 
     getArticles$ = createEffect(() => 
         this.actions$.pipe(
-            ofType(ArticleActions.getall), 
-            switchMap(({offset, amount}) =>
-                this.articleService.getArticles(offset, amount).pipe(
-                    map(response => ArticleActions.getallSuccess({articles: response.data})),   
-                    catchError(error => {
-                        this.errorHandler.handleError(error);
-                        return of(ArticleActions.getallFailure({ message: error }));
-                    }),
-                )
-            )
+            ofType(ArticleActions.getchunk),
         )
     )
 
     getArticle$ = createEffect(() => 
         this.actions$.pipe(
-            ofType(ArticleActions.get), 
+            ofType(ArticleActions.getcontent), 
             switchMap(({id}) =>
-                this.articleService.getArticle(id).pipe(
-                    map(response => ArticleActions.getSuccess({article: response.data})),      
+                this.articleService.getArticle(id, []).pipe(
+                    map(response => ArticleActions.getcontentSuccess({article: response.data})),      
                     catchError(error => {
                         this.errorHandler.handleError(error);
-                        return of(ArticleActions.getFailure({ message: error }));
+                        return of(ArticleActions.getchunkFailure({ message: error }));
                     }),
                 )
             )
@@ -51,7 +42,7 @@ export class ArticleEffects{
             ofType(ArticleActions.add), 
             switchMap(() =>
                 this.articleService.createArticle().pipe(
-                    map(response => ArticleActions.addSuccess({article: response.data})),
+                    map(() => ArticleActions.addSuccess()),
                     catchError(error => {
                         this.errorHandler.handleError(error);
                         return of(ArticleActions.addFailure({ message: error }));
@@ -66,7 +57,7 @@ export class ArticleEffects{
             ofType(ArticleActions.delete), 
             switchMap(({id}) =>
                 this.articleService.deleteArticle(id).pipe(
-                    map(() => ArticleActions.deleteSuccess({id: id})),
+                    map(() => ArticleActions.deleteSuccess()),
                     catchError(error => {
                         this.errorHandler.handleError(error);
                         return of(ArticleActions.deleteFailure({ message: error }));
@@ -81,7 +72,7 @@ export class ArticleEffects{
             ofType(ArticleActions.edit),
             switchMap(({article}) => {
                 return this.articleService.editArticle(article).pipe(
-                    map(() => ArticleActions.editSuccess({article: article})),
+                    map(() => ArticleActions.editSuccess()),
                     catchError(error => {
                         this.errorHandler.handleError(error);
                         return of(ArticleActions.editFailure({ message: error }));
@@ -96,8 +87,8 @@ export class ArticleEffects{
             ofType(ArticleActions.publish),
             switchMap(({id, publish}) =>
                 this.articleService.publishArticle(id, publish).pipe(
-                    map((response) => {
-                        return ArticleActions.publishSuccess({id: id, publish: publish, publishDate: response.data})
+                    map(() => {
+                        return ArticleActions.publishSuccess()
                     }),
                     catchError(error => {
                         this.errorHandler.handleError(error);

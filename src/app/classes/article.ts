@@ -1,21 +1,15 @@
 export class Article {
     id: number
-    title: string
-    description: string
-    content: string
-    cover_image_url: string
-    author: string
-    published: boolean
-    publish_date: number
+    title: string | null = null;
+    description: string | null = null;
+    cover_image_url: string | null = null;
+    author: string | null = null;
+    published: boolean | null = null;
+    publish_date: Date | null = null;
+    content: string | null = null;
 
-    constructor(id: number, title: string, description: string, content: string, cover_image_url: string, author: string, published: boolean, publish_date: number) {
+
+    constructor(id: number) {
         this.id = id;
-        this.title = title;
-        this.description = description;
-        this.content = content;
-        this.cover_image_url = cover_image_url;
-        this.author = author;
-        this.published = published;
-        this.publish_date = publish_date;
     }
 }

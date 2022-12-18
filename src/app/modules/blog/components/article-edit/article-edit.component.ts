@@ -16,11 +16,11 @@ hljs.configure({
 })
 
 @Component({
-  selector: 'app-post-edit',
-  templateUrl: './post-edit.component.html',
-  styleUrls: ['./post-edit.component.scss']
+  selector: 'app-article-edit',
+  templateUrl: './article-edit.component.html',
+  styleUrls: ['./article-edit.component.scss']
 })
-export class PostEditComponent implements OnInit, OnDestroy {
+export class ArticleEditComponent implements OnInit, OnDestroy {
   modules = {}
   content = '';
   editForm: FormGroup;
@@ -98,15 +98,24 @@ export class PostEditComponent implements OnInit, OnDestroy {
     })
     this.activatedRoute.params.subscribe(params => {
       const articleID = params['id'];
+      this.store.dispatch(ArticleActions.getcontent({id: articleID}));
+      /*let subscription = this.store.select(selectArticles).pipe(
+        map(articles => {
+          let article = articles?.find(article => article.id === articleID);
+          if (article !== undefined && article.content !== null) {
+            subscription.unsubscribe()
+          }
+        })
+      ).subscribe()*/
       this.articles$.pipe(
-        first(),
         map(articles => {
           let article = articles?.find(article => article.id == articleID)
-          if (article != undefined) {
+          if (article != undefined && article.content !== null) {
             this.editForm.get('title')?.setValue(article.title)
             this.editForm.get('description')?.setValue(article.description)
             this.editForm.get('content')?.setValue(article.content)
             this.editForm.get('cover_image_url')?.setValue(article.cover_image_url)
+            this.autoSaveSubscription?.unsubscribe()
           }
           this.article = article;
         })
@@ -125,11 +134,12 @@ export class PostEditComponent implements OnInit, OnDestroy {
       let description = this.editForm.get('description')?.value
       let content = this.editForm.get('content')?.value
       let cover_image_url = this.editForm.get('cover_image_url')?.value
-      this.store.dispatch(ArticleActions.edit({article: {...this.article, 
-        title: title, 
-        content: content, 
-        description: description, 
-        cover_image_url: cover_image_url}}))
+      this.store.dispatch(ArticleActions.edit({article: {...this.article,
+        title: title,
+        description: description,
+        cover_image_url: cover_image_url,
+        content: content
+      }}))
     }
   }
 

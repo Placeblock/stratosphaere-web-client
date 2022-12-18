@@ -8,23 +8,29 @@ function randomDate(start: Date, end: Date) {
 
 export interface ArticleState {
     loading: boolean;
+    loadingContent: boolean;
     editing: boolean;
     deleting: boolean;
     creating: boolean;
     publishing: boolean;
 
-    articles: Article[] | null;
+    allLoaded: boolean;
+
+    articles: Article[];
     editArticle: Article | undefined;
 }
 
 export const initialState: ArticleState = {
     loading: false,
+    loadingContent: false,
     editing: false,
     deleting: false,
     creating: false,
     publishing: false,
 
-    articles: null,
+    allLoaded: false,
+
+    articles: [],
     editArticle: undefined
 }
 
@@ -35,70 +41,72 @@ export const articleFeature = createFeature({
         on(ArticleActions.add, state => ({...state, 
             creating: true
         })),
-        on(ArticleActions.addSuccess, (state, {article}) => ({...state, 
-            articles: state.articles != null ? [...state.articles, article] : [article],
-            creating: false
-        })),
-        on(ArticleActions.addFailure, (state) => ({...state,
+        on(ArticleActions.addSuccess, ArticleActions.addFailure, (state) => ({...state,
             creating: false
         })),
         on(ArticleActions.delete, state => ({...state, 
             deleting: true
         })),
-        on(ArticleActions.deleteSuccess, (state, {id}) => ({...state, 
-            articles: state.articles != null ? state.articles.filter(article => article.id != id) : null,
-            deleting: false
-        })),
-        on(ArticleActions.deleteFailure, (state) => ({...state,
+        on(ArticleActions.deleteSuccess, ArticleActions.deleteFailure, (state) => ({...state, 
             deleting: false
         })),
         on(ArticleActions.edit, state => ({...state, 
             editing: true
         })),
-        on(ArticleActions.editSuccess, (state, {article}) => ({...state,
-            articles: state.articles != null ? [...state.articles.filter(art => art.id != article.id), article] : null,
-            editing: false
-        })),
-        on(ArticleActions.editFailure, (state) => ({...state,
+        on(ArticleActions.editSuccess, ArticleActions.editFailure, (state) => ({...state,
             editing: false
         })),
         on(ArticleActions.publish, state => ({...state, 
             publishing: true
         })),
-        on(ArticleActions.publishSuccess, (state, {id, publish, publishDate}) => ({
-            ...state,
-            articles: state.articles != null ? state.articles.map(
-                    (article) => article.id == id ? {
-                        ...article, 
-                        published: publish, 
-                        publish_date: publishDate
-                    } : article
-                ) : null
-        })),
-        on(ArticleActions.publishFailure, (state) => ({...state,
+        on(ArticleActions.publishSuccess, ArticleActions.publishFailure, (state) => ({...state,
             publishing: false
         })),
-        on(ArticleActions.getall, state => ({...state, 
+        on(ArticleActions.getchunk, state => ({...state, 
             loading: true
         })),
-        on(ArticleActions.getallSuccess, (state, {articles}) => {
-            let newStateArticles: Article[] = articles
-            if (state.articles != null) {
-                let stateArticleIds: number[] = state.articles.map(art => art.id)
-                let newArticles: Article[] = newStateArticles.filter(art => !stateArticleIds.includes(art.id));
-                newStateArticles = state.articles.concat(newArticles)
+        on(ArticleActions.getchunkSuccess, (state, {offset, amount, articles}) => {
+            console.log(`loaded ${articles.length} of ${amount} requested Articles`)
+            let newarticles: Article[] = [...articles];
+            if (offset >= state.articles.length) {
+                throw new Error("Tried to merge out of bound chunk! Articles: " + state.articles.length + " Offset: " + offset);
             }
-            return {...state,
-                articles: newStateArticles,
-                loading: false
+            for (let i = 0; i < articles.length; i++) {
+                newarticles[i + offset] = articles[i];
             }
+            return { ...state, articles: newarticles, loading: false }
         }),
-        on(ArticleActions.getallFailure, (state) => ({...state,
+        on(ArticleActions.getchunkFailure, (state) => ({...state,
             loading: false
         })),
-        on(ArticleActions.getSuccess, (state, {article}) => ({...state, 
-            articles: state.articles != null ? state.articles.find(art => art.id == article.id) == undefined ? [...state.articles, article] : state.articles : [article],
-            loading: false
+        on(ArticleActions.getcontent, (state, {}) => ({...state, 
+            loadingSingle: true
         })),
+        on(ArticleActions.getcontentFailure, (state, {}) => ({...state, 
+            loadingSingle: false
+        })),
+        on(ArticleActions.getcontentSuccess, (state, {article}) => {
+            let newarticles: Article[] = [...state.articles];
+            for (let i = 0; i < newarticles.length; i++) {
+                const art = newarticles[i];
+                if (art.id == article.id) {
+                    newarticles[i].content = article.content;
+                }
+            }
+            return { ...state, articles: newarticles, loadingSingle: false }
+        }),
+        on(ArticleActions.getmetadataSuccess, (state, {article}) => {
+            let newarticles: Article[] = [...state.articles];
+            for (let i = 0; i < newarticles.length; i++) {
+                const art = newarticles[i];
+                if (art.id == article.id) {
+                    newarticles[i] = article;
+                }
+            }
+            return { ...state, articles: newarticles }
+        }),
+        on(ArticleActions.clear, (state) => ({...state,
+            articles: []
+        }))
     )
 })

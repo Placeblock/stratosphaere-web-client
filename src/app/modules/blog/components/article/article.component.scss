@@ -17,17 +17,23 @@
         justify-content: center;
         text-align: center;
 
+        h1 {
+            font-size: 40px;
+        }
+
         #backButton {
             position: absolute;
             left: 20px;
             top: 20px;
         }
-    }
-
-    #metadata {
-        margin: 10px;
-        margin-bottom: 10px;
-        display: block;
+    
+        .metadata {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            display: block;
+        }
+        
     }
 }
 

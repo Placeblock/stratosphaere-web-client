@@ -3,8 +3,8 @@
         <div id="banner" [ngStyle]="{'background-image': 'url(' + this.article?.cover_image_url + ')'}">
             <button class="button" [routerLink]="['/blog/']" id="backButton">Zurück</button>
             <h1>{{this.article?.title}}</h1>
+            <app-article-metadata class="metadata metadata-dark" *ngIf="this.article" [article]="this.article"></app-article-metadata>
         </div>
-        <app-article-metadata id="metadata" *ngIf="this.article" [article]="this.article"></app-article-metadata>
         <quill-view [modules]="modules" [content]="this.article?.content" theme="snow"></quill-view>
     </div>
 </app-page-wrapper>

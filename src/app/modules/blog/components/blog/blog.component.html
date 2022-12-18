@@ -1,8 +1,0 @@
-<app-page-wrapper>
-    <div id="post-preview-container">
-        <ng-container *ngFor="let article of (((this.articles$ | async) | sortArticles) | filterPublished); let isLast=last">
-            <app-post-preview [routerLink]="['article', article.id]" class="post-preview" [article]="article"></app-post-preview>
-            <hr *ngIf="!isLast">
-        </ng-container>
-    </div>
-</app-page-wrapper>
