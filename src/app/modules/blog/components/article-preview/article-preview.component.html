@@ -1,8 +1,24 @@
-<div id="info">
-    <h1 class="name">{{article.title}} | {{article.id}}</h1>
-    <app-article-metadata [article]="article" class="metadata"></app-article-metadata>
-    <p class="description">{{article.description}}</p>
+<div id="content">
+    <div id="info">
+        <h1 id="name">{{article.title}} | {{article.id}}</h1>
+        <app-article-metadata [article]="article" id="metadata"></app-article-metadata>
+        <p id="description">{{article.description}}</p>
+    </div>
+    <div id="controls">
+        <button id="delete" (click)="this.showDeleteModal = true"><fa-icon class="icon" [icon]="faTrash"></fa-icon></button>
+    </div>
 </div>
-<div id="controls">
-    <button></button>
-</div>
+<app-modal id="delete-confirm-modal" *ngIf="this.showDeleteModal" (close)="this.closeModal()">
+    <h2>Beitrag löschen</h2>
+    <hr>
+    <details>
+        <summary>Auswirkungen</summary>
+        <p>Wenn Sie auf LÖSCHEN drücken, wird der Artikel aus der Datenbank gelöscht.</p>
+        <p><b>Diese Aktion kann nicht rückgängig gemacht werden!</b></p>
+    </details>
+    <div>
+        <label for="aftermath-check">Ich bin mir den Auswirkungen bewusst:</label>
+        <input id="aftermath-check" [formControl]="afterMathForm" type="checkbox">
+    </div>
+    <button id="delete-confirm" class="button" (click)="this.delete()">LÖSCHEN</button>
+</app-modal>

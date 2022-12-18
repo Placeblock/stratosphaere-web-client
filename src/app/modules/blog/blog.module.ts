@@ -8,7 +8,6 @@ import { StoreModule } from '@ngrx/store';
 import { articleFeature } from 'src/app/state/article/article.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { ArticleEffects } from 'src/app/state/article/article.effects';
-import { QuillModule } from 'ngx-quill';
 import { ArticleComponent } from './components/article/article.component';
 import { ArticleMetadataComponent } from './components/article-metadata/article-metadata.component';
 import { ArticleListComponent } from './components/article-list/article-list.component';
@@ -31,7 +30,6 @@ import { ListControlComponent } from './components/list-control/list-control.com
     BlogRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    QuillModule.forRoot({}),
     StoreModule.forFeature(articleFeature),
     EffectsModule.forFeature([ArticleEffects])
   ]

@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import 'katex'
-import hljs from 'highlight.js';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, first, map, Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -11,9 +10,6 @@ import { Article } from 'src/app/classes/article';
 import { ArticleActions } from 'src/app/state/article/article.actions';
 
 
-hljs.configure({
-  languages: ['javascript', 'typescript', 'html', 'css', 'typescript', 'scss', 'sql', 'JSON', 'go']
-})
 
 @Component({
   selector: 'app-article-edit',
@@ -43,9 +39,6 @@ export class ArticleEditComponent implements OnInit, OnDestroy {
     })
     this.modules = {
       'formula': true,
-      'syntax': {
-        highlight: (text: string) => hljs.highlightAuto(text).value,
-      },
       'toolbar': {
         container: [[{ 'font': [] }, { 'size': [] }],
           [ 'bold', 'italic', 'underline', 'strike' ],

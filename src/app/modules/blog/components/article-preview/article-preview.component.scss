@@ -1,24 +1,57 @@
-
-:host {
-    display: flex;
-    flex-direction: column;
+#content {
     background-color: white;
     border-radius: 10px;
     padding: 20px;
+    display: flex;
+    justify-content: space-between;
     transition: transform 0.2s ease-in-out;
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+    }
 }
 
-.name {
+#name {
     margin-bottom: 10px;
 }
 
-.metadata {
+#metadata {
     margin-bottom: 20px;
     display: block;
     color: gray;
 }
 
-:host:hover {
-    transform: scale(1.05);
-    cursor: pointer;
+#controls {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    button {
+        border: none;
+        padding: 5px;
+        background-color: transparent;
+        .icon {
+            font-size: 18px;
+        }
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.1)
+        }
+    }
+    #delete {
+        color: rgb(117, 0, 0);
+    }
+}
+
+#delete-confirm-modal {
+    hr {
+        margin: 20px 0px 20px 0px;
+    }
+    details {
+        margin-bottom: 20px;
+    }
+    #delete-confirm {
+        float: right;
+        background-color: rgb(117, 0, 0);
+        color: white;
+    }
 }

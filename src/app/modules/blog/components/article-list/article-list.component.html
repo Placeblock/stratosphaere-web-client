@@ -2,5 +2,5 @@
 <app-list-control *ngIf="this.token$ | async" (togglePublished)="this.setShowPublished($event)" (toggleUnpublished)="this.setShowUnpublished($event)"></app-list-control>
 
 <div id="article-list">
-    <app-article-preview *ngFor="let article of this.articles" [article]="article"></app-article-preview>
+    <app-article-preview *ngFor="let article of this.articles" [article]="article" (delete)="this.deleteArticle(article.id)"></app-article-preview>
 </div>

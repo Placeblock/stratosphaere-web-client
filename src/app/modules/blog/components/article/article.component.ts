@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import hljs from 'highlight.js';
 import { first, map } from 'rxjs';
 import { Article } from 'src/app/classes/article';
 import { ArticleState } from 'src/app/state/article/article.reducer';
 import { selectArticles } from 'src/app/state/article/article.selector';
 
-hljs.configure({
-  languages: ['javascript', 'typescript', 'html', 'css', 'typescript', 'scss', 'sql', 'JSON', 'go']
-})
 
 @Component({
   selector: 'app-article',
@@ -26,9 +22,6 @@ export class ArticleComponent implements OnInit {
     this.articles$ = this.store.select(selectArticles)
     this.modules = {
       'formula': true,
-      'syntax': {
-        highlight: (text: string) => hljs.highlightAuto(text).value,
-      },
       'toolbar': false
     }
   }

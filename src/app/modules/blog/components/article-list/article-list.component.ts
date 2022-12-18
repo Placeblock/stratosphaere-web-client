@@ -1,7 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { catchError, last, map, Observable, of, switchMap, throwError } from 'rxjs';
+import { catchError, exhaustMap, filter, first, fromEvent, last, map, Observable, of, Subscription, switchMap, throwError } from 'rxjs';
 import { Article } from 'src/app/classes/article';
 import { ArticleService } from 'src/app/services/article.service';
 import { ArticleActions } from 'src/app/state/article/article.actions';
@@ -15,7 +15,7 @@ import { selectToken } from 'src/app/state/auth/auth.selector';
   templateUrl: './article-list.component.html',
   styleUrls: ['./article-list.component.scss']
 })
-export class ArticleListComponent implements OnInit {
+export class ArticleListComponent implements OnInit, OnDestroy {
   token$: Observable<string | null>
 
   showPublished: boolean = true;  
@@ -24,21 +24,26 @@ export class ArticleListComponent implements OnInit {
   allLoaded: boolean = false;
   articles: Article[] = [];
 
-  @HostListener('window:scroll', ['$event']) // for window scroll events
-  onScroll(event: Event) {
-    const scrollLoadDelta = 300;
-    if((window.innerHeight + window.scrollY + scrollLoadDelta) >= document.body.scrollHeight && !this.allLoaded) {
-      this.loadChunk(this.articles.length, 5);
-    }
-  }
+  scrollSubscription: Subscription;
 
   constructor(private articleService: ArticleService,
     private store: Store<{auth: AuthState}>) {
       this.token$ = store.select(selectToken);
+      this.scrollSubscription = fromEvent(window, "scroll").pipe(
+        filter(() => ((window.innerHeight + window.scrollY + 300) >= document.body.scrollHeight && !this.allLoaded)),
+        exhaustMap(() => {
+          console.log("LOAD MORE")
+          return this.loadChunk(this.articles.length, 5)
+        })
+      ).subscribe();
     }
   
   ngOnInit(): void {
     this.resetList();
+  }
+
+  ngOnDestroy(): void {
+    this.scrollSubscription.unsubscribe();
   }
 
   setShowPublished(event: boolean) {
@@ -54,13 +59,15 @@ export class ArticleListComponent implements OnInit {
   resetList() {
     this.articles = [];
     this.allLoaded = false;
-    this.loadChunk(0, 5);
+    this.loadChunk(0, 5).subscribe();
   }
 
   deleteArticle(id: number) {
+    console.log("DELETE ARTICLE")
     this.articleService.deleteArticle(id).pipe(
-      map(() => {this.loadChunk(0, this.articles.length)})
-    );
+      map(() => {this.loadChunk(0, this.articles.length).pipe(first()).subscribe()}),
+      first()
+    ).subscribe();
   }
 
   createArticle() {
@@ -69,24 +76,28 @@ export class ArticleListComponent implements OnInit {
     );
   }
 
-  loadChunk(offset: number, amount: number) {
-    this.articleService.getArticles(offset, amount, this.showPublished, this.showUnpublished)
-    .subscribe(response => {
-      if (offset > this.articles.length) {
-        throw new Error("Tried to merge out of bound chunk! Articles: " + this.articles.length + " Offset: " + offset);
-      }
-      this.checkHeader(response);
-      if (response.body != null) {
-        let articleids = response.body.data;
-        if (amount > articleids.length) {
-          this.allLoaded = true;
+  loadChunk(offset: number, amount: number): Observable<number[]> {
+    return new Observable((subscriber) => {
+      this.articleService.getArticles(offset, amount, this.showPublished, this.showUnpublished)
+      .subscribe(response => {
+        if (offset > this.articles.length) {
+          subscriber.complete();
+          throw new Error("Tried to merge out of bound chunk! Articles: " + this.articles.length + " Offset: " + offset);
         }
-        for (let i = 0; i < articleids.length; i++) {
-          let article = new Article(articleids[i]);
-          this.articles[i + offset] = article;
-          this.loadMetadata(article);
+        this.checkHeader(response);
+        if (response.body != null) {
+          let articleids = response.body.data;
+          if (amount > articleids.length) {
+            this.allLoaded = true;
+          }
+          for (let i = 0; i < articleids.length; i++) {
+            let article = new Article(articleids[i]);
+            this.articles[i + offset] = article;
+            this.loadMetadata(article);
+          }
         }
-      }
+        subscriber.complete();
+      });
     })
   }
 
@@ -106,6 +117,7 @@ export class ArticleListComponent implements OnInit {
     if (lastmodheader != null) {
       let unixtimestamp = Date.parse(lastmodheader);
       if (this.lastModified != 0 && unixtimestamp > this.lastModified) {
+        console.log("RELOADING EVERYTHING")
         this.loadChunk(0, this.articles.length);
       }
       this.lastModified = unixtimestamp;
