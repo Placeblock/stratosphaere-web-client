@@ -6,21 +6,16 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { first,  Observable, switchMap } from 'rxjs';
-import { AuthState } from '../state/auth/auth.reducer';
-import { Store } from '@ngrx/store';
-import { selectToken } from '../state/auth/auth.selector';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
-  authToken$
 
-  constructor(store: Store<{auth: AuthState}>) {
-    this.authToken$ = store.select(selectToken)
-  }
+  constructor(private authService: AuthService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     
-    return this.authToken$.pipe(
+    return this.authService.$token.pipe(
       first(),
       switchMap(token => {
         const authReq = !!token ? request.clone({

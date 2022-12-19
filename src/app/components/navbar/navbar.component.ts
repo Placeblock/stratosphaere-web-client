@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { AuthState } from 'src/app/state/auth/auth.reducer';
-import { selectToken } from 'src/app/state/auth/auth.selector';
+import { first, Observable } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthActions } from 'src/app/state/auth/auth.actions';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -14,7 +11,6 @@ import { AuthActions } from 'src/app/state/auth/auth.actions';
 })
 export class NavbarComponent {
   showLogin: boolean = false;
-  token$: Observable<string | null>
 
   loginForm = this.fb.group({
     username: ['', [Validators.required, Validators.maxLength(50)]],
@@ -22,23 +18,24 @@ export class NavbarComponent {
   });
 
 
-  constructor(private fb: FormBuilder, private store: Store<{auth: AuthState}>) {
-    this.token$ = store.select(selectToken)
-  }
+  constructor(private fb: FormBuilder, public authService: AuthService) {}
 
   toggleShowLogin() {
     this.showLogin = !this.showLogin;
   }
 
   logOut() {
-    this.store.dispatch(AuthActions.authLogout())
+    this.authService.token = null;
   }
 
   logIn() {
+    if (!this.loginForm.valid) return;
     let username = this.loginForm.get("username")?.value;
     let password = this.loginForm.get("password")?.value;
-    if (password == null || username == null) return;
-    this.store.dispatch(AuthActions.authLogin({username: username, password: password}))
+    if (username == null || password == null) return;
+    this.authService.auth(username, password).pipe(first()).subscribe(response => {
+      this.authService.token = response.data;
+    })
     this.showLogin = false;
   }
 

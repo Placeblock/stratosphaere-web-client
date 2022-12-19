@@ -1,7 +1,0 @@
-<app-post-preview [article]="article"></app-post-preview>
-<div id="controls">
-    <button class="button" id="revert-button" *ngIf="article.metadata.published" (click)="revert()">Zurückrufen <span *ngIf="publishRevertCount != 0">{{publishRevertCount}}/5</span></button>
-    <button class="button" id="revert-button" *ngIf="!article.metadata.published" (click)="publish()">Veröffentlichen <span *ngIf="publishRevertCount != 0">{{publishRevertCount}}/5</span></button>
-    <button class="button" id="edit-button" [routerLink]="['edit', article.id]">Edit</button>
-    <button class="button" id="delete-button" (click)="delete()">Delete <span *ngIf="deleteCount != 0">{{deleteCount}}/5</span></button>
-</div>

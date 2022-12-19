@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { AuthService } from './services/auth.service';
 import { CookieService } from './services/cookie.service';
-import { AuthActions } from './state/auth/auth.actions';
-import { AuthState } from './state/auth/auth.reducer';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +10,12 @@ import { AuthState } from './state/auth/auth.reducer';
 export class AppComponent implements OnInit {
   title = 'stratosphaere-web-client';
 
-  constructor(private cookieService: CookieService, private store: Store<{auth: AuthState}>) {}
+  constructor(private cookieService: CookieService, private authService: AuthService) {}
 
   ngOnInit() {
     let token = this.cookieService.getCookie("authToken")
     if (token != "") {
-      this.store.dispatch(AuthActions.authSuccess({token: token}))
+      this.authService.token = token;
     }
   }
 }

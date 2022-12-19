@@ -1,14 +1,9 @@
 import { HttpResponse } from '@angular/common/http';
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { catchError, exhaustMap, filter, first, fromEvent, last, map, Observable, of, Subscription, switchMap, throwError } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { exhaustMap, filter, first, fromEvent, map, Observable, Subscription } from 'rxjs';
 import { Article } from 'src/app/classes/article';
 import { ArticleService } from 'src/app/services/article.service';
-import { ArticleActions } from 'src/app/state/article/article.actions';
-import { ArticleState } from 'src/app/state/article/article.reducer';
-import { selectAllLoaded, selectArticles } from 'src/app/state/article/article.selector';
-import { AuthState } from 'src/app/state/auth/auth.reducer';
-import { selectToken } from 'src/app/state/auth/auth.selector';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-article-list',
@@ -16,8 +11,6 @@ import { selectToken } from 'src/app/state/auth/auth.selector';
   styleUrls: ['./article-list.component.scss']
 })
 export class ArticleListComponent implements OnInit, OnDestroy {
-  token$: Observable<string | null>
-
   showPublished: boolean = true;  
   showUnpublished: boolean = true;
   lastModified: number = 0;
@@ -26,13 +19,10 @@ export class ArticleListComponent implements OnInit, OnDestroy {
 
   scrollSubscription: Subscription;
 
-  constructor(private articleService: ArticleService,
-    private store: Store<{auth: AuthState}>) {
-      this.token$ = store.select(selectToken);
+  constructor(private articleService: ArticleService, public authService: AuthService) {
       this.scrollSubscription = fromEvent(window, "scroll").pipe(
         filter(() => ((window.innerHeight + window.scrollY + 300) >= document.body.scrollHeight && !this.allLoaded)),
         exhaustMap(() => {
-          console.log("LOAD MORE")
           return this.loadChunk(this.articles.length, 5)
         })
       ).subscribe();
@@ -65,7 +55,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
   deleteArticle(id: number) {
     console.log("DELETE ARTICLE")
     this.articleService.deleteArticle(id).pipe(
-      map(() => {this.loadChunk(0, this.articles.length).pipe(first()).subscribe()}),
+      map(() => {this.loadChunk(0, this.articles.length).subscribe()}),
       first()
     ).subscribe();
   }
@@ -77,6 +67,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
   }
 
   loadChunk(offset: number, amount: number): Observable<number[]> {
+    console.log("LOADING CHUNK: " + offset + " | " + amount);
     return new Observable((subscriber) => {
       this.articleService.getArticles(offset, amount, this.showPublished, this.showUnpublished)
       .subscribe(response => {

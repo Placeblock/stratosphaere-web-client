@@ -1,12 +1,12 @@
 <a routerLink="/" id="logo">Projekt Solis</a>
 <div id="links">
-    <a *ngIf="(token$ | async) != null" routerLink="/blog/creator">Creator</a>
-    <a *ngIf="(token$ | async) != null" (click)="logOut()">Logout</a>
-    <a *ngIf="(token$ | async) == null" (click)="toggleShowLogin()">Login</a>
+    <a *ngIf="(this.authService.$token | async) != null" routerLink="/blog/creator">Creator</a>
+    <a *ngIf="(this.authService.$token | async) != null" (click)="logOut()">Logout</a>
+    <a *ngIf="(this.authService.$token | async) == null" (click)="toggleShowLogin()">Login</a>
     <a routerLink="/blog">Blog</a>
     <a routerLink="/live">Live</a>
 </div>
-<div id="login-container" *ngIf="(token$ | async) == null && this.showLogin">
+<div id="login-container" *ngIf="(this.authService.$token | async) == null && this.showLogin">
     <form [formGroup]="loginForm" (ngSubmit)="logIn()">
         <label for="name">Name:</label>
         <input [ngClass]="username?.invalid ? 'input-invalid' : ''" id="name" placeholder="Name" formControlName="username">
