@@ -1,6 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { exhaustMap, filter, first, fromEvent, map, Observable, Subscription } from 'rxjs';
+import { APIResponse } from 'src/app/classes/apiresponse';
 import { Article } from 'src/app/classes/article';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -75,21 +76,33 @@ export class ArticleListComponent implements OnInit, OnDestroy {
           subscriber.complete();
           throw new Error("Tried to merge out of bound chunk! Articles: " + this.articles.length + " Offset: " + offset);
         }
-        this.checkHeader(response);
-        if (response.body != null) {
-          let articleids = response.body.data;
-          if (amount > articleids.length) {
-            this.allLoaded = true;
-          }
-          for (let i = 0; i < articleids.length; i++) {
-            let article = new Article(articleids[i]);
-            this.articles[i + offset] = article;
-            this.loadMetadata(article);
-          }
-        }
+        this.proccessChunk(offset, amount, response);
         subscriber.complete();
       });
     })
+  }
+
+  proccessChunk(offset: number, amount: number, response: HttpResponse<APIResponse<number[]>>) {
+    let lastmodheader = response.headers.get("Last-Modified");
+    if (lastmodheader != null) {
+      let unixtimestamp = Date.parse(lastmodheader);
+      if (offset != 0 && amount < this.articles.length && this.lastModified != 0 && unixtimestamp > this.lastModified) {
+        console.log("RELOADING EVERYTHING")
+        this.loadChunk(0, this.articles.length);
+      }
+      this.lastModified = unixtimestamp;
+    }
+    if (response.body != null) {
+      let articleids = response.body.data;
+      if (amount > articleids.length) {
+        this.allLoaded = true;
+      }
+      for (let i = 0; i < articleids.length; i++) {
+        let article = new Article(articleids[i]);
+        this.articles[i + offset] = article;
+        this.loadMetadata(article);
+      }
+    }
   }
 
   loadMetadata(article: Article) {
@@ -103,16 +116,5 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     });
   }
 
-  checkHeader(response: HttpResponse<any>) {
-    let lastmodheader = response.headers.get("Last-Modified");
-    if (lastmodheader != null) {
-      let unixtimestamp = Date.parse(lastmodheader);
-      if (this.lastModified != 0 && unixtimestamp > this.lastModified) {
-        console.log("RELOADING EVERYTHING")
-        this.loadChunk(0, this.articles.length);
-      }
-      this.lastModified = unixtimestamp;
-    }
-  }
 
 }
