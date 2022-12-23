@@ -24,7 +24,7 @@ import { SharedModule } from './modules/shared/shared.module';
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    SharedModule,
+    SharedModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true}

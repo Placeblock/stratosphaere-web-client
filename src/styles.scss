@@ -1,4 +1,6 @@
-@import "../node_modules/prosemirror-view/style/prosemirror.css";
+@import '~quill/dist/quill.snow.css';
+@import '~highlight.js/styles/atom-one-dark.css';
+@import '~node_modules/katex/dist/katex.min.css';
 
 @font-face {
     font-family: roboto;
@@ -85,37 +87,15 @@ body, html {
     100% { transform: rotate(360deg); }
 }
 
-.ql-editor, .ql-view {
-    padding: 25px;
+.menubar {
+    margin: 10px 0px 30px 0px;
 }
 
-.ql-container {
-    font-size: 19px;
-    color: #283138;
+.menuicon {
+    background-color: rgb(206, 206, 206);
+    padding: 5px;
+    border-radius: 5px;
+    &:hover {
+        cursor: pointer;
+    }
 }
-
-.ql-container p, li {
-    line-height: 1.6em;
-}
-
-.ql-container h1, .ql-container h2 {
-    color: black;
-}
-
-.ql-container h1 {
-    font-size: 32px;
-    line-height: 2.5em;
-}
-
-.ql-container h2 {
-    line-height: 1.8em;
-}
-
-.ql-container img, .ql-container iframe {
-    border-radius: 10px;
-}
-
-.ql-syntax {
-    font-size: 15px;
-}
-

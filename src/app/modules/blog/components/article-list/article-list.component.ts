@@ -98,7 +98,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
         this.allLoaded = true;
       }
       for (let i = 0; i < articleids.length; i++) {
-        let article = new Article(articleids[i]);
+        let article = new Article(articleids[i], null, null, null, null, null, null, null);
         this.articles[i + offset] = article;
         this.loadMetadata(article);
       }
@@ -112,7 +112,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
       article.description = res.data.description;
       article.author = res.data.author;
       article.published = res.data.published;
-      article.publish_date = new Date(Date.parse(res.data.publish_date));
+      article.publish_date = res.data.publish_date;
     });
   }
 

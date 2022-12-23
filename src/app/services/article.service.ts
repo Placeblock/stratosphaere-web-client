@@ -3,6 +3,7 @@ import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Article } from '../classes/article';
 import { environment } from 'src/environments/environment';
 import { APIResponse } from '../classes/apiresponse';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,13 @@ export class ArticleService {
     private http: HttpClient)
   {}
 
-  getArticle(id: number, fields: string[]) {
+  getArticle(id: number, fields: string[]): Observable<APIResponse<Article>> {
     let params = new HttpParams();
     params = params.append("fields", fields.join(','))
     const options = {headers: environment.requestHeaders, params: params}
-    return this.http.get<APIResponse<any>>(this.articlesUrl + "/" + id, options)
+    return this.http.get<APIResponse<any>>(this.articlesUrl + "/" + id, options).pipe(
+      map(res => {return {...res, data: {...res.data, publish_date: new Date(Date.parse(res.data.publish_date))}}})
+    )
   }
 
   getArticles(offset: number, amount: number, showPublished: boolean, showUnpublished: boolean) {

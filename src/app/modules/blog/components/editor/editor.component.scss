@@ -1,0 +1,70 @@
+#post-editor {
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+
+    input {
+        border: none;
+        background-color: transparent;
+    }
+
+    label {
+        color: gray;
+    }
+
+    #banner {
+        position: relative;
+        border-radius: 5px;
+        height: 250px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: white;
+        display: flex;
+        padding: 10px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+        #title-input {
+            color: white;
+            font-size: 32pt;
+        }
+
+        #backButton {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+        }
+    }
+
+    #metadata {
+        margin: 10px;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    #settings{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    #save-settings {
+        display: flex;
+        gap: 10px;
+    }
+
+    #edit-button {
+        color: gray;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    #description-input, #cover-image-input {
+        margin-bottom: 10px;
+        font-size: 16px;
+        width: 100%;
+    }
+}

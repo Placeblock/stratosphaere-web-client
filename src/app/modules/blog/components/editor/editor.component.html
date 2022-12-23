@@ -1,0 +1,35 @@
+
+<form id="post-editor" [formGroup]="editForm">
+    <div id="settings">
+        <fa-icon id="edit-button" [icon]="faEdit" (click)="this.edit = !this.edit"></fa-icon>
+        <div id="save-settings" *ngIf="this.edit">
+            <p>Autosave:</p>
+            <label class="switch">
+                <input type="checkbox" [checked]="autoSave" (change)="autoSave = !autoSave">
+                <span class="slider"></span>
+            </label>
+            <button *ngIf="!autoSave" class="button" (click)="save()">Speichern (Ctrl + S)</button>
+            <div class="loader" *ngIf="this.editing"></div>
+        </div>
+    </div>
+
+    <ng-container *ngIf="this.edit">
+        <label for="description-input">Beschreibung</label>
+        <input id="description-input" placeholder="Post Beschreibung" formControlName="description">
+        <label for="description-input">Hintergrund Bild</label>
+        <input id="cover-image-input" placeholder="Banner Hintergrund" type="url" formControlName="cover_image_url">
+    </ng-container>
+
+    <div id="banner" [ngStyle]="{'background-image': 'url(' + this.editForm.value.cover_image_url + ')'}">
+        <button class="button" [routerLink]="['/blog/']" id="backButton">Zurück</button>
+        <h1 *ngIf="!this.edit">{{this.editForm.controls["title"].value}}</h1>
+        <h1 *ngIf="this.edit" formControlName="title" contenteditable="true"></h1>
+    </div>
+
+    <app-article-metadata id="metadata" *ngIf="this.article" [article]="this.article"></app-article-metadata>
+
+    <form *ngIf="this.edit" [formGroup]="editForm">
+        <quill-editor [modules]="this.modules" formControlName="content"></quill-editor>
+    </form>
+    <quill-view *ngIf="!this.edit" [content]="this.editForm.value.content" [modules]="this.modules"></quill-view>
+</form>

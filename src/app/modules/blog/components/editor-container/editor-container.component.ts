@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-editor-container',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./editor-container.component.scss']
 })
 export class EditorContainerComponent {
-
+  faEdit = faEdit
 }
