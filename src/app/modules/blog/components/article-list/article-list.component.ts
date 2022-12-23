@@ -98,7 +98,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
         this.allLoaded = true;
       }
       for (let i = 0; i < articleids.length; i++) {
-        let article = new Article(articleids[i], null, null, null, null, null, null, null);
+        let article = new Article(articleids[i], null, null, null, null, null, null, null, null);
         this.articles[i + offset] = article;
         this.loadMetadata(article);
       }

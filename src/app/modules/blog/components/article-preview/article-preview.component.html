@@ -1,4 +1,4 @@
-<div id="content">
+<div id="content" [routerLink]="[this.article.id]">
     <div id="info">
         <h1 id="name">{{article.title}} | {{article.id}}</h1>
         <app-article-metadata [article]="article" id="metadata"></app-article-metadata>

@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Article } from 'src/app/classes/article';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-article-preview',
@@ -17,7 +18,7 @@ export class ArticlePreviewComponent implements OnInit {
   showDeleteModal: boolean = false;
   afterMathForm: FormControl = new FormControl(false)
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     if (this.article.id == 36) {

@@ -20,7 +20,7 @@ export class ArticleService {
     params = params.append("fields", fields.join(','))
     const options = {headers: environment.requestHeaders, params: params}
     return this.http.get<APIResponse<any>>(this.articlesUrl + "/" + id, options).pipe(
-      map(res => {return {...res, data: {...res.data, publish_date: new Date(Date.parse(res.data.publish_date))}}})
+      map(res => {return {...res, data: Article.deserialize(res.data)}})
     )
   }
 
@@ -45,12 +45,14 @@ export class ArticleService {
   
   editArticle(article: Article) {
     const options = {headers: environment.requestHeaders}
-    return this.http.put<APIResponse<null>>(this.articlesUrl + "/" + article.id, article, options)
+    return this.http.put<APIResponse<null>>(this.articlesUrl + "/" + article.id, article.serialize(), options)
   }
 
-  publishArticle(id: number, publish: boolean) {
+  publishArticle(id: number, publish: boolean): Observable<APIResponse<Date>> {
     const options = {headers: environment.requestHeaders}
-    return this.http.put<APIResponse<number>>(this.articlesUrl + "/" + id + "/publish", {"publish": publish}, options)
+    return this.http.put<APIResponse<string>>(this.articlesUrl + "/" + id + "/publish", {"publish": publish}, options).pipe(
+      map(res => {return {...res, data: new Date(Date.parse(res.data))}})
+    )
   }
 
 

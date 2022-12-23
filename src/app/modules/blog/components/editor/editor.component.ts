@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import hljs from 'highlight.js'
-import { debounceTime, distinctUntilChanged, first, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, first, skip, Subscription } from 'rxjs';
 import { Article } from 'src/app/classes/article';
 import { ArticleService } from 'src/app/services/article.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 hljs.configure({
   languages: ['javascript', 'typescript', 'html', 'css', 'typescript', 'scss', 'sql', 'JSON', 'go']
@@ -16,33 +17,31 @@ hljs.configure({
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss']
 })
-export class EditorComponent implements OnInit {
+export class EditorComponent implements AfterViewInit, OnDestroy {
   faEdit = faEdit;
-  edit: boolean = true;
+  edit: boolean = false;
   modules = {};
   editForm: FormGroup = this.fb.group({
     content: [''],
     title: [''],
     description: [''],
     cover_image_url: ['']
-  });  
+  });   
   article: Article | undefined;
   editing: boolean = false;
   autoSave: boolean = true;
   autoSaveSubscription: Subscription | undefined
   lastSaved!: string;
 
-  constructor(private fb: FormBuilder, private articleService: ArticleService, private activatedRoute: ActivatedRoute) {
+  showVisibilityModal: boolean = false;
+
+  constructor(private fb: FormBuilder, private articleService: ArticleService, public authService: AuthService, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe(params => {
       const articleID = params['id'];
       this.articleService.getArticle(articleID, ["id", "content", "publish_date", "title", "description", "author", "cover_image_url", "published"])
       .pipe(first()).subscribe(result => {
-        console.log(result.data);
+        this.editForm.patchValue(result.data, {emitEvent: false});
         this.article = result.data;
-        this.editForm.controls["content"].setValue(this.article.content);
-        this.editForm.controls["title"].setValue(this.article.title);
-        this.editForm.controls["description"].setValue(this.article.description);
-        this.editForm.controls["cover_image_url"].setValue(this.article.cover_image_url);
       })
     });
     this.modules = {
@@ -67,35 +66,47 @@ export class EditorComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+  ngOnDestroy(): void {
+    this.autoSaveSubscription?.unsubscribe();
+  }
+
+  ngAfterViewInit(): void {
     this.autoSaveSubscription = this.editForm
     .valueChanges.pipe(
       debounceTime(1000),
-      distinctUntilChanged()
-    )
-    .subscribe(() => {
+      skip(1),
+      distinctUntilChanged(),
+    ).subscribe(() => {
       if (this.autoSave) {
-        //this.save();
+        this.save();
       }
     })
+  }
+
+  visibility() {
+    if (this.article == undefined) return;
+    this.articleService.publishArticle(this.article.id, !this.article.published).pipe(first()).subscribe(result => {
+      if (this.article == undefined) return;
+      this.article.published = !this.article?.published;
+      this.article.publish_date = result.data;
+    });
   }
 
   save() {
     if (this.article != undefined && this.editForm.value != this.lastSaved) {
       this.lastSaved = this.editForm.value;
-      let title = this.editForm.value.title
-      let description = this.editForm.value.description
-      let content = this.editForm.value.content
-      let cover_image_url = this.editForm.value.cover_image_url
+      this.article.title = this.editForm.value.title
+      this.article.description = this.editForm.value.description
+      this.article.content = this.editForm.value.content
+      this.article.cover_image_url = this.editForm.value.cover_image_url
       this.editing = true;
-      this.articleService.editArticle({...this.article, 
-        title: title, 
-        content: content, 
-        description: description, 
-        cover_image_url: cover_image_url}
-      ).pipe(first()).subscribe(() => {
+      this.articleService.editArticle(this.article).pipe(first()).subscribe(() => {
         this.editing = false;
       });
     }
+  }
+
+  getVisibilityText(): string {
+    return this.article?.published ? "Zurückziehen" : "Veröffentlichen"
   }
 }
