@@ -31,33 +31,36 @@
             padding: 10px;
             border: 1px solid white;
         }
-
-        #controls {
+        #back-button {
             position: absolute;
-            left: 0px;
-            top: 0px;
-            width: 100%;
+            top: 20px;
+            left: 20px;
+        }
+        #edit-buttons {
+            display: flex;
+            gap: 10px;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+        #settings{
+            position: absolute;
             display: flex;
             align-items: center;
-            padding: 20px;
-            justify-content: space-between;
-            #buttons {
+            gap: 20px;
+            top: 20px;
+            right: 20px;
+            #save-settings {
                 display: flex;
-                gap: 20px;
+                gap: 10px;
             }
-            #settings{
-                display: flex;
-                gap: 20px;
-                #save-settings {
-                    display: flex;
-                    gap: 10px;
-                }
-                #edit-button:hover {
+            #edit-button {
+                font-size: 20px;
+                &:hover {
                     cursor: pointer;
                 }
             }
         }
-
     }
 
     #content {

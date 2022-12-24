@@ -14,23 +14,21 @@
 </app-aftermath-modal>
 <form id="post-editor" [formGroup]="editForm">
     <div id="banner" [ngStyle]="{'background-image': 'url(' + this.editForm.value.cover_image_url + ')'}">
-        <div id="controls">
-            <div id="buttons">
-                <button class="button" [routerLink]="['/blog/']" id="backButton">Zurück</button>
-                <button *ngIf="this.edit" class="button" (click)="this.showVisibilityModal = true">{{this.getVisibilityText()}}</button>
-                <button *ngIf="!this.autoSave && this.edit" class="button" (click)="save()">Speichern (Ctrl + S)</button>
+        <button class="button" id="back-button" [routerLink]="['/blog/']">Zurück</button>
+        <div id="settings">
+            <div id="save-settings" *ngIf="this.edit">
+                <p>Autosave:</p>
+                <label class="switch">
+                    <input type="checkbox" [checked]="autoSave" (change)="autoSave = !autoSave">
+                    <span class="slider"></span>
+                </label>
+                <div class="loader" *ngIf="this.editing"></div>
             </div>
-            <div id="settings">
-                <div id="save-settings" *ngIf="this.edit">
-                    <p>Autosave:</p>
-                    <label class="switch">
-                        <input type="checkbox" [checked]="autoSave" (change)="autoSave = !autoSave">
-                        <span class="slider"></span>
-                    </label>
-                    <div class="loader" *ngIf="this.editing"></div>
-                </div>
-                <fa-icon id="edit-button" *ngIf="this.authService.$token | async" [icon]="faEdit" (click)="this.edit = !this.edit"></fa-icon>
-            </div>
+            <fa-icon id="edit-button" *ngIf="this.authService.$token | async" [icon]="faEdit" (click)="this.edit = !this.edit"></fa-icon>
+        </div>            
+        <div id="edit-buttons">
+            <button *ngIf="this.edit" class="button" (click)="this.showVisibilityModal = true">{{this.getVisibilityText()}}</button>
+            <button *ngIf="!this.autoSave && this.edit" class="button" (click)="save()">Speichern (Ctrl + S)</button>
         </div>
         <h1 id="title" *ngIf="!this.edit">{{this.editForm.controls["title"].value}}</h1>
         <h1 id="title" *ngIf="this.edit" formControlName="title" contenteditable="true"></h1>
