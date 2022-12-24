@@ -3,6 +3,7 @@ import { Article } from 'src/app/classes/article';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-article-preview',
@@ -17,7 +18,7 @@ export class ArticlePreviewComponent implements OnInit {
 
   showDeleteModal: boolean = false;
 
-  constructor() {}
+  constructor(public authService: AuthService) {}
 
   ngOnInit(): void {
     if (this.article.id == 36) {

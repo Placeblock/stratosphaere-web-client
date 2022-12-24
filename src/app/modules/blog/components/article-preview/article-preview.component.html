@@ -5,7 +5,7 @@
         <p id="description">{{article.description}}</p>
     </div>
 </div>
-<button id="delete" (click)="this.showDeleteModal = true"><fa-icon class="icon" [icon]="faTrash"></fa-icon></button>
+<button id="delete" *ngIf="this.authService.$token | async" (click)="this.showDeleteModal = true"><fa-icon class="icon" [icon]="faTrash"></fa-icon></button>
 <app-aftermath-modal *ngIf="this.showDeleteModal" 
     (close)="this.showDeleteModal = false" 
     (confirm)="this.deleteEmitter.emit()"
