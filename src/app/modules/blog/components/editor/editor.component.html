@@ -46,8 +46,11 @@
         <app-article-metadata id="metadata" *ngIf="this.article" [article]="this.article"></app-article-metadata>
         
         <div id="editor">
-            <quill-editor [style.display]="this.edit ? 'block':'none'" [modules]="this.modules" formControlName="content"></quill-editor>
-            <quill-view [style.display]="this.edit ? 'none':'block'" [content]="this.editForm.value.content" [modules]="this.modules"></quill-view>
+            <quill-editor [style.display]="this.edit ? 'block':'none'" 
+                [modules]="this.editorModules" 
+                formControlName="content"
+                (onEditorCreated)="editorCreated($event)"></quill-editor>
+            <quill-view [style.display]="this.edit ? 'none':'block'" [content]="this.editForm.value.content" [modules]="this.viewModules"></quill-view>
         </div>
     </div>
 </form>

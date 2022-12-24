@@ -10,6 +10,7 @@ import { map, Observable } from 'rxjs';
 })
 export class ArticleService {
   articlesUrl = environment.baseUrl + '/blog/articles'
+  imageUrl = environment.baseUrl + '/blog/image'
 
   constructor(
     private http: HttpClient)
@@ -55,5 +56,10 @@ export class ArticleService {
     )
   }
 
+  uploadImage(file: File): Observable<APIResponse<string>> {
+    let formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    return this.http.post<APIResponse<string>>(this.imageUrl, formData);
+  }
 
 }

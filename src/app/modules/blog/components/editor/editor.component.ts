@@ -7,6 +7,16 @@ import { debounceTime, distinctUntilChanged, first, skip, Subscription } from 'r
 import { Article } from 'src/app/classes/article';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
+import BlotFormatter from 'quill-blot-formatter';
+import Quill from 'quill';
+import { CustomImage, CustomVideo, getEditorModules, getViewModules } from 'src/app/classes/editor';
+
+import QuillImageDropAndPaste, { ImageData as QuillImageData } from 'quill-image-drop-and-paste';
+
+Quill.register('modules/blotFormatter', BlotFormatter);
+Quill.register('formats/video', CustomVideo);
+Quill.register('formats/image', CustomImage);
+Quill.register('modules/imageDropAndPaste', QuillImageDropAndPaste);
 
 @Component({
   selector: 'app-editor',
@@ -16,7 +26,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class EditorComponent implements AfterViewInit, OnDestroy {
   faEdit = faEdit;
   edit: boolean = false;
-  modules = {};
+  editorModules = {};
+  viewModules = {};
   editForm: FormGroup = this.fb.group({
     content: [''],
     title: [''],
@@ -28,6 +39,8 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   autoSave: boolean = true;
   autoSaveSubscription: Subscription | undefined
   lastSaved!: string;
+
+  quill!: Quill;
 
   showVisibilityModal: boolean = false;
 
@@ -43,26 +56,55 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
         this.article = result.data;
       })
     });
-    this.modules = {
-      'formula': true,
-      'syntax': {
-        highlight: (text: string) => {
-          return hljs.highlightAuto(text).value;
-        },
-      },
-      'toolbar': {
-        container: [[{ 'font': [] }, { 'size': [] }],
-          [ 'bold', 'italic', 'underline', 'strike' ],
-          [{ 'color': [] }, { 'background': [] }],
-          [{ 'script': 'super' }, { 'script': 'sub' }],
-          [{ 'header': '1' }, { 'header': '2' }, 'blockquote', 'code-block' ],
-          [{ 'list': 'ordered' }, { 'list': 'bullet'}, { 'indent': '-1' }, { 'indent': '+1' }],
-          [ 'direction', { 'align': [] }],
-          [ 'link', 'image', 'video', 'formula' ],
-          [ 'clean' ],
-        ]
+    this.editorModules = {...getEditorModules(), "imageDropAndPaste": {"handler": this.imageHandler.bind(this)}};
+    this.viewModules = getViewModules();
+  }
+
+  editorCreated(quill: Quill) {
+    this.quill = quill;
+    quill.getModule("toolbar").addHandler("image", this.selectLocalImage.bind(this));
+  }
+
+  selectLocalImage() {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.click();
+    var _me = this;
+    input.onchange = function() {
+      if (input.files == null) return;
+      const file = input.files[0];
+      if (/^image\//.test(file.type)) {
+        _me.saveToServer(file);
       }
     }
+  }
+
+  saveToServer(file: File) {
+    this.articleService.uploadImage(file).pipe(first()).subscribe(result => {
+      console.log(result);
+      this.insertToEditor(result.data);
+    })
+  }
+
+  insertToEditor(url: string) {
+    // push image url to rich editor.
+    const range = this.quill.getSelection();
+    if (range == null) return;
+    this.quill.insertEmbed(range.index, 'image', url);
+  }
+
+  imageHandler(dataUrl: string, type: string, imageData: any) {
+    imageData
+      .minify({
+        maxWidth: 1280,
+        maxHeight: 1280,
+        quality: 0.7,
+      })
+      .then((miniImageData: any) => {
+        const file: File | null = miniImageData.toFile(miniImageData["name"]);
+        if (file == null) return;
+        this.saveToServer(file);
+      });
   }
 
   ngOnDestroy(): void {
