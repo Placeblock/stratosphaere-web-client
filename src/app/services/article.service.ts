@@ -4,6 +4,7 @@ import { Article } from '../classes/article';
 import { environment } from 'src/environments/environment';
 import { APIResponse } from '../classes/apiresponse';
 import { map, Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class ArticleService {
   imageUrl = environment.baseUrl + '/blog/image'
 
   constructor(
-    private http: HttpClient)
+    private http: HttpClient,
+    private authService: AuthService)
   {}
 
   getArticle(id: number, fields: string[]): Observable<APIResponse<Article>> {
@@ -28,7 +30,8 @@ export class ArticleService {
   getArticles(offset: number, amount: number, showPublished: boolean, showUnpublished: boolean) {
     let params = new HttpParams();
     params = params.append("offset", offset).append("limit", amount)
-    .append("published", showPublished).append("unpublished", showUnpublished);
+    .append("published", showPublished).append("unpublished", showUnpublished)
+    .append("loggedin", this.authService.token != null);
     const options = {headers: environment.requestHeaders, params: params, observe: 'response' as 'response'}
     return this.http.get<APIResponse<number[]>>(this.articlesUrl, options)
   }

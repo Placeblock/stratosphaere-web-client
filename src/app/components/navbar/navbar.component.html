@@ -11,7 +11,7 @@
         <input [ngClass]="username?.invalid ? 'input-invalid' : ''" id="name" placeholder="Name" formControlName="username">
 
         <label for="password">Passwort:</label>
-        <input [ngClass]="password?.invalid ? 'input-invalid' : ''" id="password" placeholder="Passwort" formControlName="password">
+        <input type="password" [ngClass]="password?.invalid ? 'input-invalid' : ''" id="password" placeholder="Passwort" formControlName="password">
         <button [disabled]="username?.invalid || password?.invalid" type="submit">Anmelden</button>
     </form>
 </div>

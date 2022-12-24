@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { first, Observable } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { CookieService } from 'src/app/services/cookie.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class NavbarComponent {
   });
 
 
-  constructor(private fb: FormBuilder, public authService: AuthService) {}
+  constructor(private fb: FormBuilder, public authService: AuthService, private cookieService: CookieService) {}
 
   toggleShowLogin() {
     this.showLogin = !this.showLogin;
@@ -26,6 +27,7 @@ export class NavbarComponent {
 
   logOut() {
     this.authService.token = null;
+    this.cookieService.deleteCookie("authToken");
   }
 
   logIn() {
@@ -35,6 +37,7 @@ export class NavbarComponent {
     if (username == null || password == null) return;
     this.authService.auth(username, password).pipe(first()).subscribe(response => {
       this.authService.token = response.data;
+      this.cookieService.setCookie({"name":"authToken","value":response.data});
     })
     this.showLogin = false;
   }

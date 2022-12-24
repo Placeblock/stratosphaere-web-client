@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './article-list.component.html',
   styleUrls: ['./article-list.component.scss']
 })
-export class ArticleListComponent implements OnInit, OnDestroy {
+export class ArticleListComponent implements OnDestroy {
   showPublished: boolean = true;  
   showUnpublished: boolean = true;
   lastModified: number = 0;
@@ -20,22 +20,24 @@ export class ArticleListComponent implements OnInit, OnDestroy {
   articles: Article[] = [];
 
   scrollSubscription: Subscription;
+  tokenSubscription: Subscription;
 
   constructor(private articleService: ArticleService, public authService: AuthService, private router: Router, private route: ActivatedRoute) {
-      this.scrollSubscription = fromEvent(window, "scroll").pipe(
-        filter(() => ((window.innerHeight + window.scrollY + 300) >= document.body.scrollHeight && !this.allLoaded)),
-        exhaustMap(() => {
-          return this.loadChunk(this.articles.length, 5)
-        })
-      ).subscribe();
-    }
-  
-  ngOnInit(): void {
-    this.resetList();
+    this.scrollSubscription = fromEvent(window, "scroll").pipe(
+      filter(() => ((window.innerHeight + window.scrollY + 300) >= document.body.scrollHeight && !this.allLoaded)),
+      exhaustMap(() => {
+        return this.loadChunk(this.articles.length, 5)
+      })
+    ).subscribe();
+    this.tokenSubscription = this.authService.$token.subscribe(() => {
+      console.log("TOKEN CHANGED")
+      this.resetList();
+    })
   }
 
   ngOnDestroy(): void {
     this.scrollSubscription.unsubscribe();
+    this.tokenSubscription.unsubscribe();
   }
 
   setShowPublished(event: boolean) {

@@ -3,17 +3,19 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpErrorResponse
 } from '@angular/common/http';
-import { first,  Observable, switchMap } from 'rxjs';
+import { catchError, first,  Observable, switchMap, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { NotificationService } from '../services/notification.service';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private notification: NotificationService) {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     
     return this.authService.$token.pipe(
       first(),
@@ -21,7 +23,14 @@ export class ApiInterceptor implements HttpInterceptor {
         const authReq = !!token ? request.clone({
           setHeaders: { Authorization: 'Bearer ' + token },
         }) : request;
-        return next.handle(authReq);
+        return next.handle(authReq).pipe(catchError((response: HttpErrorResponse) => {
+          if ("msg" in response.error) {
+            this.notification.error("Fehler!", response.error.msg, 5000);
+          } else {
+            this.notification.error("Fehler!", "Error while communicating to API", 5000);
+          }
+          return throwError(() => response)
+        }));
       })
     );
   }
