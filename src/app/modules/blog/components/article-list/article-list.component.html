@@ -1,6 +1,9 @@
 
 <app-page-wrapper>
-    <app-list-control *ngIf="this.authService.$token | async" (togglePublished)="this.setShowPublished($event)" (toggleUnpublished)="this.setShowUnpublished($event)"></app-list-control>
+    <app-list-control *ngIf="this.authService.$token | async" 
+        (togglePublished)="this.setShowPublished($event)" 
+        (toggleUnpublished)="this.setShowUnpublished($event)"
+        (newarticle)="this.createArticle()"></app-list-control>
 
     <div id="article-list">
         <app-article-preview *ngFor="let article of this.articles" [article]="article" (delete)="this.deleteArticle(article.id)"></app-article-preview>

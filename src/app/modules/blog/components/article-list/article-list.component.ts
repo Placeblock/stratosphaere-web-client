@@ -1,5 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { exhaustMap, filter, first, fromEvent, map, Observable, Subscription } from 'rxjs';
 import { APIResponse } from 'src/app/classes/apiresponse';
 import { Article } from 'src/app/classes/article';
@@ -20,7 +21,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
 
   scrollSubscription: Subscription;
 
-  constructor(private articleService: ArticleService, public authService: AuthService) {
+  constructor(private articleService: ArticleService, public authService: AuthService, private router: Router, private route: ActivatedRoute) {
       this.scrollSubscription = fromEvent(window, "scroll").pipe(
         filter(() => ((window.innerHeight + window.scrollY + 300) >= document.body.scrollHeight && !this.allLoaded)),
         exhaustMap(() => {
@@ -56,15 +57,17 @@ export class ArticleListComponent implements OnInit, OnDestroy {
   deleteArticle(id: number) {
     console.log("DELETE ARTICLE")
     this.articleService.deleteArticle(id).pipe(
-      map(() => {this.loadChunk(0, this.articles.length).subscribe()}),
-      first()
-    ).subscribe();
+      map(() => {
+        this.articles = [];
+        this.loadChunk(0, this.articles.length).subscribe()
+      }), first())
+    .subscribe();
   }
 
   createArticle() {
-    this.articleService.createArticle().pipe(
-      map(() => {this.loadChunk(0, this.articles.length + 1)})
-    );
+    this.articleService.createArticle().pipe(first()).subscribe(result => {
+      this.router.navigate([result.data.id], { relativeTo: this.route });
+    });
   }
 
   loadChunk(offset: number, amount: number): Observable<number[]> {
@@ -115,6 +118,5 @@ export class ArticleListComponent implements OnInit, OnDestroy {
       article.publish_date = res.data.publish_date;
     });
   }
-
 
 }

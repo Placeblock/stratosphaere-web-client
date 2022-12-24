@@ -32,8 +32,8 @@
                 <fa-icon id="edit-button" *ngIf="this.authService.$token | async" [icon]="faEdit" (click)="this.edit = !this.edit"></fa-icon>
             </div>
         </div>
-        <h1 *ngIf="!this.edit">{{this.editForm.controls["title"].value}}</h1>
-        <h1 *ngIf="this.edit" formControlName="title" contenteditable="true"></h1>
+        <h1 id="title" *ngIf="!this.edit">{{this.editForm.controls["title"].value}}</h1>
+        <h1 id="title" *ngIf="this.edit" formControlName="title" contenteditable="true"></h1>
     </div>
     <div id="content">
         <ng-container *ngIf="this.edit">

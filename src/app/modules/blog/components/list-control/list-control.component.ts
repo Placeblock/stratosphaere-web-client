@@ -8,6 +8,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class ListControlComponent {
   @Output('togglePublished') onTogglePublished = new EventEmitter<boolean>();
   @Output('toggleUnpublished') onToggleUnpublished = new EventEmitter<boolean>();
+  @Output('newarticle') newArticleEmitter = new EventEmitter<void>();
 
   constructor() { }
 
@@ -18,5 +19,8 @@ export class ListControlComponent {
   toggleUnpublished(event: any) {
     this.onToggleUnpublished.emit(event.target.checked);
   }
-
+  
+  newArticle() {
+    this.newArticleEmitter.emit();
+  }
 }

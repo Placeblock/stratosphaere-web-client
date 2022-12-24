@@ -16,25 +16,12 @@ export class ArticlePreviewComponent implements OnInit {
   @Output("delete") deleteEmitter = new EventEmitter<void>();
 
   showDeleteModal: boolean = false;
-  afterMathForm: FormControl = new FormControl(false)
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   ngOnInit(): void {
     if (this.article.id == 36) {
       this.showDeleteModal = true;
-    }
-  }
-
-  closeModal() {
-    this.afterMathForm.setValue(false);
-    this.showDeleteModal = false;
-  }
-
-  delete() {
-    if (this.afterMathForm.value == true) {
-      this.closeModal();
-      this.deleteEmitter.emit();
     }
   }
 

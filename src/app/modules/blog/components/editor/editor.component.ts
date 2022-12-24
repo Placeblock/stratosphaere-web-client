@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import hljs from 'highlight.js'
@@ -7,10 +7,6 @@ import { debounceTime, distinctUntilChanged, first, skip, Subscription } from 'r
 import { Article } from 'src/app/classes/article';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
-
-hljs.configure({
-  languages: ['javascript', 'typescript', 'html', 'css', 'typescript', 'scss', 'sql', 'JSON', 'go']
-})
 
 @Component({
   selector: 'app-editor',
@@ -36,6 +32,9 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   showVisibilityModal: boolean = false;
 
   constructor(private fb: FormBuilder, private articleService: ArticleService, public authService: AuthService, private activatedRoute: ActivatedRoute) {
+    hljs.configure({
+      languages: ['javascript', 'typescript', 'html', 'css', 'typescript', 'scss', 'sql', 'JSON', 'go']
+    })
     this.activatedRoute.params.subscribe(params => {
       const articleID = params['id'];
       this.articleService.getArticle(articleID, ["id", "content", "publish_date", "title", "description", "author", "cover_image_url", "published"])
@@ -60,7 +59,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
           [{ 'list': 'ordered' }, { 'list': 'bullet'}, { 'indent': '-1' }, { 'indent': '+1' }],
           [ 'direction', { 'align': [] }],
           [ 'link', 'image', 'video', 'formula' ],
-          [ 'clean' ]
+          [ 'clean' ],
         ]
       }
     }
