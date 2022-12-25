@@ -111,13 +111,14 @@ export class ArticleListComponent implements OnDestroy {
   }
 
   loadMetadata(article: Article) {
-    this.articleService.getArticle(article.id, ["title", "description", "author", "published", "publish_date"])
+    this.articleService.getArticle(article.id, ["id","title", "description", "author", "published", "publish_date", "cover_image_url"])
     .subscribe(res => {
       article.title = res.data.title;
       article.description = res.data.description;
       article.author = res.data.author;
       article.published = res.data.published;
       article.publish_date = res.data.publish_date;
+      article.cover_image_url = res.data.cover_image_url;
     });
   }
 

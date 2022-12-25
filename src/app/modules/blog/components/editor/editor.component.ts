@@ -3,13 +3,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import hljs from 'highlight.js'
-import { debounceTime, distinctUntilChanged, first, skip, Subscription } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, first, skip, Subscription, throwError } from 'rxjs';
 import { Article } from 'src/app/classes/article';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import BlotFormatter from 'quill-blot-formatter';
-import Quill from 'quill';
-import { CustomImage, CustomVideo, getEditorModules, getViewModules } from 'src/app/classes/editor';
+import Quill, { RangeStatic } from 'quill';
+import { CustomImage, CustomVideo, getEditorModules, getViewModules, PlaceholderImage } from 'src/app/classes/editor';
 
 import QuillImageDropAndPaste, { ImageData as QuillImageData } from 'quill-image-drop-and-paste';
 
@@ -17,6 +17,7 @@ Quill.register('modules/blotFormatter', BlotFormatter);
 Quill.register('formats/video', CustomVideo);
 Quill.register('formats/image', CustomImage);
 Quill.register('modules/imageDropAndPaste', QuillImageDropAndPaste);
+Quill.register('formats/imageUploadPlaceholder', PlaceholderImage);
 
 @Component({
   selector: 'app-editor',
@@ -68,6 +69,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   selectLocalImage() {
     const input = document.createElement('input');
     input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
     input.click();
     var _me = this;
     input.onchange = function() {
@@ -80,24 +82,40 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   }
 
   saveToServer(file: File) {
-    this.articleService.uploadImage(file).pipe(first()).subscribe(result => {
-      console.log(result);
-      this.insertToEditor(result.data);
+    const range = this.quill.getSelection(true);
+    this.quill.disable();
+    this.createImagePlaceholder(file, range);
+    this.articleService.uploadImage(file).pipe(first(), catchError(res => {
+      this.deleteImagePlaceholder(range);
+      return throwError(() => res);
+    })).subscribe(result => {
+      this.deleteImagePlaceholder(range);
+      this.quill.enable();
+      this.insertToEditor(result.data, range);
     })
   }
 
-  insertToEditor(url: string) {
-    // push image url to rich editor.
-    const range = this.quill.getSelection();
-    if (range == null) return;
-    this.quill.insertEmbed(range.index, 'image', url);
+  insertToEditor(url: string, range: RangeStatic) {
+    this.quill.insertEmbed(range.index, 'image', url, "user");
+  }
+
+  deleteImagePlaceholder(range: RangeStatic) {
+    this.quill.deleteText(range.index, 1, "api");
+  }
+
+  createImagePlaceholder(file: File, range: RangeStatic) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      console.log(this.quill.insertEmbed(range.index, 'imageUploadPlaceholder', reader.result, "api"));
+    }, false);
+    reader.readAsDataURL(file);
   }
 
   imageHandler(dataUrl: string, type: string, imageData: any) {
     imageData
       .minify({
-        maxWidth: 1280,
-        maxHeight: 1280,
+        maxWidth: 1024,
+        maxHeight: 1024,
         quality: 0.7,
       })
       .then((miniImageData: any) => {

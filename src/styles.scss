@@ -99,3 +99,18 @@ body, html {
         cursor: pointer;
     }
 }
+
+.image-uploading {
+    display: flex;
+    align-items: center;
+    flex-direction: center;
+    animation-name:  uploading-animation;
+    animation-duration: .25s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes uploading-animation {
+    from {filter: grayscale(0%);}
+    to {filter: grayscale(100%);}
+}

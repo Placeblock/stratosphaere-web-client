@@ -146,6 +146,6 @@ export class ContenteditableValueAccessorDirective
   private static processValue(value: unknown): string {
       const processed = String(value == null ? '' : value);
 
-      return processed.trim() === '<br>' ? '' : processed;
+      return processed.trim() === '<br>' ? '' : processed.replace("<br>","");
   }
 }

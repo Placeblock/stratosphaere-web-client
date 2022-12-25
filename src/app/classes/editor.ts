@@ -1,6 +1,6 @@
 import hljs from "highlight.js";
 import Quill from 'quill';
-import { ImageData as QuillImageData } from 'quill-image-drop-and-paste'
+
 const VideoBase = Quill.import('formats/video');
 const ImageBase = Quill.import('formats/image');
 
@@ -42,7 +42,6 @@ export function getViewModules() {
 
 const ATTRIBUTES = [
     'alt',
-    'height',
     'width',
     'style' // This is the added difference that needs to be saved properly
   ];
@@ -67,6 +66,10 @@ export class CustomImage extends ImageBase {
     }
 }
 
+export class PlaceholderImage extends ImageBase {
+    static className = 'image-uploading';  
+    static blotName = 'imageUploadPlaceholder';
+}
 
 function gformat(domNode: HTMLElement, name: string, value: any, sformat: any) {
     if (ATTRIBUTES.indexOf(name) > -1) {
