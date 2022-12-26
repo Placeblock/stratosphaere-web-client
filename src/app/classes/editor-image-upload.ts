@@ -90,13 +90,11 @@ export class ImageUploadModule {
         const dataTransfer = e.dataTransfer;
         if (!dataTransfer || !dataTransfer.items) return;
         e.preventDefault();
-        console.log("YES")
         //Check support for getting index by cursor position
         //If there is support set the cursor to the hovered position
         if (document.caretRangeFromPoint) {
             const selection = document.getSelection();
             const range = document.caretRangeFromPoint(e.clientX, e.clientY);
-            console.log(range)
             if (selection && range) {
                 selection.setBaseAndExtent(range.startContainer, range.startOffset, range.startContainer, range.startOffset)
             }
@@ -116,7 +114,6 @@ export class ImageUploadModule {
                 console.log(transferItem)
                 if (!transferItem.type.match(/^image\/(gif|jpe?g|a?png)/i)) return of();
                 const file = transferItem.getAsFile();
-                console.log(file);
                 if (file === null) return of();
                 return this.saveToServer(file);
             })
