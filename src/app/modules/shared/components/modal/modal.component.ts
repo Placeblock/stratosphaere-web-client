@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -9,4 +9,5 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 export class ModalComponent {
   faTimes = faTimes;
   @Output("close") closeEmitter = new EventEmitter<void>();
+  @Input("width") widthInput = "auto";
 }

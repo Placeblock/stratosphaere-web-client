@@ -13,16 +13,16 @@
 
 #content {
     position: relative;
-    width: min(95%, 500px);
+    max-width: 95%;
     background-color: white;
     border-radius: 20px;
-    padding: 20px;
+    padding: 50px 20px 20px 20px;
 }
 
 #close {
     position: absolute;
-    right: 20px;
     top: 20px;
+    right: 20px;
     font-size: 20px;
     &:hover {
         cursor: pointer;

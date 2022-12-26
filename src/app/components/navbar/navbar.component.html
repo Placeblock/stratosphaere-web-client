@@ -5,13 +5,6 @@
     <a routerLink="/blog">Blog</a>
     <a routerLink="/live">Live</a>
 </div>
-<div id="login-container" *ngIf="(this.authService.$token | async) == null && this.showLogin">
-    <form [formGroup]="loginForm" (ngSubmit)="logIn()">
-        <label for="name">Name:</label>
-        <input [ngClass]="username?.invalid ? 'input-invalid' : ''" id="name" placeholder="Name" formControlName="username">
-
-        <label for="password">Passwort:</label>
-        <input type="password" [ngClass]="password?.invalid ? 'input-invalid' : ''" id="password" placeholder="Passwort" formControlName="password">
-        <button [disabled]="username?.invalid || password?.invalid" type="submit">Anmelden</button>
-    </form>
-</div>
+<app-modal *ngIf="(this.authService.$token | async) == null && this.showLogin" (close)="this.showLogin=false">
+    <app-login-form (submit)="this.logIn($event)"></app-login-form>
+</app-modal>

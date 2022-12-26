@@ -11,13 +11,15 @@ import { NotificationComponent } from './components/notification/notification.co
 import { ReactiveFormsModule } from '@angular/forms';
 import { ApiInterceptor } from './interceptors/api.interceptor';
 import { SharedModule } from './modules/shared/shared.module';
+import { LoginFormComponent } from './components/login-form/login-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    NotificationComponent
+    NotificationComponent,
+    LoginFormComponent
   ],
   imports: [
     HttpClientModule,

@@ -13,12 +13,6 @@ import { CookieService } from 'src/app/services/cookie.service';
 export class NavbarComponent {
   showLogin: boolean = false;
 
-  loginForm = this.fb.group({
-    username: ['', [Validators.required, Validators.maxLength(50)]],
-    password: ['', [Validators.required, Validators.maxLength(50)]],
-  });
-
-
   constructor(private fb: FormBuilder, public authService: AuthService, private cookieService: CookieService) {}
 
   toggleShowLogin() {
@@ -30,11 +24,7 @@ export class NavbarComponent {
     this.cookieService.deleteCookie("authToken");
   }
 
-  logIn() {
-    if (!this.loginForm.valid) return;
-    let username = this.loginForm.get("username")?.value;
-    let password = this.loginForm.get("password")?.value;
-    if (username == null || password == null) return;
+  logIn({username, password}: {"username": string, "password": string}) {
     this.authService.auth(username, password).pipe(first()).subscribe(response => {
       this.authService.token = response.data;
       this.cookieService.setCookie({"name":"authToken","value":response.data});
@@ -42,11 +32,5 @@ export class NavbarComponent {
     this.showLogin = false;
   }
 
-  get username() {
-    return this.loginForm.get('username');
-  }
 
-  get password() {
-    return this.loginForm.get('password');
-  }
 }
