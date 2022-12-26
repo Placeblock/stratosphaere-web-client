@@ -30,7 +30,6 @@ export class ArticleListComponent implements OnDestroy {
       })
     ).subscribe();
     this.tokenSubscription = this.authService.$token.subscribe(() => {
-      console.log("TOKEN CHANGED")
       this.resetList();
     })
   }
@@ -53,7 +52,13 @@ export class ArticleListComponent implements OnDestroy {
   resetList() {
     this.articles = [];
     this.allLoaded = false;
-    this.loadChunk(0, 5).subscribe();
+
+    //Because of browser compatibility we use the highest of all possible values
+    var body = document.body,
+    html = document.documentElement;
+    var height = Math.max( body.scrollHeight, body.offsetHeight, 
+      html.clientHeight, html.scrollHeight, html.offsetHeight )
+    this.loadChunk(0, Math.ceil(height/150)).subscribe();
   }
 
   deleteArticle(id: number) {
@@ -92,7 +97,6 @@ export class ArticleListComponent implements OnDestroy {
     if (lastmodheader != null) {
       let unixtimestamp = Date.parse(lastmodheader);
       if (offset != 0 && amount < this.articles.length && this.lastModified != 0 && unixtimestamp > this.lastModified) {
-        console.log("RELOADING EVERYTHING")
         this.loadChunk(0, this.articles.length);
       }
       this.lastModified = unixtimestamp;
