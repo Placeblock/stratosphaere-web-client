@@ -11,14 +11,12 @@ import BlotFormatter from 'quill-blot-formatter';
 import Quill from 'quill';
 import { CustomImage, CustomVideo, getEditorModules, getViewModules } from 'src/app/classes/editor-modules';
 
-import QuillImageDropAndPaste from 'quill-image-drop-and-paste';
 import { ImageUploadModule, PlaceholderImage } from 'src/app/classes/editor-image-upload';
 
 Quill.register('modules/blotFormatter', BlotFormatter);
 Quill.register('modules/imageUpload', ImageUploadModule); 
 Quill.register('formats/video', CustomVideo);
 Quill.register('formats/image', CustomImage);
-Quill.register('modules/imageDropAndPaste', QuillImageDropAndPaste);
 Quill.register('formats/imageUploadPlaceholder', PlaceholderImage);
 
 @Component({
