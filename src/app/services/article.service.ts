@@ -3,7 +3,7 @@ import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Article } from '../classes/article';
 import { environment } from 'src/environments/environment';
 import { APIResponse } from '../classes/apiresponse';
-import { map, Observable } from 'rxjs';
+import { first, map, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -63,6 +63,12 @@ export class ArticleService {
     let formData: FormData = new FormData();
     formData.append('file', file, file.name);
     return this.http.post<APIResponse<string>>(this.imageUrl, formData);
+  }
+
+  deleteImage(fileName: string) {
+    console.log(fileName);
+    const options = {headers: environment.requestHeaders}
+    this.http.delete<APIResponse<null>>(this.imageUrl + "/" + fileName, options).pipe(first()).subscribe();
   }
 
 }

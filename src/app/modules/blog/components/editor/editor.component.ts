@@ -57,10 +57,15 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
         this.article = result.data;
       })
     });
-    this.editorModules = getEditorModules((file: File) => {
-      return this.articleService.uploadImage(file)
-        .pipe(map(result => result.data))
-    });
+    this.editorModules = getEditorModules(
+      (file: File) => {
+        return this.articleService.uploadImage(file)
+          .pipe(map(result => result.data))
+      },
+      (fileName: string) => {
+        this.articleService.deleteImage(fileName);
+      }
+    );
     this.viewModules = getViewModules();
   }
 
