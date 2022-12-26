@@ -1,5 +1,6 @@
 import hljs from "highlight.js";
 import Quill from 'quill';
+import { Observable } from "rxjs";
 
 const VideoBase = Quill.import('formats/video');
 const ImageBase = Quill.import('formats/image');
@@ -24,19 +25,25 @@ const syntax = {
     }
 }
 
-export function getEditorModules() {
-    return {'formula': true,
+const modules = {
+    'formula':true,
+    'syntax': syntax
+}
+
+export function getEditorModules(imageUpload: (file: File) => Observable<string>) {
+    return {...modules,
         'blotFormatter': true,
-        'syntax': syntax,
         'history': true,
-        'toolbar': toolbar
+        'toolbar': toolbar,
+        'imageUpload': {
+            'upload': imageUpload
+        }
     }
 }
 
 export function getViewModules() {
     return {
-        'formula':true,
-        'syntax': syntax
+        ...modules
     }
 }
 
@@ -64,11 +71,6 @@ export class CustomImage extends ImageBase {
     format(name: string, value: any) {
         gformat(this.domNode, name, value, super.format);
     }
-}
-
-export class PlaceholderImage extends ImageBase {
-    static className = 'image-uploading';  
-    static blotName = 'imageUploadPlaceholder';
 }
 
 function gformat(domNode: HTMLElement, name: string, value: any, sformat: any) {
