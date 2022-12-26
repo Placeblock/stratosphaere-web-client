@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { AuthState } from 'src/app/state/auth/auth.reducer';
-import { selectToken } from 'src/app/state/auth/auth.selector';
+import { first, Observable } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthActions } from 'src/app/state/auth/auth.actions';
+import { AuthService } from 'src/app/services/auth.service';
+import { CookieService } from 'src/app/services/cookie.service';
 
 
 @Component({
@@ -14,39 +12,25 @@ import { AuthActions } from 'src/app/state/auth/auth.actions';
 })
 export class NavbarComponent {
   showLogin: boolean = false;
-  token$: Observable<string | null>
 
-  loginForm = this.fb.group({
-    username: ['', [Validators.required, Validators.maxLength(50)]],
-    password: ['', [Validators.required, Validators.maxLength(50)]],
-  });
-
-
-  constructor(private fb: FormBuilder, private store: Store<{auth: AuthState}>) {
-    this.token$ = store.select(selectToken)
-  }
+  constructor(private fb: FormBuilder, public authService: AuthService, private cookieService: CookieService) {}
 
   toggleShowLogin() {
     this.showLogin = !this.showLogin;
   }
 
   logOut() {
-    this.store.dispatch(AuthActions.authLogout())
+    this.authService.token = null;
+    this.cookieService.deleteCookie("authToken");
   }
 
-  logIn() {
-    let username = this.loginForm.get("username")?.value;
-    let password = this.loginForm.get("password")?.value;
-    if (password == null || username == null) return;
-    this.store.dispatch(AuthActions.authLogin({username: username, password: password}))
+  logIn({username, password}: {"username": string, "password": string}) {
+    this.authService.auth(username, password).pipe(first()).subscribe(response => {
+      this.authService.token = response.data;
+      this.cookieService.setCookie({"name":"authToken","value":response.data});
+    })
     this.showLogin = false;
   }
 
-  get username() {
-    return this.loginForm.get('username');
-  }
 
-  get password() {
-    return this.loginForm.get('password');
-  }
 }

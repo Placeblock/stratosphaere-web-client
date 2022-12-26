@@ -2,28 +2,36 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { BlogRoutingModule } from './blog-routing.module';
-import { BlogComponent } from './components/blog/blog.component';
 import { SharedModule } from '../shared/shared.module';
 
-import { StoreModule } from '@ngrx/store';
-import { articleFeature } from 'src/app/state/article/article.reducer';
-import { EffectsModule } from '@ngrx/effects';
-import { ArticleEffects } from 'src/app/state/article/article.effects';
-import { QuillModule } from 'ngx-quill';
-import { ArticleComponent } from './components/article/article.component';
+import { ArticleMetadataComponent } from './components/article-metadata/article-metadata.component';
+import { ArticleListComponent } from './components/article-list/article-list.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ArticlePreviewComponent } from '../blog/components/article-preview/article-preview.component';
+import { ListControlComponent } from './components/list-control/list-control.component';
+
+import { EditorComponent } from './components/editor/editor.component';
+import { EditorContainerComponent } from './components/editor-container/editor-container.component';
+
+import { QuillModule } from 'ngx-quill'
+import { ContenteditableValueAccessorDirective } from 'src/app/directives/contenteditable-value-accessor.directive';
 
 @NgModule({
   declarations: [
-    BlogComponent,
-    ArticleComponent
+    ArticleMetadataComponent,
+    ArticleListComponent,
+    ArticlePreviewComponent,
+    ListControlComponent,
+    EditorComponent,
+    EditorContainerComponent,
+    ContenteditableValueAccessorDirective
   ],
   imports: [
     CommonModule,
     BlogRoutingModule,
     SharedModule,
-    QuillModule.forRoot({}),
-    StoreModule.forFeature(articleFeature),
-    EffectsModule.forFeature([ArticleEffects])
+    ReactiveFormsModule,
+    QuillModule.forRoot({modules: {syntax: true}, theme: 'snow'})
   ]
 })
 export class BlogModule { }

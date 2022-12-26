@@ -1,0 +1,36 @@
+input {
+    border: 2px solid rgb(0, 175, 0);
+    outline: none;
+}
+
+.input-invalid {
+    border-color: rgb(175, 0, 0);
+}
+
+input, button {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+button {
+    cursor: pointer;
+    margin-top: 20px;
+    border: 2px solid gray;
+}
+
+button:disabled {
+    cursor: default;
+    border: 2px solid rgb(209, 209, 209);
+}
+
+form {
+    position: relative;
+}
+
+#close {
+    font-size: 25px;
+    position: absolute;
+    right: 0px;
+}

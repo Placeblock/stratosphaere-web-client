@@ -1,0 +1,76 @@
+:host {
+    position: relative;
+}
+
+#content {
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    transition: transform 0.2s ease-in-out;
+    overflow: hidden;
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+    }
+    #background {
+        position: absolute;
+        top: 0px;
+        left: 50%;
+        width: 50%;
+        height: 100%;
+        background-position: center center;
+        background-repeat: none;
+        background-size: cover;
+    }
+    #info {
+        position: relative;
+        z-index: 2;
+    }
+}
+
+#name {
+    margin-bottom: 10px;
+}
+
+#name,#description,#metadata {
+    text-shadow: white 0 0 5px;
+}
+
+#metadata {
+    margin-bottom: 20px;
+    display: block;
+    color: rgb(82, 82, 82);
+}
+
+#delete {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: rgb(117, 0, 0);
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0px 0px 5px gray;
+    font-size: 18px;
+    z-index: 4;
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1)
+    }
+}
+
+#delete-confirm-modal {
+    hr {
+        margin: 20px 0px 20px 0px;
+    }
+    details {
+        margin-bottom: 20px;
+    }
+    #delete-confirm {
+        float: right;
+        background-color: rgb(117, 0, 0);
+        color: white;
+    }
+}

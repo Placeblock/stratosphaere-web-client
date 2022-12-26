@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { throwError } from "rxjs";
 import { NotificationService } from "./notification.service";
 
 @Injectable({

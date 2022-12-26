@@ -1,0 +1,17 @@
+<div id="content" [routerLink]="[this.article.id]">    
+    <div id="background" [style]="{'background-image':'linear-gradient(to right, white, transparent 50%), url(' + this.article.cover_image_url + ')'}"></div>
+    <div id="info">
+        <h1 id="name">{{article.title}}</h1>
+        <app-article-metadata [article]="article" id="metadata"></app-article-metadata>
+        <p id="description">{{article.description}}</p>
+    </div>
+</div>
+<button id="delete" *ngIf="this.authService.$token | async" (click)="this.showDeleteModal = true"><fa-icon class="icon" [icon]="faTrash"></fa-icon></button>
+<app-aftermath-modal *ngIf="this.showDeleteModal" 
+    (close)="this.showDeleteModal = false" 
+    (confirm)="this.deleteEmitter.emit()"
+    [title]="'Beitrag löschen'"
+    [button]="'LÖSCHEN'">
+    <p>Wenn Sie auf LÖSCHEN drücken, wird der Artikel aus der Datenbank gelöscht.</p>
+    <p><b>Diese Aktion kann nicht rückgängig gemacht werden!</b></p>
+</app-aftermath-modal>

@@ -1,0 +1,4 @@
+<div id="content" [style]="{'width':this.widthInput}">
+    <fa-icon (click)="this.closeEmitter.emit()" id="close" [icon]="this.faTimes"></fa-icon>
+    <ng-content></ng-content>
+</div>

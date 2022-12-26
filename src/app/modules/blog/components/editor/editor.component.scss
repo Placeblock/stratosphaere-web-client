@@ -1,0 +1,79 @@
+#post-editor {
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+
+    input {
+        border: none;
+        background-color: transparent;
+    }
+
+    label {
+        color: gray;
+    }
+
+    #banner {
+        position: relative;
+        border-radius: 5px;
+        height: 250px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: white;
+        display: flex;
+        padding: 10px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-bottom: 15px;
+
+        #title[contenteditable="true"] {
+            padding: 10px;
+            border: 1px solid white;
+        }
+        #back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        #edit-buttons {
+            display: flex;
+            gap: 10px;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+        #settings{
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            top: 20px;
+            right: 20px;
+            #save-settings {
+                display: flex;
+                gap: 10px;
+            }
+            #edit-button {
+                font-size: 20px;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    #content {
+        margin: 10px;
+        padding-bottom: 10px;
+        #metadata {
+            margin-bottom: 10px;
+        }
+        #description-input, #cover-image-input {
+            margin-bottom: 10px;
+            font-size: 16px;
+            width: 100%;
+        }
+    }
+
+}

@@ -1,0 +1,54 @@
+
+<app-aftermath-modal 
+    id="delete-confirm-modal" 
+    *ngIf="this.showVisibilityModal" 
+    (close)="this.showVisibilityModal = false"
+    (confirm)="this.visibility()"
+    [title]="'Beitrag ' + this.getVisibilityText()"
+    [button]="this.getVisibilityText()">
+    <p *ngIf="this.article?.published">Wenn Sie auf Zurückrufen drücken, 
+        wird der Artikel nur noch angemeldeten Benutzern angezeigt.</p>
+    <p *ngIf="!this.article?.published">Wenn Sie auf Veröffentlichen drücken, 
+        wird der Artikel unangemeldeten Benutzern angezeigt.</p>
+    <p><b>Diese Aktion wird in diesem Moment gültig!</b></p>
+</app-aftermath-modal>
+<form id="post-editor" [formGroup]="editForm">
+    <div id="banner" [ngStyle]="{'background-image': 'url(' + this.editForm.value.cover_image_url + ')'}">
+        <button class="button" id="back-button" [routerLink]="['/blog/']">Zurück</button>
+        <div id="settings">
+            <div id="save-settings" *ngIf="this.edit">
+                <p>Autosave:</p>
+                <label class="switch">
+                    <input type="checkbox" [checked]="autoSave" (change)="autoSave = !autoSave">
+                    <span class="slider"></span>
+                </label>
+                <div class="loader" *ngIf="this.editing"></div>
+            </div>
+            <fa-icon id="edit-button" *ngIf="this.authService.$token | async" [icon]="faEdit" (click)="this.edit = !this.edit"></fa-icon>
+        </div>            
+        <div id="edit-buttons">
+            <button *ngIf="this.edit" class="button" (click)="this.showVisibilityModal = true">{{this.getVisibilityText()}}</button>
+            <button *ngIf="!this.autoSave && this.edit" class="button" (click)="save()">Speichern (Ctrl + S)</button>
+        </div>
+        <h1 id="title" *ngIf="!this.edit">{{this.editForm.controls["title"].value}}</h1>
+        <h1 id="title" *ngIf="this.edit" formControlName="title" contenteditable="true"></h1>
+    </div>
+    <div id="content">
+        <ng-container *ngIf="this.edit">
+            <label for="description-input">Beschreibung</label>
+            <input id="description-input" placeholder="Post Beschreibung" formControlName="description">
+            <label for="description-input">Hintergrund Bild</label>
+            <input id="cover-image-input" placeholder="Banner Hintergrund" type="url" formControlName="cover_image_url">
+        </ng-container>
+    
+        <app-article-metadata id="metadata" *ngIf="this.article" [article]="this.article"></app-article-metadata>
+        
+        <div id="editor">
+            <quill-editor [style.display]="this.edit ? 'block':'none'" 
+                [modules]="this.editorModules" 
+                formControlName="content"
+                (onEditorCreated)="editorCreated($event)"></quill-editor>
+            <quill-view [style.display]="this.edit ? 'none':'block'" [content]="this.editForm.value.content" [modules]="this.viewModules"></quill-view>
+        </div>
+    </div>
+</form>

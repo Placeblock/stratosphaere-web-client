@@ -1,7 +1,26 @@
+@import '~quill/dist/quill.snow.css';
+@import '~highlight.js/styles/atom-one-dark.css';
+@import '~node_modules/katex/dist/katex.min.css';
 
 @font-face {
-    font-family: openSans;
-    src: url("/assets/OpenSans-VariableFont_wdth,wght.ttf");
+    font-family: roboto;
+    src: url("/assets/Roboto-Regular.ttf");
+}
+@font-face {
+    font-family: roboto;
+    font-weight: bold;
+    src: url("/assets/Roboto-Bold.ttf");
+}
+@font-face {
+    font-family: roboto;
+    font-style: italic;
+    src: url("/assets/Roboto-Italic.ttf");
+}
+@font-face {
+    font-family: roboto;
+    font-style: italic;
+    font-weight: bold;
+    src: url("/assets/Roboto-BoldItalic.ttf");
 }
 
 body, html {
@@ -12,7 +31,8 @@ body, html {
 * {
     box-sizing: border-box;
     margin: 0;
-    font-family: openSans;
+    font-family: roboto;
+    font-style: normal;
 }
 
 ::-webkit-scrollbar {
@@ -28,9 +48,9 @@ body, html {
     background: rgb(0, 0, 0);
     border-radius: 20px;
 }
-  
+
 ::-webkit-scrollbar-thumb:hover {
-background: rgb(190, 190, 190);
+    background: rgb(190, 190, 190);
 }
 
 .button {
@@ -54,15 +74,43 @@ background: rgb(190, 190, 190);
     height: 20px;
     -webkit-animation: spin 2s linear infinite; /* Safari */
     animation: spin 2s linear infinite;
-  }
-  
-  /* Safari */
-  @-webkit-keyframes spin {
+}
+
+/* Safari */
+@-webkit-keyframes spin {
     0% { -webkit-transform: rotate(0deg); }
     100% { -webkit-transform: rotate(360deg); }
-  }
-  
-  @keyframes spin {
+}
+
+@keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-  }
+}
+
+.menubar {
+    margin: 10px 0px 30px 0px;
+}
+
+.menuicon {
+    background-color: rgb(206, 206, 206);
+    padding: 5px;
+    border-radius: 5px;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.image-uploading {
+    display: flex;
+    align-items: center;
+    flex-direction: center;
+    animation-name:  uploading-animation;
+    animation-duration: .25s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes uploading-animation {
+    from {filter: grayscale(0%);}
+    to {filter: grayscale(100%);}
+}

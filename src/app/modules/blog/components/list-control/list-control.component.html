@@ -1,0 +1,7 @@
+<div id="input-container">
+    <label for="show-unpub">Unveröffentlichte anzeigen</label>
+    <input id="show-unpub" checked type="checkbox" (change)="this.toggleUnpublished($event)">
+    <label for="show-pub">Veröffentlichte anzeigen</label>
+    <input id="show-pub" checked type="checkbox" (change)="this.togglePublished($event)">
+</div>
+<button class="button" (click)="this.newArticle()">Neuer Beitrag</button>
