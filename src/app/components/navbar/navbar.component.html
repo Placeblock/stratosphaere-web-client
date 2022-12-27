@@ -1,9 +1,13 @@
-<a routerLink="/" id="logo">Projekt Solis</a>
-<div id="links">
-    <a *ngIf="(this.authService.$token | async) != null" (click)="logOut()">Logout</a>
-    <a *ngIf="(this.authService.$token | async) == null" (click)="toggleShowLogin()">Login</a>
-    <a routerLink="/blog">Blog</a>
-    <a routerLink="/live">Live</a>
+<fa-icon id="burger" class="button" [icon]="burgerIcon" (click)="this.navHidden = !this.navHidden"></fa-icon>
+<div id="container">
+    <a routerLink="/" id="logo">Projekt Solis</a>
+    <div id="links">
+        <a routerLink="/blog"><b>Blog</b></a>
+        <a routerLink="/live"><b>Live</b></a>
+        <a *ngIf="(this.authService.$token | async) != null" (click)="logOut()">Logout</a>
+        <a *ngIf="(this.authService.$token | async) == null" (click)="toggleShowLogin()">Login</a>
+        <a routerLink="/impressum">Rechtliches</a>
+    </div>
 </div>
 <app-modal *ngIf="(this.authService.$token | async) == null && this.showLogin" (close)="this.showLogin=false">
     <app-login-form (submit)="this.logIn($event)"></app-login-form>
