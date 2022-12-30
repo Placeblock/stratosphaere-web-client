@@ -1,0 +1,15 @@
+<div id="map-container">
+    <app-map id="live-map"></app-map>
+    <div id="inline-sensors">
+        <p>Temperatur: 5 Grad</p>
+        <p>Luftdruck: 500 ph</p>
+        <p>Feuchtigkeit: 60%</p>
+        <p>Höhe: 150m</p>
+    </div>
+</div>
+<div id="sensors">
+    <app-sensor [sensor]="this.sensorService.temperatureSensor"></app-sensor>
+    <app-sensor [sensor]="this.sensorService.humiditySensor"></app-sensor>
+    <app-sensor [sensor]="this.sensorService.pressureSensor"></app-sensor>
+    <app-sensor [sensor]="this.sensorService.gpsSensor"></app-sensor>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-page-wrapper',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page-wrapper.component.scss']
 })
 export class PageWrapperComponent implements OnInit {
+  @HostBinding('class.earth-background') eartClass: boolean = true;
 
   constructor() { }
 

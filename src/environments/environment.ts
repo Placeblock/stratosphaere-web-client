@@ -8,6 +8,7 @@ export const environment = {
   production: false,
   requestHeaders: new HttpHeaders({'Content-Type' : 'application/json'}),
   baseUrl: 'https://stratosphaere.codelix.de/testapi/v1',
+  websocketUrl: 'wss://stratosphaere.codelix.de/wss'
 };
 
 /*

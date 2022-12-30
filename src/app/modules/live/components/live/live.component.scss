@@ -1,0 +1,65 @@
+:host {
+    min-height: 100vh;
+    width: 100%;
+    padding: 3vh;
+
+    #map-container {
+        position: relative;
+        height: 90vh;
+        #inline-sensors {
+            z-index: 6;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            text-align: right;
+            font-size: 20px;
+            p {
+                margin-bottom: 5px;
+                color: black;
+                font-weight: 800;
+            }
+        } 
+        #live-map {
+            display: block;
+            z-index: 5;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    #sensors {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        overflow: auto;
+        gap: 20px;
+    }
+}
+@media only screen and (max-width: 1400px) {
+    :host {
+        display: block;
+    }
+    #map-container {
+        width: 100%;
+        margin-bottom: 5vh;
+    }
+}
+@media only screen and (min-width: 601px) {
+    :host {
+        padding-top: 80px;
+    }
+}
+@media only screen and (min-width: 1400px) {
+    :host {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+        min-height: auto;
+    }
+    #map-container {
+        width: 50%;
+    }
+    #sensors {
+        flex-grow: 2;
+        align-items: flex-start;
+        justify-content: start;
+    }
+}

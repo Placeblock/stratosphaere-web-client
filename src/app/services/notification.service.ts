@@ -31,7 +31,6 @@ export class NotificationService {
   }
 
   error(title: string, message: string, timeout = 0) {
-    console.log("ERROR")
     this._subject.next(new Notification(this._idx++, NotificationType.error, title, message, timeout));
   }
   

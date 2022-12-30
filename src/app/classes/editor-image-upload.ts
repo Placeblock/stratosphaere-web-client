@@ -120,9 +120,11 @@ export class ImageUploadModule {
     }
 
     handlePaste(e: ClipboardEvent) {
-        if (!e.clipboardData || !e.clipboardData.items) return;
-        e.preventDefault();
-        this.handleFiles(e.clipboardData.items);
+        if (e.clipboardData && e.clipboardData.items && e.clipboardData.files.length) {  
+            console.log(e.clipboardData.files);
+            e.preventDefault();
+            this.handleFiles(e.clipboardData.items);
+        }
     }
 
     handleFiles(transferItemList: DataTransferItemList) {
