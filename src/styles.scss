@@ -1,6 +1,7 @@
 @import '~quill/dist/quill.snow.css';
 @import '~highlight.js/styles/atom-one-dark.css';
 @import '~node_modules/katex/dist/katex.min.css';
+@import '~leaflet/dist/leaflet.css';
 
 @font-face {
     font-family: roboto;
@@ -108,6 +109,21 @@ body, html {
     animation-duration: .25s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+}
+
+.earth-background {
+    background: url("/assets/earth.webp");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.center-section {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @keyframes uploading-animation {

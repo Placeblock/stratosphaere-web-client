@@ -3,15 +3,17 @@ import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Article } from '../classes/article';
 import { environment } from 'src/environments/environment';
 import { APIResponse } from '../classes/apiresponse';
-import { map, Observable } from 'rxjs';
+import { first, map, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { LiveData } from '../classes/sensor';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ArticleService {
+export class ApiService {
   articlesUrl = environment.baseUrl + '/blog/articles'
   imageUrl = environment.baseUrl + '/blog/image'
+  liveDataUrl = environment.baseUrl + '/live'
 
   constructor(
     private http: HttpClient,
@@ -63,6 +65,18 @@ export class ArticleService {
     let formData: FormData = new FormData();
     formData.append('file', file, file.name);
     return this.http.post<APIResponse<string>>(this.imageUrl, formData);
+  }
+
+  deleteImage(fileName: string) {
+    const options = {headers: environment.requestHeaders}
+    this.http.delete<APIResponse<null>>(this.imageUrl + "/" + fileName, options).pipe(first()).subscribe();
+  }
+
+  getLiveData(since: Date): Observable<APIResponse<LiveData[]>> {
+    let params = new HttpParams();
+    params = params.append("since", since.toISOString())
+    const options = {headers: environment.requestHeaders, params: params}
+    return this.http.get<APIResponse<LiveData[]>>(this.liveDataUrl, options);
   }
 
 }

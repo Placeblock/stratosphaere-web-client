@@ -1,4 +1,4 @@
-import Quill, { RangeStatic } from "quill";
+import Quill, { DeltaStatic, RangeStatic } from "quill";
 import { catchError, concatMap, first, from, Observable, of, tap, throwError } from "rxjs";
 const ImageBase = Quill.import('formats/image');
 
@@ -9,10 +9,10 @@ export class PlaceholderImage extends ImageBase {
 
 export class ImageUploadModule {
     quill: Quill;
-    options: {'upload': (file: File) => Observable<string>};
+    options: {'upload': (file: File) => Observable<string>, 'delete': (fileName: string) => void};
     range: RangeStatic | null;
 
-    constructor(quill: Quill, options: {'upload': (file: File) => Observable<string>}) {
+    constructor(quill: Quill, options: {'upload': (file: File) => Observable<string>, 'delete': (url: string) => void}) {
         this.quill = quill;
         this.options = options;
         this.range = null;
@@ -22,6 +22,23 @@ export class ImageUploadModule {
 
         this.quill.getModule('toolbar')
             .addHandler('image', this.selectLocalImage.bind(this));
+
+        this.quill.on("text-change", this.handleTextChange.bind(this));
+    }
+
+    handleTextChange(delta: DeltaStatic, oldDelta: DeltaStatic, source: string) {
+        if (this.quill == undefined) return;
+        let currrentContents = this.quill.getContents();
+        let diff = currrentContents.diff(oldDelta);
+        console.log("2")
+        if (diff.ops == undefined) return;
+        console.log("TEST")
+        for (let op of diff.ops) {
+            let url: string = op.insert?.image;
+            console.log(url);
+            if (url == null) continue;
+            this.options.delete(url.substring(url.lastIndexOf('/') + 1));
+        }
     }
     
     selectLocalImage() {
@@ -32,9 +49,9 @@ export class ImageUploadModule {
         var _me = this;
         input.onchange = function() {
             if (input.files == null) return;
-                const file = input.files[0];
+            const file = input.files[0];
             if (/^image\//.test(file.type)) {
-                _me.saveToServer(file);
+                _me.saveToServer(file).subscribe();
             }
         }
     }
@@ -79,7 +96,7 @@ export class ImageUploadModule {
         const reader = new FileReader();
         reader.addEventListener('load', () => {
             if (this.range == null) return;
-            console.log(this.quill.insertEmbed(this.range.index, 'imageUploadPlaceholder', reader.result, "api"));
+            this.quill.insertEmbed(this.range.index, 'imageUploadPlaceholder', reader.result, "api");
         }, false);
         reader.readAsDataURL(file);
     }
@@ -90,13 +107,11 @@ export class ImageUploadModule {
         const dataTransfer = e.dataTransfer;
         if (!dataTransfer || !dataTransfer.items) return;
         e.preventDefault();
-        console.log("YES")
         //Check support for getting index by cursor position
         //If there is support set the cursor to the hovered position
         if (document.caretRangeFromPoint) {
             const selection = document.getSelection();
             const range = document.caretRangeFromPoint(e.clientX, e.clientY);
-            console.log(range)
             if (selection && range) {
                 selection.setBaseAndExtent(range.startContainer, range.startOffset, range.startContainer, range.startOffset)
             }
@@ -105,18 +120,18 @@ export class ImageUploadModule {
     }
 
     handlePaste(e: ClipboardEvent) {
-        if (!e.clipboardData || !e.clipboardData.items) return;
-        e.preventDefault();
-        this.handleFiles(e.clipboardData.items);
+        if (e.clipboardData && e.clipboardData.items && e.clipboardData.files.length) {  
+            console.log(e.clipboardData.files);
+            e.preventDefault();
+            this.handleFiles(e.clipboardData.items);
+        }
     }
 
     handleFiles(transferItemList: DataTransferItemList) {
         from(transferItemList).pipe(
             concatMap(transferItem => {
-                console.log(transferItem)
                 if (!transferItem.type.match(/^image\/(gif|jpe?g|a?png)/i)) return of();
                 const file = transferItem.getAsFile();
-                console.log(file);
                 if (file === null) return of();
                 return this.saveToServer(file);
             })

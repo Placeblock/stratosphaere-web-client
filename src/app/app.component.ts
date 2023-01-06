@@ -10,7 +10,9 @@ import { CookieService } from './services/cookie.service';
 export class AppComponent implements OnInit {
   title = 'stratosphaere-web-client';
 
-  constructor(private cookieService: CookieService, private authService: AuthService) {}
+  constructor(private cookieService: CookieService, 
+    private authService: AuthService) {
+  }
 
   ngOnInit() {
     let token = this.cookieService.getCookie("authToken")

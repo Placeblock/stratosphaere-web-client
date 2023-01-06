@@ -1,14 +1,9 @@
 :host {
-    display: block;
     padding: 130px 0px 80px 0px;
     display: flex;
     justify-content: center;
-    background: url("/assets/earth.webp");
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    background-attachment: fixed;
     min-height: 100%;
+    position: relative;
 }
 
 #page-content {

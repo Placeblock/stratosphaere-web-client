@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { exhaustMap, filter, first, fromEvent, map, Observable, Subscription } from 'rxjs';
 import { APIResponse } from 'src/app/classes/apiresponse';
 import { Article } from 'src/app/classes/article';
-import { ArticleService } from 'src/app/services/article.service';
+import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class ArticleListComponent implements OnDestroy {
   scrollSubscription: Subscription;
   tokenSubscription: Subscription;
 
-  constructor(private articleService: ArticleService, public authService: AuthService, private router: Router, private route: ActivatedRoute) {
+  constructor(private apiService: ApiService, public authService: AuthService, private router: Router, private route: ActivatedRoute) {
     this.scrollSubscription = fromEvent(window, "scroll").pipe(
       filter(() => ((window.innerHeight + window.scrollY + 300) >= document.body.scrollHeight && !this.allLoaded)),
       exhaustMap(() => {
@@ -63,7 +63,7 @@ export class ArticleListComponent implements OnDestroy {
 
   deleteArticle(id: number) {
     console.log("DELETE ARTICLE")
-    this.articleService.deleteArticle(id).pipe(
+    this.apiService.deleteArticle(id).pipe(
       map(() => {
         this.articles = [];
         this.loadChunk(0, this.articles.length).subscribe()
@@ -72,7 +72,7 @@ export class ArticleListComponent implements OnDestroy {
   }
 
   createArticle() {
-    this.articleService.createArticle().pipe(first()).subscribe(result => {
+    this.apiService.createArticle().pipe(first()).subscribe(result => {
       this.router.navigate([result.data.id], { relativeTo: this.route });
     });
   }
@@ -80,7 +80,7 @@ export class ArticleListComponent implements OnDestroy {
   loadChunk(offset: number, amount: number): Observable<number[]> {
     console.log("LOADING CHUNK: " + offset + " | " + amount);
     return new Observable((subscriber) => {
-      this.articleService.getArticles(offset, amount, this.showPublished, this.showUnpublished)
+      this.apiService.getArticles(offset, amount, this.showPublished, this.showUnpublished)
       .subscribe(response => {
         if (offset > this.articles.length) {
           subscriber.complete();
@@ -115,7 +115,7 @@ export class ArticleListComponent implements OnDestroy {
   }
 
   loadMetadata(article: Article) {
-    this.articleService.getArticle(article.id, ["id","title", "description", "author", "published", "publish_date", "cover_image_url"])
+    this.apiService.getArticle(article.id, ["id","title", "description", "author", "published", "publish_date", "cover_image_url"])
     .subscribe(res => {
       article.title = res.data.title;
       article.description = res.data.description;

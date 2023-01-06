@@ -30,13 +30,14 @@ const modules = {
     'syntax': syntax
 }
 
-export function getEditorModules(imageUpload: (file: File) => Observable<string>) {
+export function getEditorModules(imageUpload: (file: File) => Observable<string>, imageDelete: (fileName: string) => void) {
     return {...modules,
         'blotFormatter': true,
         'history': true,
         'toolbar': toolbar,
         'imageUpload': {
-            'upload': imageUpload
+            'upload': imageUpload,
+            'delete': imageDelete
         }
     }
 }
