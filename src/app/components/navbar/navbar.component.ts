@@ -1,6 +1,5 @@
 import { Component, HostBinding, HostListener } from '@angular/core';
 import { first } from 'rxjs';
-import { FormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { CookieService } from 'src/app/services/cookie.service';
 import { faBars } from '@fortawesome/free-solid-svg-icons';

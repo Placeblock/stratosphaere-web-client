@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Sensor } from '../classes/sensor';
+import { Sensor, SensorData } from '../classes/sensor';
 
 @Injectable({
   providedIn: 'root'

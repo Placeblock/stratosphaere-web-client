@@ -14,7 +14,6 @@ export class LiveComponent implements OnDestroy {
   intervalSubscription: Subscription;
 
   constructor(public sensorService: SensorService, apiService: ApiService) {
-    console.log("INIT");
     apiService.getLiveData(sensorService.lastSensorDate)
     .pipe(
       first()

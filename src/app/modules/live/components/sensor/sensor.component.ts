@@ -32,7 +32,7 @@ export class SensorComponent implements AfterViewInit, OnDestroy {
           cubicInterpolationMode: 'monotone',
           tension: 0.4,
           pointBorderColor: "transparent",
-          pointBackgroundColor: "transparent",
+          pointBackgroundColor: this.sensor.color,
         }]
       },
       options: {
