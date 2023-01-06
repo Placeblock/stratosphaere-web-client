@@ -1,10 +1,18 @@
 <div id="map-container">
     <app-map id="live-map"></app-map>
     <div id="inline-sensors">
-        <p>Temperatur: 5 Grad</p>
-        <p>Luftdruck: 500 ph</p>
-        <p>Feuchtigkeit: 60%</p>
-        <p>Höhe: 150m</p>
+        <ng-container *ngIf="this.sensorService.temperatureSensor.$data | async as tempData">
+            <p>Temperatur: {{tempData.length > 0 ? tempData[tempData.length-1].value : -2000}} Grad</p>
+        </ng-container>
+        <ng-container *ngIf="this.sensorService.pressureSensor.$data | async as pressureData">
+            <p>Luftdruck: {{pressureData.length > 0 ? pressureData[pressureData.length-1].value : -2000}} ph</p>
+        </ng-container>
+        <ng-container *ngIf="this.sensorService.humiditySensor.$data | async as humidityData">
+            <p>Feuchtigkeit: {{humidityData.length > 0 ? humidityData[humidityData.length-1].value : -2000}}%</p>
+        </ng-container>
+        <ng-container *ngIf="this.sensorService.gpsSensor.$data | async as gpsData">
+            <p>Höhe: {{gpsData.length > 0 ? gpsData[gpsData.length-1].value.alt : -2000}} m</p>
+        </ng-container>
     </div>
 </div>
 <div id="sensors">

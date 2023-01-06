@@ -32,8 +32,6 @@ export class Sensor<D> {
     }
 }
 
-
-
 export class SensorData<D> {
     private readonly _time: Date;
     private readonly _value: D;
@@ -50,4 +48,14 @@ export class SensorData<D> {
     public get time(): Date {
         return this._time;
     }
+}
+
+export interface LiveData {
+    latitude: number
+    longitude: number
+    altitude: number
+    temperature: number
+    pressure: number
+    humidity: number
+    time: string
 }

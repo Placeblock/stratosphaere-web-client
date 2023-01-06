@@ -5,7 +5,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import hljs from 'highlight.js'
 import { debounceTime, distinctUntilChanged, first, map, skip, Subscription } from 'rxjs';
 import { Article } from 'src/app/classes/article';
-import { ArticleService } from 'src/app/services/article.service';
+import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import BlotFormatter from 'quill-blot-formatter';
 import Quill from 'quill';
@@ -45,13 +45,13 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
 
   showVisibilityModal: boolean = false;
 
-  constructor(private fb: FormBuilder, private articleService: ArticleService, public authService: AuthService, private activatedRoute: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private apiService: ApiService, public authService: AuthService, private activatedRoute: ActivatedRoute) {
     hljs.configure({
       languages: ['javascript', 'typescript', 'html', 'css', 'typescript', 'scss', 'sql', 'JSON', 'go']
     })
     this.activatedRoute.params.subscribe(params => {
       const articleID = params['id'];
-      this.articleService.getArticle(articleID, ["id", "content", "publish_date", "title", "description", "author", "cover_image_url", "published"])
+      this.apiService.getArticle(articleID, ["id", "content", "publish_date", "title", "description", "author", "cover_image_url", "published"])
       .pipe(first()).subscribe(result => {
         this.editForm.patchValue(result.data, {emitEvent: false});
         this.article = result.data;
@@ -59,11 +59,11 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
     });
     this.editorModules = getEditorModules(
       (file: File) => {
-        return this.articleService.uploadImage(file)
+        return this.apiService.uploadImage(file)
           .pipe(map(result => result.data))
       },
       (fileName: string) => {
-        this.articleService.deleteImage(fileName);
+        this.apiService.deleteImage(fileName);
       }
     );
     this.viewModules = getViewModules();
@@ -92,7 +92,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
 
   visibility() {
     if (this.article == undefined) return;
-    this.articleService.publishArticle(this.article.id, !this.article.published).pipe(first()).subscribe(result => {
+    this.apiService.publishArticle(this.article.id, !this.article.published).pipe(first()).subscribe(result => {
       if (this.article == undefined) return;
       this.article.published = !this.article?.published;
       this.article.publish_date = result.data;
@@ -107,7 +107,7 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
       this.article.content = this.editForm.value.content
       this.article.cover_image_url = this.editForm.value.cover_image_url
       this.editing = true;
-      this.articleService.editArticle(this.article).pipe(first()).subscribe(() => {
+      this.apiService.editArticle(this.article).pipe(first()).subscribe(() => {
         this.editing = false;
       });
     }
