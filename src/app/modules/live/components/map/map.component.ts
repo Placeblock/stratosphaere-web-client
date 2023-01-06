@@ -35,9 +35,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.gpsSubscription = this.sensorService.gpsSensor.$data.subscribe(data => {
       polyline.setLatLngs(this.extractLatLong(data));
     });
-
-    L.rectangle([[49.31759300324013-16.384, 11.023805802303297-16.384],[49.31759300324013+16.384, 11.023805802303297+16.384]]).addTo(this.map);
-
+    
     tiles.addTo(this.map);
   }
 

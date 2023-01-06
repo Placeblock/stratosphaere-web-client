@@ -28,7 +28,7 @@ export class SensorComponent implements AfterViewInit, OnDestroy {
           backgroundColor: this.sensor.color,
           borderColor: "black",
           borderWidth: 2,
-          fill: true,
+          fill: {value: -200},
           cubicInterpolationMode: 'monotone',
           tension: 0.4,
           pointBorderColor: "transparent",
@@ -46,10 +46,11 @@ export class SensorComponent implements AfterViewInit, OnDestroy {
           x: {
             type: 'time',
             time: {
+              tooltipFormat:'hh:mm:ss',
               displayFormats: {
                 millisecond: 'hh:mm:ss',
                 second: 'hh:mm:ss',
-                minute: 'E hh:mm',
+                minute: 'hh:mm:ss',
                 hour: "E h'h'",
                 day: "d.M.y"
               }
