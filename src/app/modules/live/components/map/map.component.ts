@@ -33,6 +33,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
     var btn = L.DomUtil.create('button');
     btn.classList.add("zoomtrack");
+    btn.title = "Zoom to track";
     btn.style.backgroundImage = "url('../../../../../assets/mapzoomtrack.png')"
 
     const ZoomTrack = L.Control.extend({
