@@ -5,6 +5,10 @@
             <td>Temperatur:</td>
             <td>{{tempData.length > 0 ? tempData[tempData.length-1].value : -2000}}°</td>
         </tr>
+        <tr *ngIf="this.sensorService.gpsSensor.$data | async as gpsData">
+            <td>Höhe <span style="opacity: 0.7;">(üNN)</span>:</td>
+            <td>{{gpsData.length > 0 ? gpsData[gpsData.length-1].value.alt : -2000}} m</td>
+        </tr>
         <tr *ngIf="this.sensorService.pressureSensor.$data | async as pressureData">
             <td>Luftdruck:</td>
             <td>{{pressureData.length > 0 ? pressureData[pressureData.length-1].value : -2000}} hPa</td>
@@ -12,10 +16,6 @@
         <tr *ngIf="this.sensorService.humiditySensor.$data | async as humidityData">
             <td>Feuchtigkeit:</td>
             <td>{{humidityData.length > 0 ? humidityData[humidityData.length-1].value : -2000}}%</td>
-        </tr>
-        <tr *ngIf="this.sensorService.gpsSensor.$data | async as gpsData">
-            <td>Höhe <span style="opacity: 0.7;">(üNN)</span>:</td>
-            <td>{{gpsData.length > 0 ? gpsData[gpsData.length-1].value.alt : -2000}} m</td>
         </tr>
     </table>
 </div>
