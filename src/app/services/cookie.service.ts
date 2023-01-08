@@ -8,6 +8,7 @@ export class CookieService {
   constructor() { }
 
   public getCookie(name: string) {
+    console.log(document.cookie);
     let ca: Array<string> = document.cookie.split(';');
     let caLen: number = ca.length;
     let cookieName = `${name}=`;
@@ -46,6 +47,8 @@ export class CookieService {
       (params.name ? params.name : '') +
       '=' +
       (params.value ? params.value : '') +
+      ';' +
+      ("SameSite=" + (params.sameSite ? params.sameSite : "Strict")) +
       ';' +
       (params.session && params.session == true
         ? ''

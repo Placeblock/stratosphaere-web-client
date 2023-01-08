@@ -44,9 +44,10 @@ export class NavbarComponent {
   }
 
   logIn({username, password}: {"username": string, "password": string}) {
-    this.authService.auth(username, password).pipe(first()).subscribe(response => {
-      this.authService.token = response.data;
-      this.cookieService.setCookie({"name":"authToken","value":response.data});
+    this.authService.auth(username, password).pipe(first()).subscribe(() => {
+      const token = this.cookieService.getCookie("authToken");
+      if (token == "") return;
+      this.authService.token = token;
     })
     this.showLogin = false;
   }

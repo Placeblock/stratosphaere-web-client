@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   auth(username: string, password: string) {
-    const options = {headers: environment.requestHeaders}
+    const options = {headers: environment.requestHeaders, withCredentials: true}
     return this.http.post<APIResponse<string>>(this.authUrl, {"username":username,"password":password}, options)
   }
 }
