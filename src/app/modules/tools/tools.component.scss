@@ -1,0 +1,55 @@
+#title {
+    color: white;
+    margin-bottom: 20px;
+}
+
+#tools {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    a {
+        color: black;
+        text-decoration-thickness: 3px;
+    }
+}
+
+#tools-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    .tool {
+        transition: transform 0.3s ease-in-out;
+        h2 {
+            margin-bottom: 10px;
+        }
+        &:hover {
+            cursor:pointer;
+            transform: scale(1.1)
+        }
+    }
+}
+
+::ng-deep{
+    .tool-input {
+        border: none;
+        display: block;
+        width: 100%;
+        font-size: 16px;
+        border-radius: 5px;
+        background-color: rgb(233, 233, 233);
+        margin: 5px;
+        padding: 5px;
+    }
+    form {
+        width: 100%;
+    }
+    .form-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    hr {
+        margin-block: 30px;
+    }
+}

@@ -8,7 +8,6 @@ import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NotificationComponent } from './components/notification/notification.component';
 
-import { ReactiveFormsModule } from '@angular/forms';
 import { ApiInterceptor } from './interceptors/api.interceptor';
 import { SharedModule } from './modules/shared/shared.module';
 import { LoginFormComponent } from './components/login-form/login-form.component';
@@ -24,7 +23,6 @@ import { LoginFormComponent } from './components/login-form/login-form.component
   imports: [
     HttpClientModule,
     BrowserModule,
-    ReactiveFormsModule,
     AppRoutingModule,
     SharedModule
   ],

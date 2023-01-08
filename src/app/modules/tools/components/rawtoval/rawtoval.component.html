@@ -1,0 +1,35 @@
+<form action="">
+    <div class="form-section">
+        <div>
+            <label for="hex">Hex-Value</label>
+            <input id="hex" class="tool-input" type="string" [formControl]="this.hexControl">
+        </div>
+    </div>
+</form>
+<hr>
+<div class="form-section">
+    <div>
+        <label for="lat">Latitude</label>
+        <h3 id="lat">{{this.latitude}}</h3>
+    </div>
+    <div>
+        <label for="long">Longitude</label>
+        <h3 id="long">{{this.longitude}}</h3>
+    </div>
+    <div>
+        <label for="alt">Altitude</label>
+        <h3 id="alt">{{this.altitude}}</h3>
+    </div>
+    <div>
+        <label for="temp">Temperature</label>
+        <h3 id="temp">{{this.temperature}}</h3>
+    </div>
+    <div>
+        <label for="hum">Humidity</label>
+        <h3 id="hum">{{this.humidity}}</h3>
+    </div>
+    <div>
+        <label for="press">Pressure</label>
+        <h3 id="press">{{this.pressure}}</h3>
+    </div>
+</div>

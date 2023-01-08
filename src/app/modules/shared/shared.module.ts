@@ -18,7 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
   ],
   exports: [
-    CommonModule, PageWrapperComponent, FontAwesomeModule, ModalComponent, AftermathModalComponent
+    CommonModule, PageWrapperComponent, FontAwesomeModule, ModalComponent, AftermathModalComponent, ReactiveFormsModule
   ]
 })
 export class SharedModule { }

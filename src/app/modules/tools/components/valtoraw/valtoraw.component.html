@@ -1,0 +1,37 @@
+<form action="" [formGroup]="dataForm">
+    <div class="form-section">
+        <div>
+            <label for="lat">Latitude</label>
+            <input id="lat" class="tool-input" type="number" formControlName="latitude" step="0.01">
+        </div>
+        <div>
+            <label for="long">Longitude</label>
+            <input id="long" class="tool-input" type="number" formControlName="longitude" step="0.01">
+        </div>
+        <div>
+            <label for="alt">Altitude</label>
+            <input id="alt" class="tool-input" type="number" formControlName="altitude">
+        </div>
+        <div>
+            <label for="temp">Temperature</label>
+            <input id="temp" class="tool-input" type="number" formControlName="temperature">
+        </div>
+        <div>
+            <label for="hum">Humidity</label>
+            <input id="hum" class="tool-input" type="number" formControlName="humidity">
+        </div>
+        <div>
+            <label for="press">Pressure</label>
+            <input id="press" class="tool-input" type="number" formControlName="pressure">
+        </div>
+    </div>
+</form>
+<hr>
+<div>
+    <label for="hex">Hex:</label>
+    <h3>{{this.hexForm}}</h3>
+</div>
+<div>
+    <label for="binary">Binary:</label>
+    <h3>{{this.binaryForm}}</h3>
+</div>

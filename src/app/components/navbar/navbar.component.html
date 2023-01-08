@@ -4,6 +4,7 @@
     <div id="links">
         <a routerLink="/blog"><b>Blog</b></a>
         <a routerLink="/live"><b>Live</b></a>
+        <a routerLink="/tools">Tools</a>
         <a *ngIf="(this.authService.$token | async) != null" (click)="logOut()">Logout</a>
         <a *ngIf="(this.authService.$token | async) == null" (click)="toggleShowLogin()">Login</a>
         <a routerLink="/impressum">Rechtliches</a>
