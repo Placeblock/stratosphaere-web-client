@@ -7,7 +7,7 @@
         <a routerLink="/tools">Tools</a>
         <a *ngIf="(this.authService.$token | async) != null" (click)="logOut()">Logout</a>
         <a *ngIf="(this.authService.$token | async) == null" (click)="toggleShowLogin()">Login</a>
-        <a routerLink="/impressum">Rechtliches</a>
+        <a routerLink="/rechtliches">Rechtliches</a>
     </div>
 </div>
 <app-modal *ngIf="(this.authService.$token | async) == null && this.showLogin" (close)="this.showLogin=false">

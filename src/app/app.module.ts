@@ -11,6 +11,7 @@ import { NotificationComponent } from './components/notification/notification.co
 import { ApiInterceptor } from './interceptors/api.interceptor';
 import { SharedModule } from './modules/shared/shared.module';
 import { LoginFormComponent } from './components/login-form/login-form.component';
+import { DatenschutzComponent } from './components/datenschutz/datenschutz.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { LoginFormComponent } from './components/login-form/login-form.component
     NavbarComponent,
     HomeComponent,
     NotificationComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    DatenschutzComponent
   ],
   imports: [
     HttpClientModule,
