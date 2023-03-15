@@ -11,6 +11,7 @@ import { SensorService } from 'src/app/services/sensor.service';
 })
 export class LiveComponent implements OnDestroy {
   @HostBinding('class.earth-background') earth: boolean = true;
+  @HostBinding('class.space-navbar') spaceNavbar: boolean = true;
   intervalSubscription: Subscription;
 
   constructor(public sensorService: SensorService, apiService: ApiService) {

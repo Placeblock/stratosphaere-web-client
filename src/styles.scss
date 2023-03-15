@@ -41,17 +41,16 @@ body, html {
 }
 
 ::-webkit-scrollbar-track {
-    background: #ffffff;
-    border-radius: 10px;
+    background: black;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgb(0, 0, 0);
+    background: white;
     border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgb(190, 190, 190);
+    background: rgb(156, 156, 156);
 }
 
 .box {
@@ -161,4 +160,25 @@ body, html {
 
 .leaflet-control-zoom {
     border: none !important;
+}
+
+.ql-editor {
+    p {
+        line-height: 26px;
+        font-size: 16px;
+    }
+    ul {
+        margin-block: 10px;
+        li {
+            font-size: 16px;
+            line-height: 26px;
+        }
+    }
+}
+
+
+@media only screen and (min-width: 601px) {
+    .space-navbar {
+        padding-top: 80px;
+    }
 }

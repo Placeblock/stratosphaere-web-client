@@ -6,6 +6,9 @@
     position: relative;
     transition: transform 0.2s ease-in-out;
     overflow: hidden;
+    width: 100%;
+    border: none;
+    text-align: left;
     &:hover {
         cursor: pointer;
         transform: scale(1.05);
