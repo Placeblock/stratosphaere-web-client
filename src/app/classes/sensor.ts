@@ -19,8 +19,8 @@ export class Sensor<D> {
         return this._data.getValue();
     }
 
-    public addSensorData(sensorData: SensorData<D>) {
-        this._data.next([...this.data, sensorData]);
+    public addSensorData(sensorDatas: SensorData<D>[]) {
+        this._data.next([...this.data, ...sensorDatas]);
     }
 
     public parsePoints(): Point[] {
