@@ -44,17 +44,10 @@ export class LiveComponent implements OnDestroy {
       if (time > lastSensorDate) {
         lastSensorDate = time;
       }
-      if (data.longitude != 7.371 && data.latitude != 65.536 && data.longitude != 0 && data.latitude != 0) {
-        gpsData.push(new SensorData(time, {lat: data.latitude, long: data.longitude, alt: data.altitude}));
-      }
-      if (data.longitude > 11.034411764321934 && data.latitude < 49.358959884291366) {
-        console.log("ALERT: "+ data.latitude + ":" + data.longitude + " : " + time);
-      }
-      if (data.humidity != 0 || data.pressure != 0 || data.temperature != 0) {
-        humidityData.push(new SensorData(time, data.humidity));
-        pressureData.push(new SensorData(time, data.pressure));
-        temperatureData.push(new SensorData(time, data.temperature));
-      }
+      gpsData.push(new SensorData(time, {lat: data.latitude, long: data.longitude, alt: data.altitude}));
+      humidityData.push(new SensorData(time, data.humidity));
+      pressureData.push(new SensorData(time, data.pressure*10));
+      temperatureData.push(new SensorData(time, data.temperature));
       this.sensorService.lastSensorDate = lastSensorDate;
     }
     this.sensorService.gpsSensor.addSensorData(gpsData);
