@@ -1,6 +1,9 @@
 <app-page-wrapper>
     <div id="page-content">
-        <img *ngFor="let crap of this.imageCount; let i = index;" (click)="this.showImage(i)" [src]="this.getSmallImageUrl(i)" loading="lazy" >
+        <p id="disclaimer">Achtung: Beim Klicken auf Bilder werden hochauflösende Bilder mit ~3MB Größe geladen!</p>
+        <div id="image-container">
+            <img *ngFor="let crap of this.imageCount; let i = index;" (click)="this.showImage(i)" [src]="this.getSmallImageUrl(i)" loading="lazy" >
+        </div>
     </div>
     <div id="image-viewer" *ngIf="this.showImageViewer">
         <img id="bg-viewer-image" [src]="this.getImageUrl(this.currentImageIndex)">

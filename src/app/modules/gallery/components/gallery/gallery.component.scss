@@ -2,7 +2,16 @@
     background-color: white;
     padding: 10px;
     border-radius: 5px;
-    list-style: none;
+}
+
+#disclaimer {
+    font-weight: 800;
+    font-size: 18px;
+    margin-block: 20px;
+}
+
+#image-container {
+    width: 100%;
     
     display: flex;
     flex-wrap: wrap;
