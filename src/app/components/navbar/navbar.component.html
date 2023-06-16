@@ -2,8 +2,9 @@
 <div id="container">
     <a routerLink="/" id="logo">Projekt Solis</a>
     <div id="links">
+        <a routerLink="/gallery"><b>Galerie</b></a>
         <a routerLink="/blog"><b>Blog</b></a>
-        <a routerLink="/live"><b>Live</b></a>
+        <a routerLink="/live">Live</a>
         <a routerLink="/tools">Tools</a>
         <a *ngIf="(this.authService.$token | async) != null" (click)="logOut()">Logout</a>
         <a *ngIf="(this.authService.$token | async) == null" (click)="toggleShowLogin()">Login</a>
