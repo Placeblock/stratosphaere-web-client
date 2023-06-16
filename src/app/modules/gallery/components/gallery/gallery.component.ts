@@ -19,18 +19,24 @@ export class GalleryComponent {
   }
 
   showImage(index: number) {
-    console.log(index);
     this.currentImageIndex = index;
     this.showImageViewer = true;
   }
 
   nextImage() {
-    this.currentImageIndex = ++this.currentImageIndex % this.imageCount.length;
+    this.currentImageIndex = this.getNextImage();
   }
 
   previousImage() {
-    this.currentImageIndex = this.negativeMod(--this.currentImageIndex, this.imageCount.length);
-    console.log(this.currentImageIndex);
+    this.currentImageIndex = this.getPreviousImage();
+  }
+
+  getNextImage(): number {
+    return (this.currentImageIndex + 1) % this.imageCount.length;
+  }
+
+  getPreviousImage(): number {
+    return this.negativeMod(this.currentImageIndex - 1, this.imageCount.length);
   }
 
   negativeMod(n: number, max: number) {

@@ -3,10 +3,12 @@
         <img *ngFor="let crap of this.imageCount; let i = index;" (click)="this.showImage(i)" [src]="this.getSmallImageUrl(i)" loading="lazy" >
     </div>
     <div id="image-viewer" *ngIf="this.showImageViewer">
-        <img id="bg-viewer-image" [src]="this.getImageUrl(this.currentImageIndex)" alt="">
-        <img id="fg-viewer-image" [src]="this.getImageUrl(this.currentImageIndex)" alt="">
+        <img id="bg-viewer-image" [src]="this.getImageUrl(this.currentImageIndex)">
+        <img id="fg-viewer-image" [src]="this.getImageUrl(this.currentImageIndex)">
+        <img style="width: 0px;" [src]="this.getImageUrl(this.getNextImage())">
+        <img style="width: 0px;" [src]="this.getImageUrl(this.getPreviousImage())">
         <button class="button" id="close-viewer" (click)="this.showImageViewer = false">X</button>
-        <button class="button" id="next-image" (click)="this.nextImage()">-></button>
-        <button class="button" id="previous-image" (click)="this.previousImage()"><-</button>
+        <button class="button" id="next-image" (mousedown)="this.nextImage()">-></button>
+        <button class="button" id="previous-image" (mousedown)="this.previousImage()"><-</button>
     </div>
 </app-page-wrapper>
