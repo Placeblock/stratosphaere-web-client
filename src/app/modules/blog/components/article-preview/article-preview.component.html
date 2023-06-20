@@ -11,7 +11,8 @@
     (close)="this.showDeleteModal = false" 
     (confirm)="this.deleteEmitter.emit()"
     [title]="'Beitrag löschen'"
+    i18n-[title]="Article delete modal title"
     [button]="'LÖSCHEN'">
-    <p>Wenn Sie auf LÖSCHEN drücken, wird der Artikel aus der Datenbank gelöscht.</p>
-    <p><b>Diese Aktion kann nicht rückgängig gemacht werden!</b></p>
+    <p i18n="Article delete modal description">Wenn Sie auf LÖSCHEN drücken, wird der Artikel aus der Datenbank gelöscht.</p>
+    <p><b i18n="Article delete modal warning">Diese Aktion kann nicht rückgängig gemacht werden!</b></p>
 </app-aftermath-modal>

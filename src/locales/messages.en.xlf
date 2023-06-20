@@ -1,0 +1,382 @@
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="de-DE" trgLang="en">
+  <file original="ng.template" id="ngi18n">
+    <unit id="5546552727368834286">
+      <segment state="initial">
+        <source>Gemeinsam wollen wir der Sonne näherkommen</source>
+        <target>Together we want to get closer to the sun</target>
+      </segment>
+    </unit>
+    <unit id="2938896674467204235">
+      <segment state="initial">
+        <source>Was ist Projekt Solis?</source>
+        <target>What is Project Solis?</target>
+      </segment>
+    </unit>
+    <unit id="8168974601087584588">
+      <segment state="initial">
+        <source>Der Sonne näherkommen klingt cool oder? Genau das ist unser Ziel!</source>
+        <target>Getting closer to the sun sounds cool right? That is exactly our goal!</target>
+      </segment>
+    </unit>
+    <unit id="140374161517605487">
+      <segment state="initial">
+        <source>Wir, das P-Seminar geleitet von Herr Neßlinger, wollen einen Stratosphärenballon aufsteigen lassen.</source>
+        <target>We, the P-Seminar led by Mr. Neßlinger, want to let a stratospheric balloon rise.</target>
+      </segment>
+    </unit>
+    <unit id="8192635348732863717">
+      <segment state="initial">
+        <source>Das Team</source>
+        <target>The team</target>
+      </segment>
+    </unit>
+    <unit id="1593487004300420140">
+      <segment state="initial">
+        <source>Organisation</source>
+        <target>Organization</target>
+      </segment>
+    </unit>
+    <unit id="7532310361163869419">
+      <segment state="initial">
+        <source>Technik</source>
+        <target>Development and Electronics</target>
+      </segment>
+    </unit>
+    <unit id="4358823292316897352">
+      <segment state="initial">
+        <source>Bau - Team</source>
+        <target>Construction</target>
+      </segment>
+    </unit>
+    <unit id="7751010942038334793">
+      <segment state="initial">
+        <source>Blog</source>
+        <target>Blog</target>
+      </segment>
+    </unit>
+    <unit id="4204307334403553820">
+      <segment state="initial">
+        <source>Datenauswertung</source>
+        <target>Data evaluation</target>
+      </segment>
+    </unit>
+    <unit id="6549265851868599441">
+      <segment state="initial">
+        <source>Video</source>
+        <target>Video</target>
+      </segment>
+    </unit>
+    <unit id="3690451144448525189">
+      <segment state="initial">
+        <source>Finanzielle Unterstützung</source>
+        <target>Financial support</target>
+      </segment>
+    </unit>
+    <unit id="2131044809878384610">
+      <segment state="initial">
+        <source>Vielen Dank für die erneute Unterstützung unseres Projekts!</source>
+        <target>Thank you for supporting our project again!</target>
+      </segment>
+    </unit>
+    <unit id="7658402240953727096">
+      <segment state="initial">
+        <source>Name:</source>
+        <target>Name:</target>
+      </segment>
+    </unit>
+    <unit id="721538859098992903">
+      <segment state="initial">
+        <source>Passwort:</source>
+        <target>Password:</target>
+      </segment>
+    </unit>
+    <unit id="5181690192053543822">
+      <segment state="initial">
+        <source>Anmelden</source>
+        <target>Login</target>
+      </segment>
+    </unit>
+    <unit id="7696750270147457780">
+      <segment state="initial">
+        <source>Projekt Solis</source>
+        <target>Project Solis</target>
+      </segment>
+    </unit>
+    <unit id="8255616965921889726">
+      <segment state="initial">
+        <source>Galerie</source>
+        <target>Gallery</target>
+      </segment>
+    </unit>
+    <unit id="8610504659433544583">
+      <segment state="initial">
+        <source>Live</source>
+        <target>Live</target>
+      </segment>
+    </unit>
+    <unit id="8832408184812703779">
+      <segment state="initial">
+        <source>Werkzeuge</source>
+        <target>Tools</target>
+      </segment>
+    </unit>
+    <unit id="2361265238320887165">
+      <segment state="initial">
+        <source>Abmelden</source>
+        <target>Logout</target>
+      </segment>
+    </unit>
+    <unit id="6717134378325030343">
+      <segment state="initial">
+        <source>Rechtliches</source>
+        <target>Legal</target>
+      </segment>
+    </unit>
+    <unit id="2693143660263927094">
+      <segment state="initial">
+        <source>Fehler!</source>
+        <target>Error!</target>
+      </segment>
+    </unit>
+    <unit id="754310759120814647">
+      <segment state="initial">
+        <source>Fehler bei der API-Kommunikation</source>
+        <target>Error while communicating with API</target>
+      </segment>
+    </unit>
+    <unit id="7888960129997225637">
+      <segment state="initial">
+        <source>Nicht veröffentlicht</source>
+        <target>Not published</target>
+      </segment>
+    </unit>
+    <unit id="5777983080216302081">
+      <segment state="initial">
+        <source>Wenn Sie auf LÖSCHEN drücken, wird der Artikel aus der Datenbank gelöscht.</source>
+        <target>Pressing DELETE will remove the article permanently from the database.</target>
+      </segment>
+    </unit>
+    <unit id="6769749865719157970">
+      <segment state="initial">
+        <source>Diese Aktion kann nicht rückgängig gemacht werden!</source>
+        <target>This action cannot be undone!</target>
+      </segment>
+    </unit>
+    <unit id="7372222231697473897">
+      <segment state="initial">
+        <source>Wenn Sie auf Zurückrufen drücken, wird der Artikel nur noch angemeldeten Benutzern angezeigt.</source>
+        <target>Pressing Revert will only show the article to users which are loggedin!</target>
+      </segment>
+    </unit>
+    <unit id="1277952832882119978">
+      <segment state="initial">
+        <source>Wenn Sie auf Veröffentlichen drücken, wird der Artikel unangemeldeten Benutzern angezeigt.</source>
+        <target>Pressing Publish will show the article to everyone!</target>
+      </segment>
+    </unit>
+    <unit id="215586591177164870">
+      <segment state="initial">
+        <source>Diese Aktion wird in diesem Moment gültig!</source>
+        <target>This action will take effect imediately!</target>
+      </segment>
+    </unit>
+    <unit id="8930526198656004715">
+      <segment state="initial">
+        <source>Zurück</source>
+        <target>Back</target>
+      </segment>
+    </unit>
+    <unit id="5069446954920322882">
+      <segment state="initial">
+        <source>Auto-Speichern:</source>
+        <target>Autosave</target>
+      </segment>
+    </unit>
+    <unit id="119275571541723475">
+      <segment state="initial">
+        <source>Speichern (Ctrl + S)</source>
+        <target>Save (Ctrl + S)</target>
+      </segment>
+    </unit>
+    <unit id="3282235563480269560">
+      <segment state="initial">
+        <source>Beschreibung</source>
+        <target>Description</target>
+      </segment>
+    </unit>
+    <unit id="7443524017414863415">
+      <segment state="initial">
+        <source>Post Beschreibung</source>
+        <target>Post description</target>
+      </segment>
+    </unit>
+    <unit id="2560724732703198419">
+      <segment state="initial">
+        <source>Hintergrund Bild</source>
+        <target>Background image</target>
+      </segment>
+    </unit>
+    <unit id="4324945842449315016">
+      <segment state="initial">
+        <source>Banner Hintergrund</source>
+        <target>Banner background</target>
+      </segment>
+    </unit>
+    <unit id="7110420789702702271">
+      <segment state="initial">
+        <source>Unveröffentlichte anzeigen</source>
+        <target>Show unpublished</target>
+      </segment>
+    </unit>
+    <unit id="5404582948860641901">
+      <segment state="initial">
+        <source>Veröffentlichte anzeigen</source>
+        <target>Show published</target>
+      </segment>
+    </unit>
+    <unit id="2492850122304895088">
+      <segment state="initial">
+        <source>Neuer Beitrag</source>
+        <target>New article</target>
+      </segment>
+    </unit>
+    <unit id="7133410009645316156">
+      <segment state="initial">
+        <source>Achtung: Beim Klicken auf Bilder werden hochauflösende Bilder mit ~3MB Größe geladen!</source>
+        <target>Disclaimer: Clicking on images will load high-resolution images! (~3MB per image)</target>
+      </segment>
+    </unit>
+    <unit id="4233860071147197376">
+      <segment state="initial">
+        <source>Temperatur:</source>
+        <target>Temperature:</target>
+      </segment>
+    </unit>
+    <unit id="3406932583686915791">
+      <segment state="initial">
+        <source>Höhe <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span style=&quot;opacity: 0.7;&quot;&gt;" dispEnd="&lt;/span&gt;">(üNN)</pc>:</source>
+        <target>Altitude <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span style=&quot;opacity: 0.7;&quot;&gt;" dispEnd="&lt;/span&gt;">(MASL)</pc>:</target>
+      </segment>
+    </unit>
+    <unit id="4790512424886003739">
+      <segment state="initial">
+        <source>Luftdruck:</source>
+        <target>Air pressure:</target>
+      </segment>
+    </unit>
+    <unit id="2629139886224509898">
+      <segment state="initial">
+        <source>Feuchtigkeit:</source>
+        <target>Humidity:</target>
+      </segment>
+    </unit>
+    <unit id="8853966781467289324">
+      <segment state="initial">
+        <source>Aktuelle Position in GoogleMaps öffnen</source>
+        <target>Open current position in GoogleMaps</target>
+      </segment>
+    </unit>
+    <unit id="3043217973844912386">
+      <segment state="initial">
+        <source>Aktuelle Position in OSM öffnen</source>
+        <target>Open current position in OSM</target>
+      </segment>
+    </unit>
+    <unit id="5389216807586955153">
+      <segment state="initial">
+        <source>Auswirkungen</source>
+        <target>Consequences</target>
+      </segment>
+    </unit>
+    <unit id="953766939537491517">
+      <segment state="initial">
+        <source>Ich bin mir den Auswirkungen bewusst:</source>
+        <target>I know the consequences:</target>
+      </segment>
+    </unit>
+    <unit id="6066827246297203044">
+      <segment state="initial">
+        <source>Hexadezimal-Wert</source>
+        <target>Hexadecimal-Value:</target>
+      </segment>
+    </unit>
+    <unit id="6933042960575773596">
+      <segment state="initial">
+        <source>Breitengrad</source>
+        <target>Latitude</target>
+      </segment>
+    </unit>
+    <unit id="660304492460132747">
+      <segment state="initial">
+        <source>Längengrad</source>
+        <target>Longitude</target>
+      </segment>
+    </unit>
+    <unit id="9108707335555636718">
+      <segment state="initial">
+        <source>Höhe</source>
+        <target>Altitude</target>
+      </segment>
+    </unit>
+    <unit id="5402590287191267988">
+      <segment state="initial">
+        <source>Temperatur</source>
+        <target>Temperature</target>
+      </segment>
+    </unit>
+    <unit id="9042379377196492898">
+      <segment state="initial">
+        <source>Luftfeuchtigkeit</source>
+        <target>Humidity</target>
+      </segment>
+    </unit>
+    <unit id="8596957230670069601">
+      <segment state="initial">
+        <source>Luftdruck</source>
+        <target>Pressure</target>
+      </segment>
+    </unit>
+    <unit id="8552383276558544407">
+      <segment state="initial">
+        <source>Feuchtigkeit (%)</source>
+        <target>Humidity (%)</target>
+      </segment>
+    </unit>
+    <unit id="5238046235398040489">
+      <segment state="initial">
+        <source>Temperatur (°C)</source>
+        <target>Temperature (°C)</target>
+      </segment>
+    </unit>
+    <unit id="7485625579763145475">
+      <segment state="initial">
+        <source>Luftdruck (hPa)</source>
+        <target>Air pressure (hPa)</target>
+      </segment>
+    </unit>
+    <unit id="1804233911738940096">
+      <segment state="initial">
+        <source>Zurückziehen</source>
+        <target>Revert</target>
+      </segment>
+    </unit>
+    <unit id="4636978523362061571">
+      <segment state="initial">
+        <source>Veröffentlichen</source>
+        <target>Publish</target>
+      </segment>
+    </unit>
+    <unit id="822375669399403133">
+      <segment state="initial">
+        <source>Veröffentlicht am <ph id="0" equiv="INTERPOLATION" disp="{{article.publish_date | date :&apos;d. MMMM y&apos;}}"/> von <ph id="1" equiv="INTERPOLATION_1" disp="{{article.author}}"/></source>
+        <target>Published on <ph id="0" equiv="INTERPOLATION" disp="{{article.publish_date | date :&apos;d. MMMM y&apos;}}"/> by <ph id="1" equiv="INTERPOLATION_1" disp="{{article.author}}"/></target>
+      </segment>
+    </unit>
+    <unit id="8216672161677506063">
+      <segment state="initial">
+        <source>Höhe (m)</source>
+        <target>Altitude (m)</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

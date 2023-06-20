@@ -2,11 +2,11 @@
     <h2>{{this.title}}</h2>
     <hr>
     <details>
-        <summary>Auswirkungen</summary>
+        <summary i18n="Aftermath Form Header">Auswirkungen</summary>
         <ng-content></ng-content>
     </details>
     <div>
-        <label for="aftermath-check">Ich bin mir den Auswirkungen bewusst:</label>
+        <label for="aftermath-check"  i18n="Aftermath Form Description">Ich bin mir den Auswirkungen bewusst:</label>
         <input id="aftermath-check" [formControl]="afterMathForm" type="checkbox">
     </div>
     <button id="button" class="button" (click)="this.click()">{{this.button}}</button>

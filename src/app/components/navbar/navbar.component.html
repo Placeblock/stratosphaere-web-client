@@ -1,14 +1,14 @@
 <fa-icon id="burger" class="button" [icon]="burgerIcon" (click)="this.navHidden = !this.navHidden"></fa-icon>
 <div id="container">
-    <a routerLink="/" id="logo">Projekt Solis</a>
+    <a routerLink="/" id="logo" i18n="brand|The name of the projects brand">Projekt Solis</a>
     <div id="links">
-        <a routerLink="/gallery"><b>Galerie</b></a>
-        <a routerLink="/blog"><b>Blog</b></a>
-        <a routerLink="/live">Live</a>
-        <a routerLink="/tools">Tools</a>
-        <a *ngIf="(this.authService.$token | async) != null" (click)="logOut()">Logout</a>
-        <a *ngIf="(this.authService.$token | async) == null" (click)="toggleShowLogin()">Login</a>
-        <a routerLink="/rechtliches">Rechtliches</a>
+        <a routerLink="/gallery"><b i18n="The link to the gallery with images">Galerie</b></a>
+        <a routerLink="/blog"><b i18n="The link to the blog articles">Blog</b></a>
+        <a routerLink="/live" i18n="The link to the live section">Live</a>
+        <a routerLink="/tools" i18n="The link to the tools section">Werkzeuge</a>
+        <a *ngIf="(this.authService.$token | async) != null" (click)="logOut()" i18n="Button to logout of the website">Abmelden</a>
+        <a *ngIf="(this.authService.$token | async) == null" (click)="toggleShowLogin()" i18n="Button to log into the website">Anmelden</a>
+        <a routerLink="/rechtliches" i18n="The link to the imprint">Rechtliches</a>
     </div>
 </div>
 <app-modal *ngIf="(this.authService.$token | async) == null && this.showLogin" (close)="this.showLogin=false">

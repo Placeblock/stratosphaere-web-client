@@ -10,7 +10,6 @@ const routes: Routes = [
   { path: 'live', loadChildren: () => import('./modules/live/live.module').then(m => m.LiveModule)},
   { path: 'tools', loadChildren: () => import('./modules/tools/tools.module').then(m => m.ToolsModule)},
   { path: 'gallery', loadChildren: () => import('./modules/gallery/gallery.module').then(m => m.GalleryModule)},
-  { path: 'analysis', loadChildren: () => import('./modules/analysis/analysis.module').then(m => m.AnalysisModule)},
   { path: '**', redirectTo: '' }
 ];
 

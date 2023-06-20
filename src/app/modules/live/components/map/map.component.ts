@@ -83,7 +83,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     const sensService = this.sensorService;
     var btn = L.DomUtil.create('button');
     btn.classList.add("googlemaps");
-    btn.title = "Open current Position in GoogleMaps";
+    btn.title = $localize `:Button for opening current Position in Google Maps:Aktuelle Position in GoogleMaps öffnen`;
     btn.innerText = "G";
 
     const OpenGoogle = L.Control.extend({
@@ -114,7 +114,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     const sensService = this.sensorService;
     var btn = L.DomUtil.create('button');
     btn.classList.add("openstreetmap");
-    btn.title = "Open current Position in OSM";
+    btn.title = $localize `:Button for opening current Position in OSM:Aktuelle Position in OSM öffnen`;
     btn.innerText = "OSM";
 
     const OpenOSM = L.Control.extend({

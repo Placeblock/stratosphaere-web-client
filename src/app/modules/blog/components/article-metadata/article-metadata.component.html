@@ -1,2 +1,2 @@
-<p class="metadata-published" *ngIf="article.published && article.publish_date != null">Veröffentlicht am {{article.publish_date | date :'d. MMMM y'}} von {{article.author}}</p>
-<p class="metadata-not-published" *ngIf="!article.published">Nicht veröffentlicht</p>
+<p class="metadata-published" *ngIf="article.published && article.publish_date != null"  i18n="Article Metadata published">Veröffentlicht am {{article.publish_date | date :'d. MMMM y'}} von {{article.author}}</p>
+<p class="metadata-not-published" *ngIf="!article.published" i18n="Article Metadata not published">Nicht veröffentlicht</p>

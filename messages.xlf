@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="de-DE">
+  <file id="ngi18n" original="ng.template">
+    <unit id="5546552727368834286">
+      <segment>
+        <source>Gemeinsam wollen wir der Sonne näherkommen</source>
+      </segment>
+    </unit>
+    <unit id="2938896674467204235">
+      <segment>
+        <source>Was ist Projekt Solis?</source>
+      </segment>
+    </unit>
+    <unit id="8168974601087584588">
+      <segment>
+        <source>Der Sonne näherkommen klingt cool oder? Genau das ist unser Ziel!</source>
+      </segment>
+    </unit>
+    <unit id="140374161517605487">
+      <segment>
+        <source>Wir, das P-Seminar geleitet von Herr Neßlinger, wollen einen Stratosphärenballon aufsteigen lassen.</source>
+      </segment>
+    </unit>
+    <unit id="8192635348732863717">
+      <segment>
+        <source>Das Team</source>
+      </segment>
+    </unit>
+    <unit id="1593487004300420140">
+      <segment>
+        <source>Organisation</source>
+      </segment>
+    </unit>
+    <unit id="7532310361163869419">
+      <segment>
+        <source>Technik</source>
+      </segment>
+    </unit>
+    <unit id="4358823292316897352">
+      <segment>
+        <source>Bau - Team</source>
+      </segment>
+    </unit>
+    <unit id="7751010942038334793">
+      <segment>
+        <source>Blog</source>
+      </segment>
+    </unit>
+    <unit id="4204307334403553820">
+      <segment>
+        <source>Datenauswertung</source>
+      </segment>
+    </unit>
+    <unit id="6549265851868599441">
+      <segment>
+        <source>Video</source>
+      </segment>
+    </unit>
+    <unit id="3690451144448525189">
+      <segment>
+        <source>Finanzielle Unterstützung</source>
+      </segment>
+    </unit>
+    <unit id="2131044809878384610">
+      <segment>
+        <source>Vielen Dank für die erneute Unterstützung unseres Projekts!</source>
+      </segment>
+    </unit>
+    <unit id="7658402240953727096">
+      <segment>
+        <source>Name:</source>
+      </segment>
+    </unit>
+    <unit id="721538859098992903">
+      <segment>
+        <source>Passwort:</source>
+      </segment>
+    </unit>
+    <unit id="5181690192053543822">
+      <segment>
+        <source>Anmelden</source>
+      </segment>
+    </unit>
+    <unit id="7696750270147457780">
+      <segment>
+        <source>Projekt Solis</source>
+      </segment>
+    </unit>
+    <unit id="8255616965921889726">
+      <segment>
+        <source>Galerie</source>
+      </segment>
+    </unit>
+    <unit id="8610504659433544583">
+      <segment>
+        <source>Live</source>
+      </segment>
+    </unit>
+    <unit id="8832408184812703779">
+      <segment>
+        <source>Werkzeuge</source>
+      </segment>
+    </unit>
+    <unit id="2361265238320887165">
+      <segment>
+        <source>Abmelden</source>
+      </segment>
+    </unit>
+    <unit id="6717134378325030343">
+      <segment>
+        <source>Rechtliches</source>
+      </segment>
+    </unit>
+    <unit id="2693143660263927094">
+      <segment>
+        <source>Fehler!</source>
+      </segment>
+    </unit>
+    <unit id="754310759120814647">
+      <segment>
+        <source>Fehler bei der API-Kommunikation</source>
+      </segment>
+    </unit>
+    <unit id="7888960129997225637">
+      <segment>
+        <source>Nicht veröffentlicht</source>
+      </segment>
+    </unit>
+    <unit id="5777983080216302081">
+      <segment>
+        <source>Wenn Sie auf LÖSCHEN drücken, wird der Artikel aus der Datenbank gelöscht.</source>
+      </segment>
+    </unit>
+    <unit id="6769749865719157970">
+      <segment>
+        <source>Diese Aktion kann nicht rückgängig gemacht werden!</source>
+      </segment>
+    </unit>
+    <unit id="7372222231697473897">
+      <segment>
+        <source>Wenn Sie auf Zurückrufen drücken, wird der Artikel nur noch angemeldeten Benutzern angezeigt.</source>
+      </segment>
+    </unit>
+    <unit id="1277952832882119978">
+      <segment>
+        <source>Wenn Sie auf Veröffentlichen drücken, wird der Artikel unangemeldeten Benutzern angezeigt.</source>
+      </segment>
+    </unit>
+    <unit id="215586591177164870">
+      <segment>
+        <source>Diese Aktion wird in diesem Moment gültig!</source>
+      </segment>
+    </unit>
+    <unit id="8930526198656004715">
+      <segment>
+        <source>Zurück</source>
+      </segment>
+    </unit>
+    <unit id="5069446954920322882">
+      <segment>
+        <source>Auto-Speichern:</source>
+      </segment>
+    </unit>
+    <unit id="119275571541723475">
+      <segment>
+        <source>Speichern (Ctrl + S)</source>
+      </segment>
+    </unit>
+    <unit id="3282235563480269560">
+      <segment>
+        <source>Beschreibung</source>
+      </segment>
+    </unit>
+    <unit id="7443524017414863415">
+      <segment>
+        <source>Post Beschreibung</source>
+      </segment>
+    </unit>
+    <unit id="2560724732703198419">
+      <segment>
+        <source>Hintergrund Bild</source>
+      </segment>
+    </unit>
+    <unit id="4324945842449315016">
+      <segment>
+        <source>Banner Hintergrund</source>
+      </segment>
+    </unit>
+    <unit id="1804233911738940096">
+      <segment>
+        <source>Zurückziehen</source>
+      </segment>
+    </unit>
+    <unit id="4636978523362061571">
+      <segment>
+        <source>Veröffentlichen</source>
+      </segment>
+    </unit>
+    <unit id="7110420789702702271">
+      <segment>
+        <source>Unveröffentlichte anzeigen</source>
+      </segment>
+    </unit>
+    <unit id="5404582948860641901">
+      <segment>
+        <source>Veröffentlichte anzeigen</source>
+      </segment>
+    </unit>
+    <unit id="2492850122304895088">
+      <segment>
+        <source>Neuer Beitrag</source>
+      </segment>
+    </unit>
+    <unit id="7133410009645316156">
+      <segment>
+        <source>Achtung: Beim Klicken auf Bilder werden hochauflösende Bilder mit ~3MB Größe geladen!</source>
+      </segment>
+    </unit>
+    <unit id="4233860071147197376">
+      <segment>
+        <source>Temperatur:</source>
+      </segment>
+    </unit>
+    <unit id="3406932583686915791">
+      <segment>
+        <source>Höhe <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span style=&quot;opacity: 0.7;&quot;&gt;" dispEnd="&lt;/span&gt;">(üNN)</pc>:</source>
+      </segment>
+    </unit>
+    <unit id="4790512424886003739">
+      <segment>
+        <source>Luftdruck:</source>
+      </segment>
+    </unit>
+    <unit id="2629139886224509898">
+      <segment>
+        <source>Feuchtigkeit:</source>
+      </segment>
+    </unit>
+    <unit id="8853966781467289324">
+      <segment>
+        <source>Aktuelle Position in GoogleMaps öffnen</source>
+      </segment>
+    </unit>
+    <unit id="3043217973844912386">
+      <segment>
+        <source>Aktuelle Position in OSM öffnen</source>
+      </segment>
+    </unit>
+    <unit id="5389216807586955153">
+      <segment>
+        <source>Auswirkungen</source>
+      </segment>
+    </unit>
+    <unit id="953766939537491517">
+      <segment>
+        <source>Ich bin mir den Auswirkungen bewusst:</source>
+      </segment>
+    </unit>
+    <unit id="6066827246297203044">
+      <segment>
+        <source>Hexadezimal-Wert</source>
+      </segment>
+    </unit>
+    <unit id="6933042960575773596">
+      <segment>
+        <source>Breitengrad</source>
+      </segment>
+    </unit>
+    <unit id="660304492460132747">
+      <segment>
+        <source>Längengrad</source>
+      </segment>
+    </unit>
+    <unit id="9108707335555636718">
+      <segment>
+        <source>Höhe</source>
+      </segment>
+    </unit>
+    <unit id="5402590287191267988">
+      <segment>
+        <source>Temperatur</source>
+      </segment>
+    </unit>
+    <unit id="9042379377196492898">
+      <segment>
+        <source>Luftfeuchtigkeit</source>
+      </segment>
+    </unit>
+    <unit id="8596957230670069601">
+      <segment>
+        <source>Luftdruck</source>
+      </segment>
+    </unit>
+    <unit id="8552383276558544407">
+      <segment>
+        <source>Feuchtigkeit (%)</source>
+      </segment>
+    </unit>
+    <unit id="5238046235398040489">
+      <segment>
+        <source>Temperatur (°C)</source>
+      </segment>
+    </unit>
+    <unit id="7485625579763145475">
+      <segment>
+        <source>Luftdruck (hPa)</source>
+      </segment>
+    </unit>
+    <unit id="8216672161677506063">
+      <segment>
+        <source>Höhe (m)</source>
+      </segment>
+    </unit>
+    <unit id="822375669399403133">
+      <segment>
+        <source>Veröffentlicht am <ph id="0" equiv="INTERPOLATION" disp="{{article.publish_date | date :&apos;d. MMMM y&apos;}}"/> von <ph id="1" equiv="INTERPOLATION_1" disp="{{article.author}}"/></source>
+      </segment>
+    </unit>
+  </file>
+</xliff>

@@ -6,18 +6,18 @@
     (confirm)="this.visibility()"
     [title]="'Beitrag ' + this.getVisibilityText()"
     [button]="this.getVisibilityText()">
-    <p *ngIf="this.article?.published">Wenn Sie auf Zurückrufen drücken, 
+    <p *ngIf="this.article?.published" i18n="Article revert submit description">Wenn Sie auf Zurückrufen drücken, 
         wird der Artikel nur noch angemeldeten Benutzern angezeigt.</p>
-    <p *ngIf="!this.article?.published">Wenn Sie auf Veröffentlichen drücken, 
+    <p *ngIf="!this.article?.published" i18n="Article publish submit description">Wenn Sie auf Veröffentlichen drücken, 
         wird der Artikel unangemeldeten Benutzern angezeigt.</p>
-    <p><b>Diese Aktion wird in diesem Moment gültig!</b></p>
+    <p><b i18n="Article visibility change warning">Diese Aktion wird in diesem Moment gültig!</b></p>
 </app-aftermath-modal>
 <form id="post-editor" [formGroup]="editForm">
     <div id="banner" [ngStyle]="{'background-image': 'url(' + this.editForm.value.cover_image_url + ')'}">
-        <button class="button" id="back-button" [routerLink]="['/blog/']">Zurück</button>
+        <button class="button" id="back-button" [routerLink]="['/blog/']" i18n="Edit article back button">Zurück</button>
         <div id="settings">
             <div id="save-settings" *ngIf="this.edit">
-                <p>Autosave:</p>
+                <p i18n="Autosave blog article button header">Auto-Speichern:</p>
                 <label class="switch">
                     <input type="checkbox" [checked]="autoSave" (change)="autoSave = !autoSave">
                     <span class="slider"></span>
@@ -28,17 +28,17 @@
         </div>            
         <div id="edit-buttons">
             <button *ngIf="this.edit" class="button" (click)="this.showVisibilityModal = true">{{this.getVisibilityText()}}</button>
-            <button *ngIf="!this.autoSave && this.edit" class="button" (click)="save()">Speichern (Ctrl + S)</button>
+            <button *ngIf="!this.autoSave && this.edit" class="button" i18n="Blog article save button" (click)="save()">Speichern (Ctrl + S)</button>
         </div>
         <h1 id="title" *ngIf="!this.edit">{{this.editForm.controls["title"].value}}</h1>
         <h1 id="title" *ngIf="this.edit" formControlName="title" contenteditable="true"></h1>
     </div>
     <div id="content">
         <ng-container *ngIf="this.edit">
-            <label for="description-input">Beschreibung</label>
-            <input id="description-input" placeholder="Post Beschreibung" formControlName="description">
-            <label for="description-input">Hintergrund Bild</label>
-            <input id="cover-image-input" placeholder="Banner Hintergrund" type="url" formControlName="cover_image_url">
+            <label for="description-input" i18n="Blog article describtion input label">Beschreibung</label>
+            <input id="description-input" i18n-placeholder="Post article description input placeholder" placeholder="Post Beschreibung" formControlName="description">
+            <label for="description-input"  i18n="Blog article backgroundimage input label">Hintergrund Bild</label>
+            <input id="cover-image-input" i18n-placeholder="Post article backgroundimage input placeholder" placeholder="Banner Hintergrund" type="url" formControlName="cover_image_url">
         </ng-container>
     
         <app-article-metadata id="metadata" *ngIf="this.article" [article]="this.article"></app-article-metadata>

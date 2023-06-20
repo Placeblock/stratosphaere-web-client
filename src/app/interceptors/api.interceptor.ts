@@ -25,9 +25,9 @@ export class ApiInterceptor implements HttpInterceptor {
         }) : request;
         return next.handle(authReq).pipe(catchError((response: HttpErrorResponse) => {
           if ("msg" in response.error) {
-            this.notification.error("Fehler!", response.error.msg, 5000);
+            this.notification.error($localize `:API Response Error Title:Fehler!`, response.error.msg, 5000);
           } else {
-            this.notification.error("Fehler!", "Error while communicating to API", 5000);
+            this.notification.error($localize `:API Response Error Title:Fehler!`, $localize `:API Response Error Description:Fehler bei der API-Kommunikation`, 5000);
           }
           return throwError(() => response)
         }));

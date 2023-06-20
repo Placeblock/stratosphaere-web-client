@@ -1,27 +1,27 @@
 <form action="" [formGroup]="dataForm">
     <div class="form-section">
         <div>
-            <label for="lat">Latitude</label>
+            <label for="lat" i18n="latitude header of toolbox">Breitengrad</label>
             <input id="lat" class="tool-input" type="number" formControlName="latitude" step="0.01">
         </div>
         <div>
-            <label for="long">Longitude</label>
+            <label for="long" i18n="longitude header of toolbox">Längengrad</label>
             <input id="long" class="tool-input" type="number" formControlName="longitude" step="0.01">
         </div>
         <div>
-            <label for="alt">Altitude</label>
+            <label for="alt" i18n="altitude header of toolbox">Höhe</label>
             <input id="alt" class="tool-input" type="number" formControlName="altitude">
         </div>
         <div>
-            <label for="temp">Temperature</label>
+            <label for="temp" i18n="temperature header of toolbox">Temperatur</label>
             <input id="temp" class="tool-input" type="number" formControlName="temperature">
         </div>
         <div>
-            <label for="hum">Humidity</label>
+            <label for="hum" i18n="humidity header of toolbox">Luftfeuchtigkeit</label>
             <input id="hum" class="tool-input" type="number" formControlName="humidity">
         </div>
         <div>
-            <label for="press">Pressure</label>
+            <label for="press" i18n="pressure header of toolbox">Luftdruck</label>
             <input id="press" class="tool-input" type="number" formControlName="pressure">
         </div>
     </div>

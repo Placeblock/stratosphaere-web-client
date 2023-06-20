@@ -11,7 +11,15 @@
         }
       },
       "i18n": {
-        "sourceLocale": "de-DE"
+        "sourceLocale": "de-DE",
+        "locales": {
+          "de": {
+            "translation": "src/locales/messages.de.xlf"
+          },
+          "en": {
+            "translation": "src/locales/messages.en.xlf"
+          }
+        }
       },
       "root": "",
       "sourceRoot": "src",
@@ -40,6 +48,7 @@
           },
           "configurations": {
             "production": {
+              "localize": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -61,12 +70,19 @@
               "outputHashing": "all"
             },
             "development": {
+              "localize": false,
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "en": {
+              "localize": ["en"]
+            },
+            "de": {
+              "localize": ["de"]
             }
           },
           "defaultConfiguration": "production"
@@ -79,14 +95,25 @@
             },
             "development": {
               "browserTarget": "stratosphaere-web-client:build:development"
+            },
+            "en": {
+              "browserTarget": "stratosphaere-web-client:build:development,en"
+            },
+            "de": {
+              "browserTarget": "stratosphaere-web-client:build:development,de"
             }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "ng-extract-i18n-merge:ng-extract-i18n-merge",
           "options": {
-            "browserTarget": "stratosphaere-web-client:build"
+            "browserTarget": "stratosphaere-web-client:build",
+            "format": "xlf2",
+            "outputPath": "src/locales",
+            "targetFiles": ["messages.xlf","messages.de.xlf","messages.en.xlf"],
+            "sourceLanguageTargetFile": "messages.de.xlf",
+            "sourceFile": "../../messages.xlf"
           }
         },
         "test": {

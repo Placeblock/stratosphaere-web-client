@@ -114,6 +114,6 @@ export class EditorComponent implements AfterViewInit, OnDestroy {
   }
 
   getVisibilityText(): string {
-    return this.article?.published ? "Zurückziehen" : "Veröffentlichen"
+    return this.article?.published ? $localize `Zurückziehen` : $localize `Veröffentlichen`
   }
 }

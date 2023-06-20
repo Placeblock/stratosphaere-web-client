@@ -1,6 +1,6 @@
 <app-page-wrapper>
     <div id="page-content">
-        <p id="disclaimer">Achtung: Beim Klicken auf Bilder werden hochauflösende Bilder mit ~3MB Größe geladen!</p>
+        <p id="disclaimer" i18n="gallery disclaimer">Achtung: Beim Klicken auf Bilder werden hochauflösende Bilder mit ~3MB Größe geladen!</p>
         <div id="image-container">
             <img *ngFor="let crap of this.imageCount; let i = index;" (click)="this.showImage(i)" [src]="this.getSmallImageUrl(i)" loading="lazy" >
         </div>

@@ -1,7 +1,7 @@
 <div id="input-container">
-    <label for="show-unpub">Unveröffentlichte anzeigen</label>
+    <label for="show-unpub" i18n="Blog list show unpublished header">Unveröffentlichte anzeigen</label>
     <input id="show-unpub" checked type="checkbox" (change)="this.toggleUnpublished($event)">
-    <label for="show-pub">Veröffentlichte anzeigen</label>
+    <label for="show-pub" i18n="Blog list show published header">Veröffentlichte anzeigen</label>
     <input id="show-pub" checked type="checkbox" (change)="this.togglePublished($event)">
 </div>
-<button class="button" (click)="this.newArticle()">Neuer Beitrag</button>
+<button class="button" i18n="Button to create new article" (click)="this.newArticle()">Neuer Beitrag</button>
